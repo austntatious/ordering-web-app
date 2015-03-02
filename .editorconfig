@@ -1,0 +1,39 @@
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Ruby
+[*.rb]
+indent_style = space
+indent_size = 2
+
+# JavaScript
+[*.js]
+indent_style = space
+indent_size = 2
+
+# CoffeeSctipt
+[*.coffee]
+indent_style = space
+indent_size = 2
+
+# Styles
+[*.scss]
+indent_style = space
+indent_size = 2
+
+# Html, Slim
+[*.html]
+indent_style = space
+indent_size = 2
+
+[*.slim]
+indent_style = space
+indent_size = 2
+
+# MarkDown
+[*.md]
+trim_trailing_whitespace = false
