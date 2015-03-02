@@ -1,0 +1,19 @@
+.location {
+  position: relative;
+  display: block;
+  padding-bottom: $grid-gutter-width;
+}
+
+.location-title {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  z-index: 100;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 35px;
+  transform: translateY(-50%);
+}

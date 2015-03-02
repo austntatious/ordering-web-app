@@ -1,23 +1,6 @@
-h1 Listing locations
-
-table
-  thead
-    tr
-      th Name
-      th Img
-      th
-      th
-      th
-
-  tbody
-    - @locations.each do |location|
-      tr
-        td = location.name
-        td = location.img
-        td = link_to 'Show', location
-        td = link_to 'Edit', edit_location_path(location)
-        td = link_to 'Destroy', location, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Location', new_location_path
+.row
+  - @locations.each do |location|
+    .col-md-4
+      = link_to location_path(location), :class => 'location' do
+        = image_tag location.img.thumb, :class => 'img-responsive'
+        .location-title = location.name
