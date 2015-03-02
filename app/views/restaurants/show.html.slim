@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @restaurant.name
+p
+  strong Img:
+  = @restaurant.img
+
+= link_to 'Edit', edit_restaurant_path(@restaurant)
+'|
+= link_to 'Back', restaurants_path

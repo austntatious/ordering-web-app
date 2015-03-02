@@ -14,6 +14,18 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+gem 'rails-sass-images'
+gem 'slim-rails'
+gem 'devise'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'ckeditor'
+gem 'kaminari'
+gem "letter_opener", :group => :development
+gem 'activeadmin', github: 'activeadmin'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -38,3 +50,13 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'capistrano-rvm',   group: :development
+gem 'capistrano-rails', group: :development
+
+group :development do
+  gem 'pry'
+end
+
+gem "awesome_nested_set"
+gem 'the_sortable_tree'
+gem 'quiet_assets', group: :development

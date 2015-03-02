@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :orders
+
+  resources :line_items
+  resources :carts
+  resources :categories
+  resources :products
+  resources :restaurants
+  resources :locations
+  devise_for :users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  root 'locations#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
