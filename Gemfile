@@ -63,3 +63,5 @@ gem 'the_sortable_tree'
 gem 'quiet_assets', group: :development
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'omniauth-facebook'
+gem "state_machine", git: 'https://github.com/seuros/state_machine.git'
+gem "twilio-ruby"
