@@ -15,3 +15,21 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+var ready = function () {
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('.js-tab').removeClass('active');
+    $(this).parent().addClass('active');
+  });
+
+  $('.js-add-product').click(function (e) {
+    $('.js-line-item-form').submit();
+  });
+
+  if ($('#order_address').length) {
+    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('order_address'), {})
+  }
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

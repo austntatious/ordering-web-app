@@ -1,0 +1,8 @@
+.col-md-6
+  = link_to new_line_item_path(:format => :js, :product_id => product.id), :remote => true, :class => 'product' do
+    p
+      b
+        = product.name
+        |&mdash;
+        = number_to_currency product.price
+    p = product.description

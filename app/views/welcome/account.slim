@@ -1,0 +1,40 @@
+.row
+  .col-md-6
+    h3.text-center Returning user
+    .form-horizontal
+      = form_tag session_path(:user) do
+        .form-group
+          = label_tag 'user[email]', 'Email', :class => 'control-label col-md-3'
+          .col-md-9
+            = email_field_tag 'user[email]', '', :class => 'form-control'
+        .form-group
+          = label_tag 'user[password]', 'Password', :class => 'control-label col-md-3'
+          .col-md-9
+            = password_field_tag 'user[password]', '', :class => 'form-control'
+        .form-group
+          .col-md-9.col-md-offset-3
+            = submit_tag 'Login', :class => 'btn btn-info btn-block'
+            = link_to "Forgot your password?", new_password_path(:user)
+  .col-md-6
+    h3.text-center Create an account
+    .form-horizontal
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+
+        .form-group
+          = label_tag 'user[email]', 'Email', :class => 'control-label col-md-3'
+          .col-md-9
+            = f.email_field :email, :class => 'form-control'
+        .form-group
+          = label_tag 'user[password]', 'Password', :class => 'control-label col-md-3'
+          .col-md-9
+            = f.password_field :password, autocomplete: "off", :class => 'form-control'
+        .form-group
+          = label_tag 'user[password_confirmation]', 'Confirm password', :class => 'control-label col-md-3'
+          .col-md-9
+            = f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control'
+
+        .form-group
+          .col-md-9.col-md-offset-3
+            = f.submit "Sign up", :class => 'btn btn-info btn-block'
+

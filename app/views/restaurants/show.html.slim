@@ -1,11 +1,33 @@
+.text-right
+  = render @current_cart
+  |&nbsp;
+  = link_to 'Checkout', new_order_path, :class => 'btn btn-primary btn-lg'
+
+br
+br
+
 .row role="tabpanel"
   .col-md-4
-    .nav.nav-pills.nav-stacked role="tablist"
+    .nav.nav-pills.nav-stacked#myTab role="tablist"
       - @restaurant.categories.each_with_index do |cat, ind|
-        li class="#{'active' if ind == 0}" role="presentation"
-          a href="#category-#{cat.id}" = cat.name
+        li.js-tab class="#{'active' if ind == 0}" role="presentation"
+          a href="#category-#{cat.id}" data-toggle="tab" aria-controls="#category-#{cat.id}" role="tab" = cat.name
   .col-md-8
     .tab-content
       - @restaurant.categories.each_with_index do |cat, ind|
-        div role="tabpanel" class="tab-pane #{'active' if ind == 0}" id="#category-#{cat.id}"
-          = cat.name
+        div role="tabpanel" class="tab-pane #{'active' if ind == 0}" id="category-#{cat.id}"
+          .row
+            = render cat.products
+
+#add-to-cart-modal.modal.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4#myModalLabel.modal-title Add item
+      .modal-body.js-add-to-cart-modal-body
+        | \...
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button" Cancel
+        button.btn.btn-primary.js-add-product type="button" Add to order

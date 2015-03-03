@@ -6,10 +6,9 @@
         - @order.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :user
-    = f.text_field :user
-  .field
+  .form-group
     = f.label :address
-    = f.text_field :address
-  .actions = f.submit
+    = f.text_field :address, :class => 'form-control'
+
+  .actions
+    = f.submit 'Continue to payment', :class => 'btn btn-info'
