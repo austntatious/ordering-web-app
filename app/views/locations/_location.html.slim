@@ -1,0 +1,4 @@
+.col-md-4
+  = link_to location_path(location), :class => 'location' do
+    = image_tag location.img.thumb, :class => 'img-responsive'
+    .location-title = location.name

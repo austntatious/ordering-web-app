@@ -1,12 +1,11 @@
-p#notice = notice
-
-p
-  strong Name:
-  = @restaurant.name
-p
-  strong Img:
-  = @restaurant.img
-
-= link_to 'Edit', edit_restaurant_path(@restaurant)
-'|
-= link_to 'Back', restaurants_path
+.row role="tabpanel"
+  .col-md-4
+    .nav.nav-pills.nav-stacked role="tablist"
+      - @restaurant.categories.each_with_index do |cat, ind|
+        li class="#{'active' if ind == 0}" role="presentation"
+          a href="#category-#{cat.id}" = cat.name
+  .col-md-8
+    .tab-content
+      - @restaurant.categories.each_with_index do |cat, ind|
+        div role="tabpanel" class="tab-pane #{'active' if ind == 0}" id="#category-#{cat.id}"
+          = cat.name

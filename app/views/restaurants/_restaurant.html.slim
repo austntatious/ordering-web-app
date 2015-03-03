@@ -1,0 +1,5 @@
+.col-lg-3.col-md-4
+  = link_to restaurant_path(restaurant), :class => 'restaurant thumbnail' do
+    = image_tag restaurant.img.thumb, :class => 'img-responsive'
+    .caption
+      h3.text-center = restaurant.name

@@ -1,12 +1,4 @@
-p#notice = notice
+h2.text-center Pick your restaurant
 
-p
-  strong Name:
-  = @location.name
-p
-  strong Img:
-  = @location.img
-
-= link_to 'Edit', edit_location_path(@location)
-'|
-= link_to 'Back', locations_path
+.row
+  = render @location.restaurants

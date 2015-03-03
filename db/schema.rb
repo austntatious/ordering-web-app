@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302183418) do
+ActiveRecord::Schema.define(version: 20150303015531) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20150302183418) do
     t.integer  "parent_id"
     t.integer  "lft",                         null: false
     t.integer  "rgt",                         null: false
-    t.integer  "depth",                       null: false
-    t.integer  "children_count",              null: false
+    t.integer  "depth",          default: 0,  null: false
+    t.integer  "children_count", default: 0,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
