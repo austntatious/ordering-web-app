@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :products
   resources :restaurants
   resources :locations
-  devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations' }
+  devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 

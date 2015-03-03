@@ -3,7 +3,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :order
 
-  def total_sum
+  def total_price
     product.price * count
   end
 end

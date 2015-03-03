@@ -14,14 +14,20 @@ class OrdersController < InheritedResources::Base
 
   def create
     @order = Order.new(order_params)
-    @order.ordered_products = @current_cart.ordered_products
-    @order.save
+    @order.line_items = @current_cart.line_items
+    if @order.save
+      create_cart
+      redirect_to @order
+    else
+      render 'new'
+    end
   end
 
   def show
     @order = Order.find(params[:id])
     if @order.user_id != current_user.id
       redirect_to root_path
+      return
     end
   end
 

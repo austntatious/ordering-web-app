@@ -1,6 +1,6 @@
 class LineItemsController < InheritedResources::Base
   def create
-    @current_cart.add_product line_item_params[:product_id], line_item_params[:count]
+    @current_cart.add_product line_item_params[:product_id], line_item_params[:count].to_i
   end
 
   def new
