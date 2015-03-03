@@ -12,6 +12,12 @@ class OrdersController < InheritedResources::Base
     @order = Order.new
   end
 
+  def create
+    @order = Order.new(order_params)
+    @order.ordered_products = @current_cart.ordered_products
+    @order.save
+  end
+
   def show
     @order = Order.find(params[:id])
     if @order.user_id != current_user.id

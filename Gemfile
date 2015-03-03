@@ -60,3 +60,4 @@ end
 gem "awesome_nested_set"
 gem 'the_sortable_tree'
 gem 'quiet_assets', group: :development
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'

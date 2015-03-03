@@ -1,0 +1,1 @@
+PUBLISHABLE_KEY=pk_test_K5zbrj56hHOtqtszASPERqd9 SECRET_KEY=sk_test_oRDZaPPtYKRzMfGzJBV2zFhD rails s
