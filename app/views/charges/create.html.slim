@@ -1,2 +1,4 @@
 p
-  |Thanks, you paid $5.00!
+  |Thanks, you paid
+  = number_to_currency @order.total_sum
+  |!

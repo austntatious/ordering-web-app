@@ -1,21 +1,14 @@
 p#notice = notice
 
 p
-  strong User:
-  = @order.user
-p
   strong Address:
   = @order.address
 
-= link_to 'Edit', edit_order_path(@order)
-'|
-= link_to 'Back', orders_path
-
-= form_tag charges_path do
+= form_tag charges_path(:order_id => @order.id) do
   article
     label class="amount"
       span
         |Amount:
         = number_to_currency @order.total_price
 
-  script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="A month's subscription" data-amount="#{@order.total_price}"
+  script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="Order ##{@order.id}" data-amount="#{@order.total_price}"
