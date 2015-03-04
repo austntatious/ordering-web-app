@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304082802) do
+ActiveRecord::Schema.define(version: 20150304090822) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -84,13 +84,13 @@ ActiveRecord::Schema.define(version: 20150304082802) do
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
 
   create_table "locations", force: true do |t|
-    t.string   "name",                               default: "",  null: false
+    t.string   "name",                                 default: "",  null: false
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "latitude",   precision: 8, scale: 6, default: 0.0, null: false
-    t.decimal  "longitude",  precision: 8, scale: 6, default: 0.0, null: false
-    t.decimal  "radius",     precision: 8, scale: 6, default: 0.0, null: false
+    t.decimal  "latitude",   precision: 30, scale: 20, default: 0.0, null: false
+    t.decimal  "longitude",  precision: 30, scale: 20, default: 0.0, null: false
+    t.decimal  "radius",     precision: 8,  scale: 6,  default: 0.0, null: false
   end
 
   create_table "locations_restaurants", force: true do |t|
