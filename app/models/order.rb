@@ -12,10 +12,19 @@ class Order < ActiveRecord::Base
     end
 
     after_transition :pending => :payed do |order, transition|
-      SmsApi.send_sms("+66973497412", "Your order ##{order.id} on streeteats.com is payed now")
+      order.notify_payed
     end
-
     state :payed
+  end
+
+  def notify_payed
+    notify "Your order ##{order.id} on streeteats.com is payed now", "Order ##{order.id} on streeteats.com is payed now"
+  end
+
+  def notify(user_text, admin_text)
+    SmsApi.send_sms "+66973497412", user_text
+    admin_phone = Setting.get 'Admin phone'
+    SmsApi.send_sms admin_phone, admin_text
   end
 
   def total_price
