@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
   end
 
   def notify(user_text, admin_text)
-    SmsApi.send_sms "+66973497412", user_text
+    SmsApi.send_sms user.phone, user_text
     admin_phone = Setting.get 'Admin phone'
     SmsApi.send_sms admin_phone, admin_text
   end
