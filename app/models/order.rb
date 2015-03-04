@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
   end
 
   def notify_payed
-    notify "Your order ##{order.id} on streeteats.com is payed now", "Order ##{order.id} on streeteats.com is payed now"
+    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now"
   end
 
   def notify(user_text, admin_text)
