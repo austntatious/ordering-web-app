@@ -8,5 +8,11 @@ html
     = csrf_meta_tags
   body
     = render '/shared/navbar'
+    - if request.fullpath == '/'
+      = render '/shared/location_picker'
     .container
       == yield
+    javascript:
+      window.commonData = {
+        locations: #{Location.all.map { |location| { :id => location.id, :name => location.name, :lat => location.latitude, :lng => location.longitude, :radius => location.radius, :restaurants => location.restaurants.count, :link => location_path(location) } }.to_json.html_safe}
+      }

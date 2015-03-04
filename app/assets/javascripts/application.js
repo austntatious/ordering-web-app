@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
+//= require location
 
 var ready = function () {
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -28,7 +28,7 @@ var ready = function () {
 
   if ($('#order_address').length) {
     var autocomplete = new google.maps.places.Autocomplete(document.getElementById('order_address'), {})
-  }
+  };
 };
 
 $(document).ready(ready);

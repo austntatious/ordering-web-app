@@ -1,0 +1,24 @@
+.location-picker-holder {
+  padding: 90px 15px 40px 15px;
+  margin-bottom: 30px;
+  background: url("bg.jpg") no-repeat;
+  background-size: cover;
+}
+
+.location-picker {
+  width: 750px;
+  margin: 90px auto 0 auto;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 15px;
+}
+
+.location-picker-map {
+  &.-is-visible {
+    height: 400px;
+  }
+}
+
+.location-text {
+  color: #222;
+}
