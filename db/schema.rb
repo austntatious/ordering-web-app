@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304065400) do
+ActiveRecord::Schema.define(version: 20150304073405) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -98,10 +98,11 @@ ActiveRecord::Schema.define(version: 20150304065400) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.string   "address",    default: "", null: false
+    t.string   "address",             default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.text     "driver_instructions"
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -120,6 +121,13 @@ ActiveRecord::Schema.define(version: 20150304065400) do
   create_table "restaurants", force: true do |t|
     t.string   "name",       default: "", null: false
     t.string   "img"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "settings", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.string   "value",      default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

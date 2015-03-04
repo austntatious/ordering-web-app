@@ -10,5 +10,9 @@
     = f.label :address
     = f.text_field :address, :class => 'form-control'
 
+  .form-group
+    = f.label :driver_instructions
+    = f.text_area :driver_instructions, :class => 'form-control'
+
   .actions
     = f.submit 'Continue to payment', :class => 'btn btn-info'

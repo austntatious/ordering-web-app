@@ -34,7 +34,7 @@ class OrdersController < InheritedResources::Base
   private
 
     def order_params
-      result = params.require(:order).permit(:address)
+      result = params.require(:order).permit(:address, :driver_instructions)
       result[:user_id] = current_user.id
       result
     end
