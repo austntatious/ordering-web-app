@@ -1,5 +1,9 @@
 class LineItemsController < InheritedResources::Base
   def create
+    if params[:clear_cart] == '1'
+      @current_cart.clear!
+      @current_cart.force_location session[:current_location]
+    end
     @current_cart.add_product line_item_params[:product_id], line_item_params[:count].to_i
   end
 

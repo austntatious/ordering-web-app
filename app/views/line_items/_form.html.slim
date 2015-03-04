@@ -1,5 +1,6 @@
 = form_for @line_item, :remote => true, :format => :js, :html => { :class => 'js-line-item-form' } do |f|
   = f.hidden_field :product_id
+  = hidden_field_tag :clear_cart, 0
   h4.text-center = @line_item.product.name
   .form-horizontal
     .form-group

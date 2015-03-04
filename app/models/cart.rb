@@ -1,5 +1,6 @@
 class Cart < ActiveRecord::Base
   belongs_to :user
+  belongs_to :location
   has_many :line_items, :dependent => :destroy
 
   def add_product(product_id, count)
@@ -13,5 +14,23 @@ class Cart < ActiveRecord::Base
 
   def total_count
     line_items.sum(:count)
+  end
+
+  def set_location(location_id)
+    if (location.nil?) || (line_items.count == 0)
+      update_attribute :location_id, location_id
+    end
+  end
+
+  def force_location(location_id)
+    update_attribute :location_id, location_id
+  end
+
+  def empty?
+    !line_items.any?
+  end
+
+  def clear!
+    line_items.delete_all
   end
 end

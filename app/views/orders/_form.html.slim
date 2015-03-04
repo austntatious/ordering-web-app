@@ -1,3 +1,7 @@
+h2
+  |Location:&nbsp;
+  = @current_cart.location.try(:name)
+= @current_cart.inspect
 = form_for @order do |f|
   - if @order.errors.any?
     #error_explanation

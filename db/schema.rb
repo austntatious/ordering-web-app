@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304080123) do
+ActiveRecord::Schema.define(version: 20150304082802) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -50,8 +50,10 @@ ActiveRecord::Schema.define(version: 20150304080123) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
 
+  add_index "carts", ["location_id"], name: "index_carts_on_location_id", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|

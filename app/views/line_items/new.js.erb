@@ -1,2 +1,12 @@
 $('.js-add-to-cart-modal-body').html('<%=j render "form" %>');
+<% unless @current_cart.empty? %>
+  if (window.commonData.currentLocation != window.commonData.sessionLocation) {
+    if (confirm('Your added to cart products belongs to different location. Are you want to continue? All added products will be removed')) {
+      $('#clear_cart').val('1');
+    }
+    else {
+      location.href = '<%= location_path(@current_cart.location) %>';
+    }
+  }
+<% end %>
 $('#add-to-cart-modal').modal();
