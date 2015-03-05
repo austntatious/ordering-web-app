@@ -65,3 +65,5 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'omniauth-facebook'
 gem "state_machine", git: 'https://github.com/seuros/state_machine.git'
 gem "twilio-ruby"
+gem 'sidekiq'
+gem 'capistrano-sidekiq', group: :development

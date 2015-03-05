@@ -29,6 +29,11 @@ table.table.table-striped
         td = line_item.count
         td = number_to_currency line_item.total_price
 
+.text-right
+    strong
+      |Total price:&nbsp;
+    span.js-cart-price = number_to_currency @order.total_price
+
 - if @order.pending?
   = form_tag charges_path(:order_id => @order.id) do
     article
