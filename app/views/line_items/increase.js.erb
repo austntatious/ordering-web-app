@@ -1,0 +1,3 @@
+$('.js-line-item-<%= @line_item.id %>').replaceWith('<%=j render @line_item %>');
+$('.js-cart-price').html('<%= number_to_currency @current_cart.total_price %>');
+$('.js-cart-button').replaceWith('<%=j render @current_cart %>');

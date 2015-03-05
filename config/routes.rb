@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   resources :charges
   resources :orders
-
-  resources :line_items
+  resources :line_items do
+    get 'increase', :as => :increase
+    get 'decrease', :as => :decrease
+  end
   resources :carts
   resources :categories
   resources :products

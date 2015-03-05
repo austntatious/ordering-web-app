@@ -1,4 +1,5 @@
 class CartsController < InheritedResources::Base
+  respond_to :js, :html
 
   private
 

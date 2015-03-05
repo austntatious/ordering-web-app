@@ -1,0 +1,2 @@
+$('.js-line-item-<%= @line_item.id %>').remove();
+$('.js-cart-price').html('<%= number_to_currency @current_cart.total_price %>');

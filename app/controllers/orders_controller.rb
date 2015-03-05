@@ -31,6 +31,10 @@ class OrdersController < InheritedResources::Base
     end
   end
 
+  def index
+    @orders = current_user.orders.page(params[:page]).per(10)
+  end
+
   private
 
     def order_params

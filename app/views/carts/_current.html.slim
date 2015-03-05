@@ -1,0 +1,22 @@
+- unless @current_cart.empty?
+  table.table.table-striped
+    thead
+      tr
+        th Product
+        th Price
+        th Quantity
+        th Total
+        th
+    tbody
+      = render @current_cart.line_items
+
+  .text-right
+    strong
+      |Total price:&nbsp;
+    span.js-cart-price = number_to_currency @current_cart.total_price
+- else
+  br
+  br
+  h3 Your cart is empty
+  br
+  br

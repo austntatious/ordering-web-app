@@ -1,4 +1,20 @@
 class LineItemsController < InheritedResources::Base
+  def increase
+    @line_item = @current_cart.line_items.where(:id => params[:line_item_id]).first
+    if @line_item.count > 0
+      @line_item.update_attribute :count, @line_item.count + 1
+    end
+  end
+
+  def decrease
+    @line_item = @current_cart.line_items.where(:id => params[:line_item_id]).first
+    if @line_item.count > 0
+      @line_item.update_attribute :count, @line_item.count - 1
+    else
+      @line_item.destroy
+    end
+  end
+
   def create
     if params[:clear_cart] == '1'
       @current_cart.clear!
@@ -9,6 +25,13 @@ class LineItemsController < InheritedResources::Base
 
   def new
     @line_item = LineItem.new(:product_id => params[:product_id])
+  end
+
+  def destroy
+    @line_item = @current_cart.line_items.where(:id => params[:id]).first
+    unless @line_item.nil?
+      @line_item.destroy
+    end
   end
 
   private

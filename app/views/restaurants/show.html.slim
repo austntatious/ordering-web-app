@@ -34,3 +34,15 @@ br
       .modal-footer
         button.btn.btn-default data-dismiss="modal" type="button" Cancel
         button.btn.btn-primary.js-add-product type="button" Add to order
+
+#edit-cart-modal.modal.fade aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4#myModalLabel2.modal-title Add item
+      .modal-body.js-edit-cart-modal-body
+        | \...
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button" Close

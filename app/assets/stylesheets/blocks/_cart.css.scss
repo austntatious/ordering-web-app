@@ -1,0 +1,15 @@
+.input-center {
+  width: 65px;
+  .form-control {
+    text-align: center;
+  }
+}
+
+.line-item {
+  .form-control {
+    width: 50px;
+    position: relative;
+    top: 1px;
+    text-align: center;
+  }
+}

@@ -16,6 +16,10 @@ class Cart < ActiveRecord::Base
     line_items.sum(:count)
   end
 
+  def total_price
+    line_items.map { |li| li.total_price }.sum
+  end
+
   def set_location(location_id)
     if (location.nil?) || (line_items.count == 0)
       update_attribute :location_id, location_id

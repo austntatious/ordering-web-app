@@ -2,13 +2,43 @@ p#notice = notice
 
 p
   strong Address:
+  br
   = @order.address
 
-= form_tag charges_path(:order_id => @order.id) do
-  article
-    label class="amount"
-      span
-        |Amount:
-        = number_to_currency @order.total_price
+p
+  strong Driver instructions:
+  br
+  = @order.driver_instructions
 
-  script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="Order ##{@order.id}" data-amount="#{(@order.total_price * 100).round}"
+p
+  strong Products:
+table.table.table-striped
+  thead
+    tr
+      th #
+      th Product
+      th Price
+      th Quantity
+      th Total
+  tbody
+    - @order.line_items.each_with_index do |line_item, ind|
+      tr
+        td = (ind + 1)
+        td = line_item.product.name
+        td = number_to_currency line_item.product.price
+        td = line_item.count
+        td = number_to_currency line_item.total_price
+
+- if @order.pending?
+  = form_tag charges_path(:order_id => @order.id) do
+    article
+      label class="amount"
+        span
+          |Amount:
+          = number_to_currency @order.total_price
+
+    script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="Order ##{@order.id}" data-amount="#{(@order.total_price * 100).round}"
+
+br
+br
+= link_to 'Back to orders', orders_path

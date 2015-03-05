@@ -1,23 +1,26 @@
-h1 Listing orders
+h1 My orders
 
-table
-  thead
-    tr
-      th User
-      th Address
-      th
-      th
-      th
-
-  tbody
-    - @orders.each do |order|
+- if @orders.any?
+  table.table.table-striped
+    thead
       tr
-        td = order.user
-        td = order.address
-        td = link_to 'Show', order
-        td = link_to 'Edit', edit_order_path(order)
-        td = link_to 'Destroy', order, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th #
+        th Date
+        th Address
+        th Sum
+        th Status
+        th
+
+    tbody
+      - @orders.each do |order|
+        tr
+          td = order.id
+          td =l order.created_at, :format => :short
+          td = order.address
+          td = number_to_currency order.total_price
+          td = order.human_status_name
+          td = link_to 'Show', order
 
 br
 
-= link_to 'New Order', new_order_path
+= paginate @orders

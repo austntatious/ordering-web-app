@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
 
+  has_many :orders
+
   validates :name, :presence => true
   validates_uniqueness_of :phone
 
