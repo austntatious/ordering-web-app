@@ -23,9 +23,7 @@ nav.navbar.navbar-default
               li
                 = link_to 'My orders', orders_path
               li
-                a href="#"  Another action
-              li
-                a href="#"  Something else here
+                = link_to 'My profile', edit_registration_path(:user)
               li.divider
               li
                 = link_to 'Logout', destroy_user_session_path, :method => :delete
