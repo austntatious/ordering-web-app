@@ -1,9 +1,16 @@
-= form_for @line_item, :remote => true, :format => :js, :html => { :class => 'js-line-item-form' } do |f|
-  = f.hidden_field :product_id
-  = hidden_field_tag :clear_cart, 0
-  h4.text-center = @line_item.product.name
-  .form-horizontal
-    .form-group
-      = f.label :count, 'Quantity', :class => 'control-label col-md-3 col-md-offset-3'
-      .col-md-3
-        = f.select :count, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6]], {}, :class => 'form-control'
+- if @ordering_available
+  = form_for @line_item, :remote => true, :format => :js, :html => { :class => 'js-line-item-form' } do |f|
+    = f.hidden_field :product_id
+    = hidden_field_tag :clear_cart, 0
+    h4.text-center = @line_item.product.name
+    .form-horizontal
+      .form-group
+        = f.label :count, 'Quantity', :class => 'control-label col-md-3 col-md-offset-3'
+        .col-md-3
+          = f.select :count, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6]], {}, :class => 'form-control'
+- else
+  br
+  br
+  h2.text-center Ordering is unavailable now
+  br
+  br

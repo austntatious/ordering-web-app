@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   has_many :line_items
 
   after_commit :create_notification
+  before_create :check_order_creation_availability
 
   validates :address, :presence => true
 
@@ -17,6 +18,13 @@ class Order < ActiveRecord::Base
       PaymentNotifyWorker.perform_async order.id
     end
     state :payed
+  end
+
+  def check_order_creation_availability
+    unless Setting.can_get_orders?
+      self.errors.add(:base, 'Ordering is unavailable now')
+      return false
+    end
   end
 
   def create_notification
