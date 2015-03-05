@@ -3,6 +3,7 @@ class OrdersController < InheritedResources::Base
 
   def check_user_auth
     unless user_signed_in?
+      session[:redirect_to_order] = 1
       redirect_to account_path
       return
     end

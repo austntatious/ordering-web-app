@@ -25,6 +25,15 @@ var lready = function () {
       }
     });
     return result;
+  },
+  getLocation = function (id) {
+    var result = null;
+    $.each(window.commonData.locations, function (ind, itm) {
+      if (itm.id == id) {
+        result = itm;
+      }
+    });
+    return result;
   };
 
   if ($('.js-location-pick').length) {
@@ -42,20 +51,34 @@ var lready = function () {
             }
           });
         }
-        var location = findLocation(lat, lng),
-          windowContent = '<p class="location-text">No restaurants found on this location</p>';
-        if (location) {
-          windowContent = '<p class="location-text">We found ' + location.restaurants + ' restaurants on this location!</p>' +
-            '<a class="btn btn-success" href="' + location.link + '">Continue</a>';
+        if ($('.js-order-form').length) {
+          var location = getLocation($('#location').val()),
+            distance = calcDistance(lat, lng, location.lat, location.lng);
+          if (distance > location.radius) {
+            $('.js-location-error').removeClass('hidden');
+            $('.js-order-submit').attr('disabled', true);
+          }
+          else {
+            $('.js-location-error').addClass('hidden');
+            $('.js-order-submit').attr('disabled', false);
+          }
         }
-        if (window.currentInfoWindow) {
-          window.currentInfoWindow.close();
+        else {
+          var location = findLocation(lat, lng),
+            windowContent = '<p class="location-text">No restaurants found on this location</p>';
+          if (location) {
+            windowContent = '<p class="location-text">We found ' + location.restaurants + ' restaurants on this location!</p>' +
+              '<a class="btn btn-success" href="' + location.link + '">Continue</a>';
+          }
+          if (window.currentInfoWindow) {
+            window.currentInfoWindow.close();
+          }
+          var infowindow = new google.maps.InfoWindow({
+            content: windowContent
+          });
+          infowindow.open(map,marker);
+          window.currentInfoWindow = infowindow;
         }
-        var infowindow = new google.maps.InfoWindow({
-          content: windowContent
-        });
-        infowindow.open(map,marker);
-        window.currentInfoWindow = infowindow;
       },
       initMap = function () {
         if (map != null) {

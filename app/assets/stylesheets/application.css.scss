@@ -12,3 +12,15 @@
 .footer {
   padding: 20px 0;
 }
+
+#error_explanation {
+  padding: 15px;
+  background: $state-danger-bg;
+  color: $state-danger-text;
+  border-radius: $border-radius-base;
+  margin-bottom: 15px;
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+}

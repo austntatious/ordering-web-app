@@ -1,22 +1,22 @@
-h2
-  |Location:&nbsp;
-  = @current_cart.location.try(:name)
-= @current_cart.inspect
-= form_for @order do |f|
-  - if @order.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
-      ul
-        - @order.errors.full_messages.each do |message|
-          li = message
+.js-order-form
+  = form_for @order do |f|
+    = hidden_field_tag :location, @current_cart.location_id
+    - if @order.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
+        ul
+          - @order.errors.full_messages.each do |message|
+            li = message
 
-  .form-group
-    = f.label :address
-    = f.text_field :address, :class => 'form-control'
+    .form-group
+      = f.label :address
+      = f.text_field :address, :class => 'form-control js-location-pick'
+      .location-error.js-location-error.hidden Your address not fits specified location
+      .location-picker-map#map
 
-  .form-group
-    = f.label :driver_instructions
-    = f.text_area :driver_instructions, :class => 'form-control'
+    .form-group
+      = f.label :driver_instructions
+      = f.text_area :driver_instructions, :class => 'form-control'
 
-  .actions
-    = f.submit 'Continue to payment', :class => 'btn btn-info'
+    .actions
+      = f.submit 'Continue to payment', :class => 'btn btn-info js-order-submit', :disabled => true

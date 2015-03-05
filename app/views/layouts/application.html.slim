@@ -12,6 +12,7 @@ html
     - if request.fullpath == '/'
       = render '/shared/location_picker'
     .container
+      = render partial: "shared/flash_messages", flash: flash
       == yield
 
     = render '/shared/footer'

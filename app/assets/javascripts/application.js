@@ -26,10 +26,6 @@ var ready = function () {
     $('.js-line-item-form').submit();
   });
 
-  if ($('#order_address').length) {
-    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('order_address'), {})
-  };
-
   $('.js-restaurant-index').click(function (ev) {
     $('html,body').animate({ scrollTop: 0 }, 'slow', function (argument) {
       $('.js-location-pick').focus();
