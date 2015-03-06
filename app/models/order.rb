@@ -2,6 +2,7 @@ require 'sms_api'
 
 class Order < ActiveRecord::Base
   belongs_to :user
+  belongs_to :location
   has_many :line_items
 
   after_commit :create_notification

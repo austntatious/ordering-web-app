@@ -26,4 +26,33 @@ ActiveAdmin.register Order do
     end
     f.actions
   end
+
+  show do |o|
+    attributes_table do
+      row :id
+      row :user
+      row :location
+      row :address
+      row :status
+      row :driver_instructions
+      row :created_at
+      row :products do
+        table_for o.line_items do
+          column :name do |li|
+            li.product.name
+          end
+          column :restaurant do |li|
+            li.product.category.restaurant.name
+          end
+          column :price do |li|
+            number_to_currency li.product.price
+          end
+          column :quantity do |li|
+            li.count
+          end
+          column :total_price
+        end
+      end
+    end
+  end
 end

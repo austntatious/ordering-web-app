@@ -41,6 +41,7 @@ class OrdersController < InheritedResources::Base
     def order_params
       result = params.require(:order).permit(:address, :driver_instructions)
       result[:user_id] = current_user.id
+      result[:location_id] = @current_cart.location_id
       result
     end
 end

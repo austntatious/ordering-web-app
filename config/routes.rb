@@ -1,19 +1,16 @@
 Rails.application.routes.draw do
-  resources :charges
-  resources :orders
-  resources :line_items do
+  resources :charges, :only => [:create]
+  resources :orders, :only => [:new, :create, :show, :index]
+  resources :line_items, :only => [:new, :create, :destroy] do
     get 'increase', :as => :increase
     get 'decrease', :as => :decrease
   end
-  resources :carts
-  resources :categories
-  resources :products
-  resources :restaurants
-  resources :locations
+  resources :restaurants, :only => :show
+  resources :carts, :only => :show
+  resources :locations, :only => :show
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-
   get '/account' => 'welcome#account', :as => :account
 
   root 'locations#index'
