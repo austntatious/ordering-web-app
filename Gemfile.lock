@@ -47,6 +47,10 @@ GEM
       activesupport (= 4.1.6)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_admin-state_machine (0.1.1)
+      activeadmin
+      rails (>= 3.2)
+      state_machine
     activemodel (4.1.6)
       activesupport (= 4.1.6)
       builder (~> 3.1)
@@ -305,6 +309,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_admin-state_machine
   activeadmin!
   autoprefixer-rails
   awesome_nested_set

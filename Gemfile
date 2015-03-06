@@ -67,3 +67,4 @@ gem "state_machine", git: 'https://github.com/seuros/state_machine.git'
 gem "twilio-ruby"
 gem 'sidekiq'
 gem 'capistrano-sidekiq', group: :development
+gem 'active_admin-state_machine'

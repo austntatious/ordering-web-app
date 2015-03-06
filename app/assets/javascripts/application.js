@@ -31,6 +31,12 @@ var ready = function () {
       $('.js-location-pick').focus();
     });
   });
+
+  window.prepareRelatedCheckboxes = function () {
+    $('.js-related-checkbox').change(function () {
+      $(this).parents('.js-related').find('.js-related-count').attr('disabled', !this.checked);
+    });
+  };
 };
 
 $(document).ready(ready);

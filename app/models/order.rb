@@ -9,15 +9,22 @@ class Order < ActiveRecord::Base
 
   validates :address, :presence => true
 
+  STATUSES = ['pending', 'payed', 'cancelled']
+
   state_machine :status, :initial => :pending do
     event :pay do
       transition :pending => :payed
+    end
+
+    event :cancel do
+      transition any => :cancelled
     end
 
     after_transition :pending => :payed do |order, transition|
       PaymentNotifyWorker.perform_async order.id
     end
     state :payed
+    state :cancelled
   end
 
   def check_order_creation_availability

@@ -6,9 +6,9 @@ class Cart < ActiveRecord::Base
   def add_product(product_id, count)
     li = line_items.where(:product_id => product_id).first
     if li.nil?
-      LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count)
+      LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count.to_i)
     else
-      li.update_attribute :count, li.count + count
+      li.update_attribute :count, li.count + count.to_i
     end
   end
 
