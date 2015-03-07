@@ -32,6 +32,7 @@ class OrdersController < InheritedResources::Base
 
   def show
     @order = Order.find(params[:id])
+    @restaurant = Restaurant.find(@order.get_restaurant)
     if @order.user_id != current_user.id
       redirect_to root_path
       return

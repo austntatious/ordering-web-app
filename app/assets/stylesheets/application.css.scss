@@ -18,6 +18,14 @@
   background: #f5f5f5;
 }
 
+  .footer-links {
+    display: inline-block;
+    margin-left: 20px;
+    a {
+      color: #999999;
+    }
+  }
+
 #error_explanation {
   padding: 15px;
   background: $state-danger-bg;

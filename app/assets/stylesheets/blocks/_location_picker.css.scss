@@ -2,11 +2,25 @@
   padding: 90px 15px 40px 15px;
   background: asset_url("bg.jpg") no-repeat;
   background-size: cover;
+  h2 {
+    color: #ececec;
+    font-size: 45px;
+    text-shadow: 1px 1px 2px #331f04;
+  }
+}
+
+.location-picker-text {
+  color: #eaeaea;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  text-shadow: 1px 1px 2px #331f04;
 }
 
 .location-picker {
   width: 750px;
-  margin: 90px auto 0 auto;
+  margin: 50px auto 0 auto;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
   padding: 15px;
