@@ -1,26 +1,20 @@
 h1 My orders
 
 - if @orders.any?
-  table.table.table-striped
-    thead
-      tr
-        th #
-        th Date
-        th Address
-        th Sum
-        th Status
-        th
-
-    tbody
-      - @orders.each do |order|
-        tr
-          td = order.id
-          td =l order.created_at, :format => :short
-          td = order.address
-          td = number_to_currency order.total_price
-          td = order.human_status_name
-          td = link_to 'Show', order
-
-br
+  - @orders.each do |order|
+    - restaurant = Restaurant.find_by_id(order.get_restaurant)
+    .row.order-item
+      .col-md-3.col-xs-12.text-center
+        = image_tag restaurant.img.thumb
+      .col-md-7
+        h2 = restaurant.name
+        p
+          = number_to_currency order.total_price
+          br
+          =l order.created_at, :format => :long
+      .col-md-2
+        div class="order-item-status -#{order.status}"
+          = order.status
+          = link_to 'View details', order, :class => 'details-link'
 
 = paginate @orders

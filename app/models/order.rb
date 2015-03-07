@@ -17,6 +17,10 @@ class Order < ActiveRecord::Base
       transition :pending => :payed
     end
 
+    event :complete do
+      transition :payed => :completed
+    end
+
     event :cancel do
       transition any => :cancelled
     end
@@ -24,8 +28,10 @@ class Order < ActiveRecord::Base
     after_transition :pending => :payed do |order, transition|
       PaymentNotifyWorker.perform_async order.id
     end
+
     state :payed
     state :cancelled
+    state :completed
   end
 
   def check_order_creation_availability

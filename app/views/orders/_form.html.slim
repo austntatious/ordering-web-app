@@ -16,10 +16,10 @@
             .panel-body
               .form-group
                 = f.label :contact_name
-                = f.text_field :contact_name, :class => 'form-control js-location-pick'
+                = f.text_field :contact_name, :class => 'form-control'
               .form-group
                 = f.label :contact_phone
-                = f.text_field :contact_phone, :class => 'form-control js-location-pick'
+                = f.text_field :contact_phone, :class => 'form-control'
               .form-group
                 = f.label :address
                 = f.text_field :address, :class => 'form-control js-location-pick'
@@ -41,6 +41,6 @@
               = render '/carts/current'
 
       .actions
-        = f.submit 'Complete order', :class => 'btn btn-success btn-lg js-order-submit', :disabled => true
+        = f.submit 'Complete order', :class => 'btn btn-success btn-lg js-order-submit', :disabled => f.object.address.blank?
 - else
   h2 Ordering is unavailable now

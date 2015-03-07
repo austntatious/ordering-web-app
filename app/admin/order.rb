@@ -16,6 +16,7 @@ ActiveAdmin.register Order do
   # end
   state_action :pay
   state_action :cancel
+  state_action :complete
 
   form do |f|
     f.inputs '' do
