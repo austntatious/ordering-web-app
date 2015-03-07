@@ -4,7 +4,7 @@ ActiveAdmin.register Restaurant do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-  permit_params :name, :img, :location_ids => []
+  permit_params :name, :img, :phone, :location_ids => []
   #
   # or
   #
@@ -17,6 +17,7 @@ ActiveAdmin.register Restaurant do
   form do |f|
     f.inputs '' do
       f.input :name
+      f.input :phone
       f.input :img
       f.input :locations, :as => :check_boxes
     end

@@ -31,10 +31,16 @@ ActiveAdmin.register Order do
     attributes_table do
       row :id
       row :user
+      row :contact_name
+      row :contact_phone
       row :location
       row :address
       row :status
       row :driver_instructions
+      row :restaurant do |o|
+        Restaurant.find_by_id(o.get_restaurant).first.try(:name)
+      end
+      row :restaurant_instructions
       row :created_at
       row :products do
         table_for o.line_items do

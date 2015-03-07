@@ -39,6 +39,14 @@ class Order < ActiveRecord::Base
     NewOrderNotifyWorker.perform_async self.id
   end
 
+  def build_content_string
+    parts = []
+    line_items.each do |li|
+      parts << "#{li.product.name} : #{li.count}"
+    end
+    parts.join(';')
+  end
+
   def notify_created
     notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} on streeteats.com is created"
     Notifier.notify_payed(self).deliver
@@ -46,18 +54,26 @@ class Order < ActiveRecord::Base
   end
 
   def notify_payed
-    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now"
+    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now. Order content: #{build_content_string}", "New order ##{id} from streeteats.com. Order content: #{build_content_string}"
     Notifier.notify_payed(self).deliver
     Notifier.notify_payed_admin(self).deliver
   end
 
-  def notify(user_text, admin_text)
+  def notify(user_text, admin_text, restaurant_text = '')
     SmsApi.send_sms user.phone, user_text
     admin_phone = Setting.get 'Admin phone'
     SmsApi.send_sms admin_phone, admin_text
+    restaurant = Restaurant.find_by_id(self.get_restaurant)
+    unless restaurant.nil?
+      SmsApi.send_sms restaurant.phone, restaurant_text
+    end
   end
 
   def total_price
     line_items.map { |li| li.total_price }.sum
+  end
+
+  def get_restaurant
+    line_items.first.product.get_restaurant
   end
 end
