@@ -1,3 +1,39 @@
 .restaurant {
   // display: block;
+  color: #eaeaea;
+  h3 {
+    margin: 0 -15px;
+    border-top: 1px solid $thumbnail-border;
+    padding-top: 10px;
+    font-size: 15px;
+  }
+  &:hover {
+    border-color: $thumbnail-border !important;
+    box-shadow: 0px 0px 35px 3px rgba(115,112,100,0.8);
+    text-decoration: none;
+  }
+}
+
+.restaurants-promo {
+  background: #faf8ed;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  padding: 30px 0;
+}
+
+.restaurants-top-block {
+  overflow: hidden;
+}
+
+.restaurant-menu {
+  padding-top: 30px;
+  padding-bottom: 70px;
+}
+
+.restaurant-menu-heading {
+  overflow: hidden;
+  padding: 30px 0;
+  h2 {
+    margin-top: 5px;
+  }
 }

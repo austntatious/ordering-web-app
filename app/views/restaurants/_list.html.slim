@@ -1,0 +1,5 @@
+.restaurants-promo
+  .container
+    h2.text-center We deliver from the best restaurants
+    .row.js-restaurants-index
+      = render Restaurant.order('RAND()').limit(6)

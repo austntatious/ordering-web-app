@@ -1,4 +1,22 @@
+br
+br
+
+.restaurants-top-block
+  .row
+    .col-md-6.col-xs-12
+      p
+        b Delivery address:&nbsp;
+        = @current_cart.location.name
+        |&nbsp;(
+        = link_to 'Change Address', root_path
+        |)
+    .col-md-3.col-md-offset-3.col-xs-12
+        input.js-restaurant-search.form-control type="text" placeholder="Search for restaurants"
+
 h2.text-center Pick your restaurant
+
+br
+br
 
 .row
   = render @location.restaurants

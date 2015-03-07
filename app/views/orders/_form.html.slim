@@ -9,17 +9,38 @@
             - @order.errors.full_messages.each do |message|
               li = message
 
-      .form-group
-        = f.label :address
-        = f.text_field :address, :class => 'form-control js-location-pick'
-        .location-error.js-location-error.hidden Your address not fits specified location
-        .location-picker-map#map
+      .row
+        .col-md-6.col-xs-12
+          .panel.panel-default
+            .panel-heading Delivery address and instructions
+            .panel-body
+              .form-group
+                = f.label :contact_name
+                = f.text_field :contact_name, :class => 'form-control js-location-pick'
+              .form-group
+                = f.label :contact_phone
+                = f.text_field :contact_phone, :class => 'form-control js-location-pick'
+              .form-group
+                = f.label :address
+                = f.text_field :address, :class => 'form-control js-location-pick'
+                .location-error.js-location-error.hidden Your address not fits specified location
+                .location-picker-map#map
 
-      .form-group
-        = f.label :driver_instructions
-        = f.text_area :driver_instructions, :class => 'form-control'
+              .form-group
+                = f.label :driver_instructions
+                = f.text_area :driver_instructions, :class => 'form-control'
+
+              .form-group
+                = f.label :restaurant_instructions
+                = f.text_area :restaurant_instructions, :class => 'form-control'
+
+        .col-md-6.col-xs-12
+          .panel.panel-warning
+            .panel-heading Order cart
+            .panel-body
+              = render '/carts/current'
 
       .actions
-        = f.submit 'Continue to payment', :class => 'btn btn-info js-order-submit', :disabled => true
+        = f.submit 'Complete order', :class => 'btn btn-success btn-lg js-order-submit', :disabled => true
 - else
   h2 Ordering is unavailable now

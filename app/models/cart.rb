@@ -4,12 +4,20 @@ class Cart < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
 
   def add_product(product_id, count)
+    product = Product.find(product_id)
+    if product.get_restaurant != self.get_restaurant
+      self.clear!
+    end
     li = line_items.where(:product_id => product_id).first
     if li.nil?
       LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count.to_i)
     else
       li.update_attribute :count, li.count + count.to_i
     end
+  end
+
+  def get_restaurant
+    line_items.first.try(:product).try(:get_restaurant)
   end
 
   def total_count

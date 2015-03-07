@@ -2,4 +2,11 @@
   display: block;
   border: 1px solid gray;
   padding: 10px;
+  color: #515151;
+  background: #fdfdfd;
+  &:hover {
+    color: #515151;
+    text-decoration: none;
+    background: #f6f6f6;
+  }
 }

@@ -29,7 +29,8 @@ class LineItemsController < InheritedResources::Base
   end
 
   def new
-    @line_item = LineItem.new(:product_id => params[:product_id])
+    @product = Product.find(params[:product_id])
+    @line_item = LineItem.new(:product_id => @product.id)
   end
 
   def destroy

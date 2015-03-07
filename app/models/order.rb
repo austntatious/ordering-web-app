@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   after_commit :create_notification
   before_create :check_order_creation_availability
 
-  validates :address, :presence => true
+  validates :address, :contact_name, :contact_phone, :presence => true
 
   STATUSES = ['pending', 'payed', 'cancelled']
 

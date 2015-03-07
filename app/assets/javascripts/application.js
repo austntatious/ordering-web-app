@@ -26,10 +26,31 @@ var ready = function () {
     $('.js-line-item-form').submit();
   });
 
-  $('.js-restaurant-index').click(function (ev) {
+  $('.js-restaurants-index .js-restaurant').click(function (ev) {
+    ev.preventDefault();
     $('html,body').animate({ scrollTop: 0 }, 'slow', function (argument) {
       $('.js-location-pick').focus();
     });
+  });
+
+  var restaurant_holders = $('.js-restaurant-holder');
+
+  $('.js-restaurant-search').keyup(function (ev) {
+    var str = $(this).val();
+    if (str == '') {
+      restaurant_holders.removeClass('hidden');
+    }
+    else {
+      restaurant_holders.each(function (ind, itm) {
+        var name = $(itm).find('.js-restaurant').data('name');
+        if (name.search(new RegExp(str, "i")) == -1) {
+          $(itm).addClass('hidden');
+        }
+        else {
+          $(itm).removeClass('hidden');
+        }
+      });
+    }
   });
 
   window.prepareRelatedCheckboxes = function () {

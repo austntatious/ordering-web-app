@@ -2,10 +2,11 @@ tr class="js-line-item-#{line_item.id} line-item"
   td = line_item.product.name
   td = number_to_currency line_item.product.price
   td
-    .input-group.input-center
+    .input-group.input-center.input-cart-quantity
       = link_to '', line_item_decrease_path(line_item, :format => :js), :class => 'glyphicon glyphicon-minus input-group-addon', :remote => true
       input.form-control.count disabled="" type="text" value=line_item.count
       = link_to '', line_item_increase_path(line_item, :format => :js), :class => 'glyphicon glyphicon-plus input-group-addon', :remote => true
   td = number_to_currency line_item.total_price
   td
-    = link_to 'Remove', line_item_path(line_item, :format => :js), :remote => true, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    = link_to line_item_path(line_item, :format => :js), :remote => true, :method => :delete, :data => { :confirm => 'Are you sure?' } do
+      .glyphicon.glyphicon-remove

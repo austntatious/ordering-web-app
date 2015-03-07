@@ -1,3 +1,12 @@
-h1 New order
+.order-form
+  = link_to "« Back to all restaurants", root_path
 
-== render 'form'
+  h2.text-center
+    |*New*&nbsp;
+    = @restaurant.name
+    | &mdash; Checkout
+
+  br
+  br
+
+  == render 'form'

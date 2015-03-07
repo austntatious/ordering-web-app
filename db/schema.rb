@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306082431) do
+ActiveRecord::Schema.define(version: 20150307054307) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -100,12 +100,15 @@ ActiveRecord::Schema.define(version: 20150306082431) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.string   "address",             default: "", null: false
+    t.string   "address",                 default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
     t.text     "driver_instructions"
     t.integer  "location_id"
+    t.text     "restaurant_instructions"
+    t.string   "contact_name",            default: "", null: false
+    t.string   "contact_phone",           default: "", null: false
   end
 
   add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree

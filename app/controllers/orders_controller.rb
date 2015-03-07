@@ -10,7 +10,12 @@ class OrdersController < InheritedResources::Base
   end
 
   def new
-    @order = Order.new
+    if @current_cart.empty?
+      redirect_to root_path, :notice => 'Your cart is empty'
+      return
+    end
+    @order = Order.new(:contact_name => current_user.name, :contact_phone => current_user.phone)
+    @restaurant = Restaurant.find(@current_cart.get_restaurant)
   end
 
   def create
@@ -20,6 +25,7 @@ class OrdersController < InheritedResources::Base
       create_cart
       redirect_to @order
     else
+      @restaurant = Restaurant.find(@current_cart.get_restaurant)
       render 'new'
     end
   end
@@ -39,7 +45,7 @@ class OrdersController < InheritedResources::Base
   private
 
     def order_params
-      result = params.require(:order).permit(:address, :driver_instructions)
+      result = params.require(:order).permit(:address, :driver_instructions, :restaurant_instructions, :contact_name, :contact_phone)
       result[:user_id] = current_user.id
       result[:location_id] = @current_cart.location_id
       result

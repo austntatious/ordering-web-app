@@ -1,2 +1,7 @@
 $('.js-edit-cart-modal-body').html('<%=j render "current" %>');
 $('#edit-cart-modal').modal();
+<% if @current_cart.empty? %>
+  $('.js-checkout-btn').addClass('hidden');
+<% else %>
+  $('.js-checkout-btn').removeClass('hidden');
+<% end %>

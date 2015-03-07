@@ -8,9 +8,14 @@
 @import "blocks/products";
 @import "blocks/location_picker";
 @import "blocks/cart";
+@import "blocks/pills";
+@import "blocks/order";
+
+@import "blocks/buttons";
 
 .footer {
-  padding: 20px 0;
+  padding: 12px;
+  background: #f5f5f5;
 }
 
 #error_explanation {
@@ -23,4 +28,8 @@
     margin: 0;
     font-size: 20px;
   }
+}
+
+.form-control {
+  font-size: 13px;
 }

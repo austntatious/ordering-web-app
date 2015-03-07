@@ -8,6 +8,14 @@ $('.js-add-to-cart-modal-body').html('<%=j render "form" %>');
       location.href = '<%= location_path(@current_cart.location) %>';
     }
   }
+  <% if @current_cart.get_restaurant != @product.get_restaurant %>
+    if (confirm('Your added to cart products from different menu. Are you want to continue? All added products will be removed')) {
+      $('#clear_cart').val('1');
+    }
+    else {
+      location.href = '<%= location_path(@current_cart.location) %>';
+    }
+  <% end %>
 <% end %>
 $('#add-to-cart-modal').modal();
 window.prepareRelatedCheckboxes();
