@@ -80,6 +80,9 @@ class Order < ActiveRecord::Base
   end
 
   def get_restaurant
-    line_items.first.product.get_restaurant
+    nil
+    if line_items.any?
+      line_items.first.product.get_restaurant
+    end
   end
 end
