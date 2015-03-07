@@ -39,7 +39,9 @@ ActiveAdmin.register Order do
       row :status
       row :driver_instructions
       row :restaurant do |o|
-        Restaurant.find_by_id(o.get_restaurant).first.try(:name)
+        unless o.get_restaurant.nil?
+          Restaurant.find_by_id(o.get_restaurant).first.try(:name)
+        end
       end
       row :restaurant_instructions
       row :created_at
