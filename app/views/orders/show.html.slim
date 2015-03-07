@@ -2,10 +2,8 @@
   = link_to '« Back to my orders', orders_path
 
   h2.text-center
-    |Order #
-    = @order.id
-    |&nbsp;&mdash;&nbsp;
     = @restaurant.name
+    |&nbsp;&mdash;&nbsp;Checkout
 
   br
   br
@@ -40,15 +38,13 @@
           table.table.table-striped
             thead
               tr
-                th #
-                th Product
+                th Item
                 th Price
                 th Quantity
-                th Total
+                th Price
             tbody
-              - @order.line_items.each_with_index do |line_item, ind|
+              - @order.line_items.each do |line_item|
                 tr
-                  td = (ind + 1)
                   td = line_item.product.name
                   td = number_to_currency line_item.product.price
                   td = line_item.count

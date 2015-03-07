@@ -3,7 +3,7 @@ class Setting < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  SETTINGS_KINDS = ['Admin phone', 'Admin email', 'Work from', 'Work to', 'Delivery fee']
+  SETTINGS_KINDS = ['Admin phone', 'Admin email', 'Work from', 'Work to', 'Delivery fee', 'Emergency message']
 
   def self.get(nm)
     Setting.find_by_name(nm).try(:value) || ''
@@ -11,6 +11,10 @@ class Setting < ActiveRecord::Base
 
   def self.can_get_orders?
     result = true
+    em = Setting.get('Emergency message')
+    unless em.blank?
+      return false
+    end
     begin
       from_time = Setting.get('Work from')
       to_time = Setting.get('Work to')

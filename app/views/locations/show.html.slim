@@ -14,6 +14,16 @@ br
         input.js-restaurant-search.form-control type="text" placeholder="Search for restaurants"
 
 h2.text-center Pick your restaurant
+- em = Setting.get('Emergency message')
+div class="panel #{'panel-default' if em.blank?} #{'panel-danger' unless em.blank?}"
+  .panel-body.text-center
+    - if em.blank?
+      |We are working from&nbsp;
+      = Setting.get('Work from')
+      |&nbsp;to&nbsp;
+      = Setting.get('Work to')
+    - else
+      = em
 
 br
 br

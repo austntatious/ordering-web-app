@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307100833) do
+ActiveRecord::Schema.define(version: 20150307141600) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150307100833) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone",      default: "", null: false
+    t.string   "work_time",  default: "", null: false
   end
 
   create_table "settings", force: true do |t|

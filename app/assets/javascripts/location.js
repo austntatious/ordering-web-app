@@ -19,7 +19,6 @@ var lready = function () {
     var result = null;
     $.each(window.commonData.locations, function (ind, itm) {
       var distance = calcDistance(lat, lng, itm.lat, itm.lng);
-      console.log(distance, itm.radius);
       if (distance < itm.radius) {
         result = itm;
       }
@@ -68,7 +67,7 @@ var lready = function () {
             windowContent = '<p class="location-text">No restaurants found on this location</p>';
           if (location) {
             windowContent = '<p class="location-text">We found ' + location.restaurants + ' restaurants on this location!</p>' +
-              '<a class="btn btn-success" href="' + location.link + '">Continue</a>';
+              '<a class="btn btn-success" href="' + location.link + '">Show Restaurants</a>';
           }
           if (window.currentInfoWindow) {
             window.currentInfoWindow.close();

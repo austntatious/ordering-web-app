@@ -16,5 +16,14 @@ h1 My orders
         div class="order-item-status -#{order.status}"
           = order.status
           = link_to 'View details', order, :class => 'details-link'
+  = paginate @orders
 
-= paginate @orders
+- else
+  br
+  br
+  br
+  p You have no orders yet
+  br
+  br
+  br
+  br
