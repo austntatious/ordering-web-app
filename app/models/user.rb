@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
 
-  validates :name, :presence => true
-  validates_uniqueness_of :phone
+  # validates :name, :presence => true
+  # validates_uniqueness_of :phone
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

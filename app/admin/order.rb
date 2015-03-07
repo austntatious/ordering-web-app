@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # permit_params :list, :of, :attributes, :on, :model
-  permit_params :user_id, :address, :driver_instructions, :status, :contact_name, :contact_phone, :restaurant_instructions
+  permit_params :user_id, :address, :driver_instructions, :status, :contact_name, :contact_phone, :restaurant_instructions, :delivery_fee
   #
   # or
   #
@@ -40,7 +40,7 @@ ActiveAdmin.register Order do
       row :driver_instructions
       row :restaurant do |o|
         unless o.get_restaurant.nil?
-          Restaurant.find_by_id(o.get_restaurant).first.try(:name)
+          Restaurant.find_by_id(o.get_restaurant).try(:name)
         end
       end
       row :restaurant_instructions
@@ -61,6 +61,9 @@ ActiveAdmin.register Order do
           end
           column :total_price
         end
+      end
+      row :total_price do |o|
+        o.total_price
       end
     end
   end

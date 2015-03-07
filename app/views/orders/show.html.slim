@@ -56,6 +56,10 @@
 
           .text-right
               strong
+                |Delivery fee:&nbsp;
+              span = number_to_currency @order.delivery_fee
+              br
+              strong
                 |Total price:&nbsp;
               span.js-cart-price = number_to_currency @order.total_price
 

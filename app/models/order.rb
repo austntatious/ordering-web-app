@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
 
   after_commit :create_notification
   before_create :check_order_creation_availability
+  before_create :set_delivery_fee
 
   validates :address, :contact_name, :contact_phone, :presence => true
 
@@ -32,6 +33,19 @@ class Order < ActiveRecord::Base
     state :payed
     state :cancelled
     state :completed
+  end
+
+  def self.get_delivery_fee
+    result = 4.0
+    fee = Setting.get('Delivery fee')
+    unless fee.blank?
+      result = fee.to_f
+    end
+    result
+  end
+
+  def set_delivery_fee
+    self.delivery_fee = Order.get_delivery_fee
   end
 
   def check_order_creation_availability
@@ -76,7 +90,11 @@ class Order < ActiveRecord::Base
   end
 
   def total_price
-    line_items.map { |li| li.total_price }.sum
+    df = self.delivery_fee
+    if df == 0
+      df = Order.get_delivery_fee
+    end
+    line_items.map { |li| li.total_price }.sum + df
   end
 
   def get_restaurant

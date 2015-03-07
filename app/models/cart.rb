@@ -25,7 +25,7 @@ class Cart < ActiveRecord::Base
   end
 
   def total_price
-    line_items.map { |li| li.total_price }.sum
+    line_items.map { |li| li.total_price }.sum + Order.get_delivery_fee
   end
 
   def set_location(location_id)
