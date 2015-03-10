@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307141600) do
+ActiveRecord::Schema.define(version: 20150310174544) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 20150307141600) do
   end
 
   add_index "categories", ["restaurant_id"], name: "index_categories_on_restaurant_id", using: :btree
+
+  create_table "credit_cards", force: true do |t|
+    t.string   "stripe_id",  default: "", null: false
+    t.string   "last4",      default: "", null: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "product_id"
@@ -164,6 +174,7 @@ ActiveRecord::Schema.define(version: 20150307141600) do
     t.string   "uid"
     t.string   "phone",                  default: "", null: false
     t.string   "name",                   default: "", null: false
+    t.string   "client_id",              default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

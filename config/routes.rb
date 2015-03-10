@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :credit_cards
   resources :charges, :only => [:create]
   resources :orders, :only => [:new, :create, :show, :index]
   resources :line_items, :only => [:new, :create, :destroy] do

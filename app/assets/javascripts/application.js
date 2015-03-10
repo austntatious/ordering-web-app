@@ -26,6 +26,10 @@ var ready = function () {
     $('.js-line-item-form').submit();
   });
 
+  $('.js-add-card').click(function (e) {
+    $('.js-add-card-form').submit();
+  });
+
   $('.js-restaurants-index .js-restaurant').click(function (ev) {
     ev.preventDefault();
     $('html,body').animate({ scrollTop: 0 }, 'slow', function (argument) {

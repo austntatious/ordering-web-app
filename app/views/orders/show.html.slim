@@ -30,6 +30,19 @@
             b Restaurant instructions:
             br
             = @order.restaurant_instructions
+      - unless @order.payed?
+        .panel.panel-default
+          .panel-heading Choose credit card to pay
+          .panel-body
+            - current_user.credit_cards.each do |cc|
+              .radio
+                label
+                  input type="radio" name="credit_card_id" value="#{cc.id}"
+                  |****&nbsp;****&nbsp;****&nbsp;
+                  = cc.last4
+            = link_to 'Add credit card', new_credit_card_path(:format => :js), :remote => true, :class => 'btn btn-info'
+            |&nbsp;
+            = link_to 'Pay with card', '#', :class => 'btn btn-danger'
 
     .col-md-6.col-xs-12
       .panel.panel-warning
@@ -66,3 +79,35 @@
               = form_tag charges_path(:order_id => @order.id) do
                 script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="Order ##{@order.id}" data-amount="#{(@order.total_price * 100).round}"
 
+
+#new-card-modal.modal.fade aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-label="Close" data-dismiss="modal" type="button"
+          span aria-hidden="true"  &times;
+        h4#myModalLabel2.modal-title Add credit_card
+      .modal-body.js-new-card-modal-body
+        = form_for CreditCard.new, :html => { :class => 'js-add-card-form' } do |f|
+          .form-group
+            = f.label :number, 'Credit card number'
+            = f.text_field :number, :class => 'form-control'
+          .form-group
+            = f.label :name, 'Cardholder name'
+            = f.text_field :name, :class => 'form-control'
+          .row
+            .col-md-4
+              .form-group
+                = f.label :exp_month, 'Expire month'
+                = f.text_field :exp_month, :class => 'form-control'
+            .col-md-4
+              .form-group
+                = f.label :exp_year, 'Expire year'
+                = f.text_field :exp_year, :class => 'form-control'
+            .col-md-4
+              .form-group
+                = f.label :cvc, 'CVC'
+                = f.text_field :cvc, :class => 'form-control'
+      .modal-footer
+        button.btn.btn-default.btn-lg data-dismiss="modal" type="button" Close
+        = link_to 'Add card', new_order_path, :class => 'btn btn-success btn-lg js-add-card'
