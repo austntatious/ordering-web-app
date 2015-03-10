@@ -34,12 +34,11 @@
         .panel.panel-default
           .panel-heading Choose credit card to pay
           .panel-body
-            - current_user.credit_cards.each do |cc|
-              .radio
-                label
-                  input type="radio" name="credit_card_id" value="#{cc.id}"
-                  |****&nbsp;****&nbsp;****&nbsp;
-                  = cc.last4
+            .js-credit-cards-list
+              - if current_user.credit_cards.any?
+                = render current_user.credit_cards
+              - else
+                p You need to add one or more credit cards
             = link_to 'Add credit card', new_credit_card_path(:format => :js), :remote => true, :class => 'btn btn-info'
             |&nbsp;
             = link_to 'Pay with card', '#', :class => 'btn btn-danger'
@@ -88,7 +87,7 @@
           span aria-hidden="true"  &times;
         h4#myModalLabel2.modal-title Add credit_card
       .modal-body.js-new-card-modal-body
-        = form_for CreditCard.new, :html => { :class => 'js-add-card-form' } do |f|
+        = form_for CreditCard.new, :remote => true, :format => :js, :html => { :class => 'js-add-card-form' } do |f|
           .form-group
             = f.label :number, 'Credit card number'
             = f.text_field :number, :class => 'form-control'
