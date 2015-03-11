@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :credit_cards
   resources :charges, :only => [:create]
-  resources :orders, :only => [:new, :create, :show, :index]
+  resources :orders, :only => [:new, :create, :show, :index] do
+    member do
+      post 'pay', :as => :pay
+    end
+  end
   resources :line_items, :only => [:new, :create, :destroy] do
     get 'increase', :as => :increase
     get 'decrease', :as => :decrease

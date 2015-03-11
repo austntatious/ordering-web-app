@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading Choose credit card to pay
+  .panel-body
+    .js-credit-cards-list
+      - if current_user.credit_cards.any?
+        = render current_user.credit_cards
+      - else
+        p You need to add one or more credit cards
+    = link_to 'Add credit card', new_credit_card_path(:format => :js), :remote => true, :class => 'btn btn-info'
+    |&nbsp;
+    = link_to 'Pay with card', '#', :class => 'btn btn-danger'

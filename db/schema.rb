@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310174544) do
+ActiveRecord::Schema.define(version: 20150311115634) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -120,8 +120,10 @@ ActiveRecord::Schema.define(version: 20150310174544) do
     t.string   "contact_name",                                    default: "",  null: false
     t.string   "contact_phone",                                   default: "",  null: false
     t.decimal  "delivery_fee",            precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "credit_card_id"
   end
 
+  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
   add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 

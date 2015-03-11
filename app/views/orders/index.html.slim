@@ -5,9 +5,9 @@ h1 My orders
     - restaurant = Restaurant.find_by_id(order.get_restaurant)
     .row.order-item
       .col-md-3.col-xs-12.text-center
-        = image_tag restaurant.img.thumb
+        = image_tag restaurant.try(:img).try(:thumb)
       .col-md-7
-        h2 = restaurant.name
+        h2 = restaurant.try(:name)
         p
           = number_to_currency order.total_price
           br

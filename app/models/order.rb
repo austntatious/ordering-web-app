@@ -2,14 +2,17 @@ require 'sms_api'
 
 class Order < ActiveRecord::Base
   belongs_to :user
+  belongs_to :credit_card
   belongs_to :location
   has_many :line_items
 
-  after_commit :create_notification
+  after_commit :create_notification, :on => [:create]
+  after_commit :process_payment, :on => [:create]
   before_create :check_order_creation_availability
   before_create :set_delivery_fee
+  before_save :validate_card
 
-  validates :address, :contact_name, :contact_phone, :presence => true
+  validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
   STATUSES = ['pending', 'payed', 'cancelled']
 
@@ -33,6 +36,33 @@ class Order < ActiveRecord::Base
     state :payed
     state :cancelled
     state :completed
+  end
+
+  def process_payment
+    credit_card = self.user.credit_cards.find_by_id(self.credit_card_id)
+    unless credit_card.nil?
+      begin
+        charge = Stripe::Charge.create(
+          :customer => self.user.client_id,
+          :amount => (self.total_price * 100).round,   # payment should be in cents
+          :description => "Order ##{self.id}",
+          :currency => 'usd',
+          :source => credit_card.stripe_id
+        )
+        unless charge.nil?
+          self.pay!
+        end
+      rescue Stripe::CardError => e
+        self.errors.add :base, e.message
+      end
+    end
+  end
+
+  def validate_card
+    unless self.user.credit_cards.map { |cc| cc.id }.include? self.credit_card_id
+      self.errors.add :base, 'Invalid credit card'
+      return false
+    end
   end
 
   def self.get_delivery_fee

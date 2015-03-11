@@ -40,13 +40,27 @@ class OrdersController < InheritedResources::Base
   end
 
   def index
-    @orders = current_user.orders.page(params[:page]).per(10)
+    @orders = current_user.orders.reorder('created_at DESC').page(params[:page]).per(10)
+  end
+
+  def pay
+    @order = Order.find(params[:id])
+    @order.credit_card_id = params[:credit_card_id]
+    @order.save
+    unless @order.errors.any?
+      @order.process_payment
+    end
+    if @order.errors.any?
+      redirect_to @order, :warning => @order.errors
+    else
+      redirect_to @order
+    end
   end
 
   private
 
     def order_params
-      result = params.require(:order).permit(:address, :driver_instructions, :restaurant_instructions, :contact_name, :contact_phone)
+      result = params.require(:order).permit(:address, :driver_instructions, :restaurant_instructions, :contact_name, :contact_phone, :credit_card_id)
       result[:user_id] = current_user.id
       result[:location_id] = @current_cart.location_id
       result
