@@ -2,11 +2,17 @@
   = link_to "« Back to all restaurants", root_path
 
   .restaurant-menu-heading
-    .pull-right
-      = render @current_cart
-      |&nbsp;
-      = link_to 'Checkout', new_order_path, :class => 'btn btn-success btn-lg'
     h2 = @restaurant.name
+    .row
+      .col-md-8
+        - unless @restaurant.work_time.nil?
+          p.restaurant-work-hours
+            b Work hours:&nbsp;
+            = @restaurant.work_time
+      .col-md-4.text-right
+        = render @current_cart
+        |&nbsp;
+        = link_to 'Checkout', new_order_path, :class => 'btn btn-success btn-lg'
 
   .row role="tabpanel"
     .col-md-4

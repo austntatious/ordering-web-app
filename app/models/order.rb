@@ -31,6 +31,7 @@ class Order < ActiveRecord::Base
 
     after_transition :pending => :payed do |order, transition|
       PaymentNotifyWorker.perform_async order.id
+      RestaurantPaymentWorker.perform_async order.id
     end
 
     state :payed
@@ -124,7 +125,11 @@ class Order < ActiveRecord::Base
     if df == 0
       df = Order.get_delivery_fee
     end
-    line_items.map { |li| li.total_price }.sum + df
+    restaurant_price + df
+  end
+
+  def restaurant_price
+    line_items.map { |li| li.total_price }.sum
   end
 
   def get_restaurant

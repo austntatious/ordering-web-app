@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311115634) do
+ActiveRecord::Schema.define(version: 20150311135653) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -144,12 +144,18 @@ ActiveRecord::Schema.define(version: 20150311115634) do
   end
 
   create_table "restaurants", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",                                  default: "", null: false
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone",      default: "", null: false
-    t.string   "work_time",  default: "", null: false
+    t.string   "phone",                                 default: "", null: false
+    t.string   "work_time",                             default: "", null: false
+    t.string   "recipient_name",                        default: "", null: false
+    t.string   "recipient_type",                        default: "", null: false
+    t.string   "recipient_bank_account_country",        default: "", null: false
+    t.string   "recipient_bank_account_routing_number", default: "", null: false
+    t.string   "recipient_bank_account_account_number", default: "", null: false
+    t.string   "stripe_recipient_id",                   default: "", null: false
   end
 
   create_table "settings", force: true do |t|
