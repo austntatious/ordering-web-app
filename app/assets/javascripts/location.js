@@ -1,4 +1,8 @@
 var lready = function () {
+  if (!navigator.geolocation) {
+    $('.js-geolocation-holder').remove();
+  }
+
   var calcDistance = function (lat, lng, lat2, lng2) {
     var rad_per_deg = Math.PI/180,
       rkm = 6371,
@@ -100,6 +104,18 @@ var lready = function () {
         });
         $('#map').addClass('-is-visible');
     };
+
+    $('.js-geolocation').click(function (ev) {
+      ev.preventDefault();
+      navigator.geolocation.getCurrentPosition(function (position) {
+        initMap();
+        var ll = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        applyLocation(position.coords.latitude, position.coords.longitude, true);
+        marker.setPosition(ll);
+        map.setCenter(ll);
+        $('.js-geolocation-holder').addClass('hidden');
+      });
+    });
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       initMap();

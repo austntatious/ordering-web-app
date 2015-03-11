@@ -30,7 +30,7 @@
             b Restaurant instructions:
             br
             = @order.restaurant_instructions
-      - unless @order.payed?
+      - if @order.pending?
         .panel.panel-default
           .panel-heading Choose credit card to pay
           .panel-body
@@ -71,13 +71,5 @@
               strong
                 |Total price:&nbsp;
               span.js-cart-price = number_to_currency @order.total_price
-
-          - if @order.pending?
-            .text-right
-              br
-              br
-              = form_tag charges_path(:order_id => @order.id) do
-                script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{Rails.configuration.stripe[:publishable_key]}" data-description="Order ##{@order.id}" data-amount="#{(@order.total_price * 100).round}"
-
 
 = render '/credit_cards/window'
