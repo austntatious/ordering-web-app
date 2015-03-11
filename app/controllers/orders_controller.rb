@@ -21,6 +21,9 @@ class OrdersController < InheritedResources::Base
   def create
     @order = Order.new(order_params)
     @order.line_items = @current_cart.line_items
+    if @order.payed?
+      @order_payed_now = true
+    end
     if @order.save
       create_cart
       redirect_to @order
@@ -53,6 +56,7 @@ class OrdersController < InheritedResources::Base
     if @order.errors.any?
       redirect_to @order, :warning => @order.errors
     else
+      @order_payed_now = true
       redirect_to @order
     end
   end

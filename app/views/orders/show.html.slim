@@ -72,4 +72,8 @@
                 |Total price:&nbsp;
               span.js-cart-price = number_to_currency @order.total_price
 
+- if @order_payed_now
+  javascript:
+    mixpanel.track("Order payed");
+
 = render '/credit_cards/window'
