@@ -1,0 +1,6 @@
+$('.js-new-card-modal-body').html('<%=j render "form" %>');
+$('.js-add-card').removeClass('disabled');
+<% unless @credit_card.errors.any? %>
+  $('#new-card-modal').modal('hide');
+  $('.js-credit-cards-list').append('<%=j render @credit_card %>');
+<% end %>

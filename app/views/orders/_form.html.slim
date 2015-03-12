@@ -38,12 +38,7 @@
             .panel-body
               .js-credit-cards-list
                 - if current_user.credit_cards.any?
-                  - current_user.credit_cards.each do |credit_card|
-                    .radio
-                      label
-                        = f.radio_button :credit_card_id, credit_card.id
-                        |****&nbsp;****&nbsp;****&nbsp;
-                        = credit_card.last4
+                  = render current_user.credit_cards
                 - else
                   p You need to add one or more credit cards
               = link_to 'Add credit card', new_credit_card_path(:format => :js), :remote => true, :class => 'btn btn-info'

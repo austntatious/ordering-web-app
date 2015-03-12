@@ -23,10 +23,13 @@ var ready = function () {
   });
 
   $('.js-add-product').click(function (e) {
+    e.preventDefault();
     $('.js-line-item-form').submit();
   });
 
   $('.js-add-card').click(function (e) {
+    e.preventDefault();
+    $('.js-add-card').addClass('disabled');
     $('.js-add-card-form').submit();
   });
 

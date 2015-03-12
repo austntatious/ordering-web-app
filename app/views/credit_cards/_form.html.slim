@@ -1,0 +1,26 @@
+= form_for @credit_card, :remote => true, :format => :js, :html => { :class => 'js-add-card-form' } do |f|
+  - if @credit_card.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@credit_card.errors.count, "error")} prohibited this credit card from being added:"
+      ul
+        - @credit_card.errors.full_messages.each do |message|
+          li = message
+  .form-group
+    = f.label :number, 'Credit card number'
+    = f.text_field :number, :class => 'form-control'
+  .form-group
+    = f.label :name, 'Cardholder name'
+    = f.text_field :name, :class => 'form-control'
+  .row
+    .col-md-4
+      .form-group
+        = f.label :exp_month, 'Expire month'
+        = f.text_field :exp_month, :class => 'form-control'
+    .col-md-4
+      .form-group
+        = f.label :exp_year, 'Expire year'
+        = f.text_field :exp_year, :class => 'form-control'
+    .col-md-4
+      .form-group
+        = f.label :cvc, 'CVC'
+        = f.text_field :cvc, :class => 'form-control'

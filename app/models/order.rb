@@ -138,4 +138,42 @@ class Order < ActiveRecord::Base
       line_items.first.product.get_restaurant
     end
   end
+
+  def pay_restaurant_comission
+    restaurant_id = self.get_restaurant
+    unless restaurant_id.nil?
+      restaurant = Restaurant.find_by_id(restaurant_id)
+      begin
+        if restaurant.stripe_recipient_id.blank?
+          rc = Stripe::Recipient.create(
+            :name => restaurant.recipient_name,
+            :type => restaurant.recipient_type,
+            :bank_account => {
+              :country => restaurant.recipient_bank_account_country,
+              :routing_number => restaurant.recipient_bank_account_routing_number,
+              :account_number => restaurant.recipient_bank_account_account_number
+            }
+          )
+          restaurant.stripe_recipient_id = rc['id']
+          restaurant.save
+        end
+        transfer = Stripe::Transfer.create(
+          :amount => (self.restaurant_price * 100).round,
+          :currency => "usd",
+          :recipient => restaurant.stripe_recipient_id,
+          :description => "Transfer for order #{self.id} from StreetEats"
+        )
+        if transfer['failure_code'].nil?
+          self.success_transfer = true
+        else
+          self.success_transfer = false
+          self.transfer_error_message = "#{transfer['failure_code']} - #{transfer['failure_message']}"
+        end
+      rescue Exception => e
+        self.success_transfer = false
+        self.transfer_error_message = e.message
+      end
+      self.save
+    end
+  end
 end
