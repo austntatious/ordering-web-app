@@ -27,7 +27,7 @@ ActiveAdmin.register Restaurant do
     f.inputs 'Payment data' do
       f.input :recipient_name
       f.input :recipient_type, :as => :select, :collection => ['individual', 'corporation']
-      f.input :recipient_bank_account_country
+      f.input :recipient_bank_account_country, :as => :text
       f.input :recipient_bank_account_routing_number
       f.input :recipient_bank_account_account_number
     end

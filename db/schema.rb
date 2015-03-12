@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311135653) do
+ActiveRecord::Schema.define(version: 20150312102706) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -110,17 +110,19 @@ ActiveRecord::Schema.define(version: 20150311135653) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.string   "address",                                         default: "",  null: false
+    t.string   "address",                                         default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
     t.text     "driver_instructions"
     t.integer  "location_id"
     t.text     "restaurant_instructions"
-    t.string   "contact_name",                                    default: "",  null: false
-    t.string   "contact_phone",                                   default: "",  null: false
-    t.decimal  "delivery_fee",            precision: 8, scale: 2, default: 0.0, null: false
+    t.string   "contact_name",                                    default: "",    null: false
+    t.string   "contact_phone",                                   default: "",    null: false
+    t.decimal  "delivery_fee",            precision: 8, scale: 2, default: 0.0,   null: false
     t.integer  "credit_card_id"
+    t.boolean  "success_transfer",                                default: false, null: false
+    t.string   "transfer_error_message",                          default: "",    null: false
   end
 
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree

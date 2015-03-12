@@ -4,7 +4,6 @@ class CreditCardsController < InheritedResources::Base
   def create
     @credit_card = CreditCard.new(credit_card_params)
     @credit_card.save
-    binding.pry
   end
 
   private

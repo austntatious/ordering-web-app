@@ -66,6 +66,8 @@ ActiveAdmin.register Order do
       row :total_price do |o|
         o.total_price
       end
+      row :success_transfer
+      row :transfer_error_message
     end
   end
 end
