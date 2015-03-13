@@ -14,9 +14,17 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require jquery.maskedinput
 //= require location
 
 var ready = function () {
+  window.setCCMasks = function () {
+    $('#credit_card_number').mask('9999 9999 9999 9999');
+    $('#credit_card_exp_month').mask('99');
+    $('#credit_card_exp_year').mask('9999');
+    $('#credit_card_cvc').mask('999?9');
+  };
+
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     $('.js-tab').removeClass('active');
     $(this).parent().addClass('active');
@@ -29,6 +37,7 @@ var ready = function () {
 
   $('.js-add-card').click(function (e) {
     e.preventDefault();
+    $('#new-card-modal #error_explanation').remove();
     $('.js-add-card').addClass('disabled');
     $('.js-add-card-form').submit();
   });

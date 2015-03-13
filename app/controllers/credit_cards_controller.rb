@@ -11,6 +11,7 @@ class CreditCardsController < InheritedResources::Base
     def credit_card_params
       result = params.require(:credit_card).permit(:number, :exp_month, :exp_year, :cvc, :name)
       result[:user_id] = current_user.id
+      result[:number] = result[:number].to_s.gsub(' ', '')
       result
     end
 end

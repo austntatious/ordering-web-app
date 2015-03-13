@@ -7,7 +7,7 @@
           li = message
   .form-group
     = f.label :number, 'Credit card number'
-    = f.text_field :number, :class => 'form-control'
+    = f.text_field :number, :class => 'form-control', placeholder: '0000 0000 0000 0000'
   .form-group
     = f.label :name, 'Cardholder name'
     = f.text_field :name, :class => 'form-control'
@@ -15,11 +15,11 @@
     .col-md-4
       .form-group
         = f.label :exp_month, 'Expire month'
-        = f.text_field :exp_month, :class => 'form-control'
+        = f.text_field :exp_month, :class => 'form-control', placeholder: 'mm'
     .col-md-4
       .form-group
         = f.label :exp_year, 'Expire year'
-        = f.text_field :exp_year, :class => 'form-control'
+        = f.text_field :exp_year, :class => 'form-control',  placeholder: 'yyyy'
     .col-md-4
       .form-group
         = f.label :cvc, 'CVC'
