@@ -1,0 +1,25 @@
+h1 Listing coupons
+
+table
+  thead
+    tr
+      th Code
+      th Value
+      th Min price
+      th
+      th
+      th
+
+  tbody
+    - @coupons.each do |coupon|
+      tr
+        td = coupon.code
+        td = coupon.value
+        td = coupon.min_price
+        td = link_to 'Show', coupon
+        td = link_to 'Edit', edit_coupon_path(coupon)
+        td = link_to 'Destroy', coupon, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Coupon', new_coupon_path

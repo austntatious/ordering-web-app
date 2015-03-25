@@ -3,9 +3,12 @@
   p.location-picker-text On-demand delivery · No minimum order size
   .location-picker
     h3.text-center Enter Your Address to find restaurants near You:
-    .form-group
+    .form-group.location-picker-input
+      .fa.fa-search.search-icon
       input.form-control.js-location-pick type="text"
       p.pull-right.js-geolocation-holder
-        a.js-geolocation href="#" Detect my location
+        a.js-geolocation.location-pick-link href="#"
+          span.fa.fa-location-arrow
+          |Detect my location
       .clearfix
     .location-picker-map#map

@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
     cart = Cart.create()
     session[:cart_id] = cart.id
     @current_cart = cart
+    if user_signed_in?
+      cart.update_attribute :user_id, current_user.id
+    end
   end
 
   def set_current_cart

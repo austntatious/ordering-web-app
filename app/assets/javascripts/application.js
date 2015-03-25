@@ -18,6 +18,10 @@
 //= require location
 
 var ready = function () {
+  for (var i = 0; i < window.commonData.locations.length; i++) {
+    window.commonData.locations[i].coords = $.parseJSON(window.commonData.locations[i].coords);
+  }
+
   window.setCCMasks = function () {
     $('#credit_card_number').mask('9999 9999 9999 9999');
     $('#credit_card_exp_month').mask('99');
@@ -74,6 +78,23 @@ var ready = function () {
       $(this).parents('.js-related').find('.js-related-count').attr('disabled', !this.checked);
     });
   };
+
+  $('.js-check-coupon').click(function (ev) {
+    $('.js-coupon-msg').html('');
+    $.get('/coupons.json?code=' + $('.js-coupon-code').val(), function (data) {
+      if (data.success) {
+        $('.js-coupon-msg').html(
+          '<div class="alert alert-success">' + data.msg + '</div>'
+        );
+        $('.js-cart-price').html('$' + data.new_sum);
+      }
+      else {
+        $('.js-coupon-msg').html(
+          '<div class="alert alert-danger">' + data.msg + '</div>'
+        );
+      }
+    });
+  });
 };
 
 $(document).ready(ready);

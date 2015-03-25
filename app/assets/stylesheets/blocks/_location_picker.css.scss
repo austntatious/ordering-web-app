@@ -36,6 +36,23 @@
   color: #222;
 }
 
+.location-picker-input {
+  position: relative;
+  .search-icon {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    color: #000;
+  }
+}
+
+.location-pick-link {
+  .fa {
+    margin-right: 6px;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .location-picker {
     width: auto;

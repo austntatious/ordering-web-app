@@ -18,3 +18,9 @@
 #place-map-holder {
   height: 500px;
 }
+
+#text_page_content_input {
+  &>label {
+    display: none;
+  }
+}

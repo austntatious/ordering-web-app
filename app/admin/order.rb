@@ -63,6 +63,8 @@ ActiveAdmin.register Order do
           column :total_price
         end
       end
+      row :coupon_discount
+      row :coupon_code
       row :total_price do |o|
         o.total_price
       end

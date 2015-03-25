@@ -8,6 +8,9 @@
   br
   br
 
+  - if @order.payed?
+    = render '/shared/likes'
+
   .row
     .col-md-6.col-xs-12
       .panel.panel-default
@@ -67,6 +70,15 @@
               strong
                 |Delivery fee:&nbsp;
               span = number_to_currency @order.delivery_fee
+              br
+              strong
+                |Tax:&nbsp;
+              span.js-cart-price = number_to_currency @order.tax_price
+              - if @order.coupon_discount > 0
+                br
+                strong
+                  |Discount:&nbsp;
+                span.js-cart-price = number_to_currency @order.coupon_discount
               br
               strong
                 |Total price:&nbsp;

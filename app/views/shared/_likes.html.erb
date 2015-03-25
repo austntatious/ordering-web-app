@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-4 text-center">
+    <!-- Facebook -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&appId=843720639026765&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="fb-share-button" data-href="https://<%= request.domain(3) %>" data-layout="button_count"></div>
+    <!--End of Facebook-->
+  </div>
+  <div class="col-md-4 text-center">
+    <!--Twitter-->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://<%= request.domain(3) %>" data-text="<%= Setting.get('Tweet text') %>">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <!-- End of Twitter -->
+  </div>
+  <div class="col-md-4 text-center">
+    <!-- Вставьте этот тег в заголовке страницы или непосредственно перед закрывающим тегом основной части. -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Поместите этот тег туда, где должна отображаться кнопка "Поделиться". -->
+    <div class="g-plus" data-action="share" data-href="http://localhost"></div>
+  </div>
+</div>
+<br>
+<br>

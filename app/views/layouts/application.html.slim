@@ -4,7 +4,7 @@ html
     title Street Eats
     link href='http://fonts.googleapis.com/css?family=Raleway:400,200,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true_or_false"
+    script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=false"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render '/shared/mixpanel'
@@ -21,7 +21,7 @@ html
     = render '/shared/footer'
     javascript:
       window.commonData = {
-        locations: #{Location.all.map { |location| { :id => location.id, :name => location.name, :lat => location.latitude, :lng => location.longitude, :radius => location.radius, :restaurants => location.restaurants.count, :link => location_path(location) } }.to_json.html_safe},
+        locations: #{Location.all.map { |location| { :id => location.id, :name => location.name, :lat => location.latitude, :lng => location.longitude, :radius => location.radius, :coords => location.coords, :restaurants => location.restaurants.count, :link => location_path(location) } }.to_json.html_safe},
         currentLocation: #{@current_cart.location_id || 0},
         sessionLocation: #{session[:current_location] || 0}
       }

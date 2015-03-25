@@ -20,13 +20,14 @@ class OrdersController < InheritedResources::Base
 
   def create
     @order = Order.new(order_params)
-    @order.line_items = @current_cart.line_items
+    @order.order_cart @current_cart
     if @order.payed?
       @order_payed_now = true
     end
     if @order.save
+      @current_cart.mark_coupon_used current_user
       create_cart
-      redirect_to @order
+      redirect_to order_url(@order)
     else
       @restaurant = Restaurant.find(@current_cart.get_restaurant)
       render 'new'

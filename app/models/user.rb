@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :orders
+  has_many :used_coupons
   has_many :credit_cards
 
   # validates :name, :presence => true

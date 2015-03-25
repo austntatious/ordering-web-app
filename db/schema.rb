@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312143441) do
+ActiveRecord::Schema.define(version: 20150325231824) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20150312143441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "location_id"
+    t.integer  "coupon_id"
   end
 
+  add_index "carts", ["coupon_id"], name: "index_carts_on_coupon_id", using: :btree
   add_index "carts", ["location_id"], name: "index_carts_on_location_id", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
@@ -69,6 +71,31 @@ ActiveRecord::Schema.define(version: 20150312143441) do
   end
 
   add_index "categories", ["restaurant_id"], name: "index_categories_on_restaurant_id", using: :btree
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "coupons", force: true do |t|
+    t.string   "code",                               default: "",  null: false
+    t.decimal  "value",      precision: 8, scale: 2, default: 0.0, null: false
+    t.decimal  "min_price",  precision: 8, scale: 2, default: 0.0, null: false
+    t.datetime "valid_till"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "credit_cards", force: true do |t|
     t.string   "stripe_id",  default: "", null: false
@@ -101,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150312143441) do
     t.decimal  "latitude",   precision: 30, scale: 20, default: 0.0, null: false
     t.decimal  "longitude",  precision: 30, scale: 20, default: 0.0, null: false
     t.decimal  "radius",     precision: 8,  scale: 6,  default: 0.0, null: false
+    t.text     "coords"
   end
 
   create_table "locations_restaurants", force: true do |t|
@@ -110,24 +138,41 @@ ActiveRecord::Schema.define(version: 20150312143441) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.string   "address",                                         default: "",    null: false
+    t.string   "address",                                          default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
     t.text     "driver_instructions"
     t.integer  "location_id"
     t.text     "restaurant_instructions"
-    t.string   "contact_name",                                    default: "",    null: false
-    t.string   "contact_phone",                                   default: "",    null: false
-    t.decimal  "delivery_fee",            precision: 8, scale: 2, default: 0.0,   null: false
+    t.string   "contact_name",                                     default: "",    null: false
+    t.string   "contact_phone",                                    default: "",    null: false
+    t.decimal  "delivery_fee",            precision: 8,  scale: 2, default: 0.0,   null: false
     t.integer  "credit_card_id"
-    t.boolean  "success_transfer",                                default: false, null: false
+    t.boolean  "success_transfer",                                 default: false, null: false
     t.text     "transfer_error_message"
+    t.decimal  "coupon_discount",         precision: 10, scale: 0, default: 0,     null: false
+    t.string   "coupon_code",                                      default: "",    null: false
   end
 
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
   add_index "orders", ["location_id"], name: "index_orders_on_location_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "product_options", force: true do |t|
+    t.string   "name",                               default: "",  null: false
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_options", ["product_id"], name: "index_product_options_on_product_id", using: :btree
+
+  create_table "product_options_line_items", force: true do |t|
+    t.integer "product_option_id"
+    t.integer "line_item_id"
+  end
 
   create_table "products", force: true do |t|
     t.string   "name",                                default: "",  null: false
@@ -166,6 +211,23 @@ ActiveRecord::Schema.define(version: 20150312143441) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "text_pages", force: true do |t|
+    t.text     "content",    limit: 2147483647
+    t.string   "url",                           default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "used_coupons", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "coupon_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "used_coupons", ["coupon_id"], name: "index_used_coupons_on_coupon_id", using: :btree
+  add_index "used_coupons", ["user_id"], name: "index_used_coupons_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

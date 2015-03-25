@@ -66,11 +66,28 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def order_cart(cart)
+    self.line_items = cart.line_items
+    if cart.coupon_applied?
+      self.coupon_code = cart.coupon.code
+      self.coupon_discount = cart.coupon.value
+    end
+  end
+
   def self.get_delivery_fee
     result = 4.0
     fee = Setting.get('Delivery fee')
     unless fee.blank?
       result = fee.to_f
+    end
+    result
+  end
+
+  def self.get_tax_amount
+    result = 0
+    tax = Setting.get('Tax')
+    unless tax.blank?
+      result = tax.to_f / 100
     end
     result
   end
@@ -125,11 +142,15 @@ class Order < ActiveRecord::Base
     if df == 0
       df = Order.get_delivery_fee
     end
-    restaurant_price + df
+    restaurant_price + tax_price + df - coupon_discount
   end
 
   def restaurant_price
     line_items.map { |li| li.total_price }.sum
+  end
+
+  def tax_price
+    restaurant_price * Order.get_tax_amount
   end
 
   def get_restaurant

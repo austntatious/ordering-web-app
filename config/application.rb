@@ -32,5 +32,7 @@ module Fooddelivery
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
+
+    config.assets.precompile += ['ckeditor/*']
   end
 end

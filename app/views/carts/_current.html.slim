@@ -10,14 +10,33 @@
     tbody
       = render @current_cart.line_items
 
+  .js-coupon-msg
+    - if @current_cart.coupon_applied?
+      .alert.alert-success Coupon is applied
+  .form-horizontal
+    .form-group
+      label.col-sm-2.control-label for="coupon" Coupon
+      .col-sm-6
+        = text_field_tag :coupon, @current_cart.try(:coupon).try(:code), :class => 'form-control js-coupon-code'
+      .col-sm-4
+        = link_to 'Check coupon', '#', :class => 'btn btn-default btn-block js-check-coupon'
+
   .text-right
     strong
       |Delivery fee:&nbsp;
     span = number_to_currency Order.get_delivery_fee
     br
     strong
+      |Items price:&nbsp;
+    span = number_to_currency @current_cart.products_price
+    br
+    strong
+      |Tax:&nbsp;
+    span = number_to_currency @current_cart.tax_price
+    br
+    strong
       |Total price:&nbsp;
-    span.js-cart-price = number_to_currency @current_cart.total_price
+    span.js-cart-price = number_to_currency @current_cart.total_price_with_coupon
 - else
   br
   br

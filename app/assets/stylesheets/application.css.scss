@@ -1,4 +1,5 @@
 // Bootstrap
+@import "font-awesome";
 @import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -46,4 +47,8 @@
   .form-control {
     border-color: #b93434;
   }
+}
+
+.text-page {
+  padding: 40px 0;
 }

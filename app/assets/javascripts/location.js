@@ -3,28 +3,25 @@ var lready = function () {
     $('.js-geolocation-holder').remove();
   }
 
-  var calcDistance = function (lat, lng, lat2, lng2) {
-    var rad_per_deg = Math.PI/180,
-      rkm = 6371,
-      rm = rkm * 1000,
-      a = [lat, lng],
-      b = [parseFloat(lat2), parseFloat(lng2)],
-      dlon_rad = (b[1] - a[1]) * rad_per_deg,
-      dlat_rad = (b[0] - a[0]) * rad_per_deg,
-      lat1_rad = a[0] * rad_per_deg,
-      lon1_rad = a[1] * rad_per_deg,
-      lat2_rad = b[0] * rad_per_deg,
-      lon2_rad = b[1] * rad_per_deg,
-      a1 = Math.sin(dlat_rad/2)*Math.sin(dlat_rad/2) + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlon_rad/2)*Math.sin(dlon_rad/2),
-      c = 2 * Math.atan2(Math.sqrt(a1), Math.sqrt(1-a1));
-    return Math.round(rm * c) / 1000;
-  },
-  findLocation = function (lat, lng) {
+  var findLocation = function (lat, lng) {
     var result = null;
     $.each(window.commonData.locations, function (ind, itm) {
-      var distance = calcDistance(lat, lng, itm.lat, itm.lng);
-      if (distance < itm.radius) {
-        result = itm;
+      if (itm.coords) {
+        if (itm.polygon === undefined) {
+          var coords = [];
+          for (var i = 0; i < itm.coords.length; i++) {
+            coords.push(
+              new google.maps.LatLng(itm.coords[i].lat, itm.coords[i].lng)
+            );
+          }
+          itm.polygon = new google.maps.Polygon({
+            paths: coords
+          });
+        }
+        var latlng = new google.maps.LatLng(lat, lng);
+        if (google.maps.geometry.poly.containsLocation(latlng, itm.polygon)) {
+          result = itm;
+        }
       }
     });
     return result;
@@ -56,8 +53,8 @@ var lready = function () {
         }
         if ($('.js-order-form').length) {
           var location = getLocation($('#location').val()),
-            distance = calcDistance(lat, lng, location.lat, location.lng);
-          if (distance > location.radius) {
+            location_d = findLocation(lat, lng) || { id: null };
+          if (location_d.id != location.id) {
             $('.js-location-error').removeClass('hidden');
             $('.js-order-submit').attr('disabled', true);
           }

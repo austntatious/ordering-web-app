@@ -28,7 +28,8 @@
 
               .form-group
                 = f.label :driver_instructions
-                = f.text_area :driver_instructions, :class => 'form-control'
+                p.help-block ="(For students on campus, please specify your building)"
+                = f.text_area :driver_instructions, :class => 'form-control', :placeholder => 'Newing Community - Delaware Hall'
 
               .form-group
                 = f.label :restaurant_instructions

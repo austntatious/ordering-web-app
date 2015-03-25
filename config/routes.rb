@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :coupons
+
+  mount Ckeditor::Engine => '/ckeditor'
   resources :credit_cards
   resources :charges, :only => [:create]
   resources :orders, :only => [:new, :create, :show, :index] do
@@ -19,6 +22,8 @@ Rails.application.routes.draw do
   get '/account' => 'welcome#account', :as => :account
 
   root 'locations#index'
+
+  match "*url", :to => "text_pages#show", :via => [:get]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
