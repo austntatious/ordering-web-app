@@ -40,7 +40,6 @@ class Order < ActiveRecord::Base
   end
 
   def process_payment
-    binding.pry
     credit_card = self.user.credit_cards.find_by_id(self.credit_card_id)
     unless credit_card.nil?
       begin
@@ -123,8 +122,8 @@ class Order < ActiveRecord::Base
 
   def notify_created
     notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} on streeteats.com is created. Name: #{user.name}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
-    Notifier.notify_payed(self).deliver
-    Notifier.notify_payed_admin(self).deliver
+    Notifier.notify_created(self).deliver
+    Notifier.notify_created_admin(self).deliver
   end
 
   def notify_payed
