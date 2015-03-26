@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150325231824) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
     t.text     "body"
@@ -138,21 +141,21 @@ ActiveRecord::Schema.define(version: 20150325231824) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.string   "address",                                          default: "",    null: false
+    t.string   "address",                                         default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
     t.text     "driver_instructions"
     t.integer  "location_id"
     t.text     "restaurant_instructions"
-    t.string   "contact_name",                                     default: "",    null: false
-    t.string   "contact_phone",                                    default: "",    null: false
-    t.decimal  "delivery_fee",            precision: 8,  scale: 2, default: 0.0,   null: false
+    t.string   "contact_name",                                    default: "",    null: false
+    t.string   "contact_phone",                                   default: "",    null: false
+    t.decimal  "delivery_fee",            precision: 8, scale: 2, default: 0.0,   null: false
     t.integer  "credit_card_id"
-    t.boolean  "success_transfer",                                 default: false, null: false
+    t.boolean  "success_transfer",                                default: false, null: false
     t.text     "transfer_error_message"
-    t.decimal  "coupon_discount",         precision: 10, scale: 0, default: 0,     null: false
-    t.string   "coupon_code",                                      default: "",    null: false
+    t.decimal  "coupon_discount",                                 default: 0.0,   null: false
+    t.string   "coupon_code",                                     default: "",    null: false
   end
 
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
@@ -213,8 +216,8 @@ ActiveRecord::Schema.define(version: 20150325231824) do
   end
 
   create_table "text_pages", force: true do |t|
-    t.text     "content",    limit: 2147483647
-    t.string   "url",                           default: "", null: false
+    t.text     "content"
+    t.string   "url",        default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
