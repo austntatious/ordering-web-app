@@ -19,17 +19,23 @@ class Setting < ActiveRecord::Base
       from_time = Setting.get('Work from')
       to_time = Setting.get('Work to')
       if from_time.blank?
-        from_time = '11:00'
+        from_time = '11:00am'
       end
       if to_time.blank?
-        to_time = '02:00'
+        to_time = '02:00am'
       end
-      parts_from = from_time.split(':')
+      parts_from = from_time.gsub('am', '').gsub('pm', '').split(':')
       hour_from = parts_from[0].to_i
       min_from = parts_from[1].to_i
-      parts_to = to_time.split(':')
+      if from_time.end_with? "pm"
+        hour_from = hour_from + 12
+      end
+      parts_to = to_time.gsub('am', '').gsub('pm', '').split(':')
       hour_to = parts_to[0].to_i
       min_to = parts_to[1].to_i
+      if to_time.end_with? "pm"
+        hour_to = hour_to + 12
+      end
       time_from = DateTime.now.change :hour => hour_from, :min => min_from
       time_to = DateTime.now.change :hour => hour_to, :min => min_to
       if hour_to < 10

@@ -51,7 +51,7 @@ class Cart < ActiveRecord::Base
   end
 
   def tax_price
-    products_price * Order.get_tax_amount
+    (products_price * Order.get_tax_amount).round(2)
   end
 
   def mark_coupon_used(user)

@@ -86,7 +86,7 @@ var ready = function () {
         $('.js-coupon-msg').html(
           '<div class="alert alert-success">' + data.msg + '</div>'
         );
-        $('.js-cart-price').html('$' + data.new_sum);
+        $('.js-cart-price').html(data.new_sum_display);
       }
       else {
         $('.js-coupon-msg').html(

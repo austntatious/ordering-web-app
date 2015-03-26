@@ -25,6 +25,7 @@ ActiveAdmin.register Restaurant do
       f.input :locations, :as => :check_boxes
     end
     f.inputs 'Payment data' do
+      f.input :stripe_recipient_id
       f.input :recipient_name
       f.input :recipient_type, :as => :select, :collection => ['individual', 'corporation']
       f.input :recipient_bank_account_country, :as => :text

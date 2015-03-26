@@ -54,5 +54,7 @@
         = f.submit 'Complete order', :class => 'btn btn-success btn-lg js-order-submit', :disabled => f.object.address.blank?
 - else
   h2 Ordering is unavailable now
+  = render '/shared/emergency'
+
 
 = render '/credit_cards/window'

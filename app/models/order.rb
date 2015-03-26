@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   has_many :line_items
 
   after_commit :create_notification, :on => [:create]
-  after_commit :process_payment, :on => [:create]
+  after_create :process_payment
   before_create :check_order_creation_availability
   before_create :set_delivery_fee
   before_save :validate_card
@@ -40,6 +40,7 @@ class Order < ActiveRecord::Base
   end
 
   def process_payment
+    binding.pry
     credit_card = self.user.credit_cards.find_by_id(self.credit_card_id)
     unless credit_card.nil?
       begin
@@ -89,7 +90,7 @@ class Order < ActiveRecord::Base
     unless tax.blank?
       result = tax.to_f / 100
     end
-    result
+    result.round(2)
   end
 
   def set_delivery_fee

@@ -1,3 +1,4 @@
+<% @hide_coupon = true %>
 $('.js-edit-cart-modal-body').html('<%=j render "current" %>');
 $('#edit-cart-modal').modal();
 <% if @current_cart.empty? %>

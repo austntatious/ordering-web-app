@@ -8,7 +8,7 @@ class Coupon < ActiveRecord::Base
   def expired?
     result = false
     unless self.valid_till.nil?
-      result = (self.valid_till >= DateTime.now)
+      result = (self.valid_till <= DateTime.now)
     end
     result
   end
@@ -39,6 +39,7 @@ class Coupon < ActiveRecord::Base
         end
       end
       if result[:success]
+        result[:new_sum_display] = ActionController::Base.helpers.number_to_currency(cart.total_price - coupon.value)
         result[:new_sum] = cart.total_price - coupon.value
         unless cart.coupon_id == coupon.id
           cart.update_attribute :coupon_id, coupon.id

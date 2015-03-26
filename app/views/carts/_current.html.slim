@@ -10,16 +10,17 @@
     tbody
       = render @current_cart.line_items
 
-  .js-coupon-msg
-    - if @current_cart.coupon_applied?
-      .alert.alert-success Coupon is applied
-  .form-horizontal
-    .form-group
-      label.col-sm-2.control-label for="coupon" Coupon
-      .col-sm-6
-        = text_field_tag :coupon, @current_cart.try(:coupon).try(:code), :class => 'form-control js-coupon-code'
-      .col-sm-4
-        = link_to 'Check coupon', '#', :class => 'btn btn-default btn-block js-check-coupon'
+  - unless @hide_coupon
+    .js-coupon-msg
+      - if @current_cart.coupon_applied?
+        .alert.alert-success Coupon is applied
+    .form-horizontal
+      .form-group
+        label.col-sm-2.control-label for="coupon" Coupon
+        .col-sm-6
+          = text_field_tag :coupon, @current_cart.try(:coupon).try(:code), :class => 'form-control js-coupon-code'
+        .col-sm-4
+          = link_to 'Check coupon', '#', :class => 'btn btn-default btn-block js-check-coupon'
 
   .text-right
     strong

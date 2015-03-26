@@ -1,0 +1,10 @@
+- em = Setting.get('Emergency message')
+div class="panel #{'panel-default' if em.blank?} #{'panel-danger' unless em.blank?}"
+  .panel-body.text-center
+    - if em.blank?
+      |We are working from&nbsp;
+      = Setting.get('Work from')
+      |&nbsp;to&nbsp;
+      = Setting.get('Work to')
+    - else
+      = em
