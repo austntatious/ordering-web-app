@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_orders_enabled
+    @hide_footer = false
     @ordering_available = Setting.can_get_orders?
   end
 end

@@ -20,7 +20,7 @@
         .col-sm-6
           = text_field_tag :coupon, @current_cart.try(:coupon).try(:code), :class => 'form-control js-coupon-code'
         .col-sm-4
-          = link_to 'Check coupon', '#', :class => 'btn btn-default btn-block js-check-coupon'
+          = link_to 'Apply coupon', '#', :class => 'btn btn-default btn-block js-check-coupon'
 
   .text-right
     strong
@@ -28,12 +28,8 @@
     span = number_to_currency Order.get_delivery_fee
     br
     strong
-      |Items price:&nbsp;
-    span = number_to_currency @current_cart.products_price
-    br
-    strong
-      |Tax:&nbsp;
-    span = number_to_currency @current_cart.tax_price
+      = "Tax #{Setting.get('Tax')}%:&nbsp;".html_safe
+    span.js-tax-price = number_to_currency @current_cart.tax_price
     br
     strong
       |Total price:&nbsp;

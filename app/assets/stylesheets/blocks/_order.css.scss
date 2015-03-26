@@ -44,3 +44,31 @@
     text-decoration: none;
   }
 }
+
+.btn-order {
+  font-weight: bold;
+  font-size: 19px !important;
+}
+
+.order-driver-instructions {
+  &::-webkit-input-placeholder {
+    color: #c5c5c5;
+  }
+  &:-moz-placeholder {
+    color: #c5c5c5;
+  }
+  &::-moz-placeholder {
+    color: #c5c5c5;
+  }
+  &:-ms-input-placeholder {
+    color: #c5c5c5;
+  }
+}
+
+.order-card-icons {
+  .fa {
+    font-size: 24px;
+    position: relative;
+    top: -2px;
+  }
+}

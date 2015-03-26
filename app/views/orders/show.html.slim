@@ -2,13 +2,22 @@
   = link_to '« Back to my orders', orders_path
 
   h2.text-center
-    = @restaurant.name
-    |&nbsp;&mdash;&nbsp;Checkout
+    - if @order.payed?
+      |Order Successful!
+    - else
+      = @restaurant.name
+      |&nbsp;&mdash;&nbsp;Checkout
 
   br
   br
 
   - if @order.payed?
+    - if (( (DateTime.now - @order.updated_at.to_datetime) * 24 * 60 ).round < 15)
+      div class="panel panel-default"
+        .panel-body.text-center
+          |Your order will be delivered in 45 minutes
+    br
+    br
     = render '/shared/likes'
 
   .row
@@ -72,7 +81,7 @@
               span = number_to_currency @order.delivery_fee
               br
               strong
-                |Tax:&nbsp;
+                = "Tax #{Setting.get('Tax')}%:&nbsp;".html_safe
               span.js-cart-price = number_to_currency @order.tax_price
               - if @order.coupon_discount > 0
                 br

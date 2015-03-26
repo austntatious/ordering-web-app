@@ -29,13 +29,19 @@
               .form-group
                 = f.label :driver_instructions
                 p.help-block ="(For students on campus, please specify your building)"
-                = f.text_area :driver_instructions, :class => 'form-control', :placeholder => 'Newing Community - Delaware Hall'
+                = f.text_area :driver_instructions, :class => 'form-control order-driver-instructions', :placeholder => 'Ex. Newing Community - Delaware Hall'
 
               .form-group
                 = f.label :restaurant_instructions
                 = f.text_area :restaurant_instructions, :class => 'form-control'
           .panel.panel-default
-            .panel-heading Choose credit card to pay
+            .panel-heading.order-card-icons
+              |Choose credit card to pay
+              .pull-right
+                .fa.fa-cc-visa
+                .fa.fa-cc-mastercard
+                .fa.fa-cc-amex
+                .fa.fa-credit-cart
             .panel-body
               .js-credit-cards-list
                 - if current_user.credit_cards.any?
@@ -51,7 +57,7 @@
               = render '/carts/current'
 
       .actions
-        = f.submit 'Complete order', :class => 'btn btn-success btn-lg js-order-submit', :disabled => f.object.address.blank?
+        = f.submit 'Complete order', :class => 'btn btn-success btn-lg btn-order js-order-submit', :disabled => f.object.address.blank?
 - else
   h2 Ordering is unavailable now
   = render '/shared/emergency'

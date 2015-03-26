@@ -10,6 +10,7 @@ class OrdersController < InheritedResources::Base
   end
 
   def new
+    @hide_footer = true
     if @current_cart.empty?
       redirect_to root_path, :notice => 'Your cart is empty'
       return

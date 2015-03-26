@@ -5,3 +5,5 @@
 <% end %>
 $('.js-cart-price').html('<%= number_to_currency @current_cart.total_price %>');
 $('.js-cart-button').replaceWith('<%=j render @current_cart %>');
+$('.js-tax-price').html('<%= number_to_currency @current_cart.tax_price %>');
+$('.js-items-price').html('<%= number_to_currency @current_cart.products_price %>');
