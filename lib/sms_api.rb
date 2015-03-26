@@ -6,11 +6,14 @@ class SmsApi
       unless text.blank?
         client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 
-        client.account.messages.create(
-          :from => ENV['TWILIO_PHONE_NUMBER'],
-          :to => to,
-          :body => text
-        )
+        begin
+          client.account.messages.create(
+            :from => ENV['TWILIO_PHONE_NUMBER'],
+            :to => to,
+            :body => text
+          )
+        rescue
+        end
       end
     end
   end

@@ -2,3 +2,27 @@ p
   |Order&nbsp;
   = @order.id
   |on SteetEats is payed now
+
+p Ordered products:
+
+table
+  thead
+    tr
+      th #
+      th Product
+      th Price
+      th Quantity
+      th Total
+  tbody
+    - @order.line_items.each_with_index do |line_item, ind|
+      tr
+        td = (ind + 1)
+        td = line_item.product.name
+        td = number_to_currency line_item.product.price
+        td = line_item.count
+        td = number_to_currency line_item.total_price
+
+.text-right
+    strong
+      |Total price:&nbsp;
+    span.js-cart-price = number_to_currency @order.total_price
