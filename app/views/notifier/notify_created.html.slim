@@ -6,6 +6,31 @@ p
   = @order.id
   |on SteetEats is created
 
+p
+  b Contact name:
+  = @order.contact_name
+
+p
+  b Contact phone:
+  = @order.contact_phone
+
+- unless @order.location.nil?
+  p
+    b Location:
+    = @order.location.name
+
+p
+  b Address:
+  = @order.address
+
+p
+  b Driver instructions:
+  = @order.driver_instructions
+
+p
+  b Restaurant instructions:
+  = @order.restaurant_instructions
+
 p Ordered products:
 
 table
@@ -20,7 +45,11 @@ table
     - @order.line_items.each_with_index do |line_item, ind|
       tr
         td = (ind + 1)
-        td = line_item.product.name
+        td
+          = line_item.product.name
+          - if line_item.product_options.any?
+            .line-item-options
+              = line_item.product_options.map { |po| po.name }.join(', ')
         td = number_to_currency line_item.product.price
         td = line_item.count
         td = number_to_currency line_item.total_price

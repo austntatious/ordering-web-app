@@ -111,25 +111,31 @@ class Order < ActiveRecord::Base
   def build_content_string
     parts = []
     line_items.each do |li|
-      parts << "#{li.product.name} : #{li.count}"
+      if li.product_options.any?
+        str = "#{li.product.name} (#{li.product_options.map { |po| po.name }.join(', ')}) : #{li.count}"
+      else
+        str = "#{li.product.name} : #{li.count}"
+      end
+      parts << str
     end
     parts.join(';')
   end
 
   def notify_created
-    notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} on streeteats.com is created"
+    notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} on streeteats.com is created. Name: #{user.name}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
     Notifier.notify_payed(self).deliver
     Notifier.notify_payed_admin(self).deliver
   end
 
   def notify_payed
-    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now. Order content: #{build_content_string}", "New order ##{id} from streeteats.com. Order content: #{build_content_string}"
+    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now. Name: #{user.name}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
+    #, "New order ##{id} from streeteats.com. Order content: #{build_content_string}"
     Notifier.notify_payed(self).deliver
     Notifier.notify_payed_admin(self).deliver
   end
 
   def notify(user_text, admin_text, restaurant_text = '')
-    SmsApi.send_sms user.phone, user_text
+    # SmsApi.send_sms user.phone, user_text
     admin_phone = Setting.get 'Admin phone'
     SmsApi.send_sms admin_phone, admin_text
     restaurant = Restaurant.find_by_id(self.get_restaurant)
