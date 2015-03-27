@@ -38,9 +38,9 @@ class Setting < ActiveRecord::Base
       end
       time_from = DateTime.now.change :hour => hour_from, :min => min_from
       time_to = DateTime.now.change :hour => hour_to, :min => min_to
-      if hour_to < 10
-        time_to = time_to + 1.day
-      end
+      # if hour_to < 10
+      #   time_to = time_to + 1.day
+      # end
       time_now = DateTime.now
       if time_now.hour < 5
         time_from = time_from - 1.day
