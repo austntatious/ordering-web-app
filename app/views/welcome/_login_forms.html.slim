@@ -32,7 +32,7 @@
         .form-group
           = label_tag 'user[name]', 'Name', :class => 'control-label col-md-3'
           .col-md-9
-            = f.text_field :name, :class => 'form-control', :required => true
+            = f.text_field :name, :class => 'form-control'
         .form-group
           = label_tag 'user[email]', 'Email', :class => 'control-label col-md-3'
           .col-md-9
@@ -40,7 +40,7 @@
         .form-group
           = label_tag 'user[phone]', 'Phone', :class => 'control-label col-md-3'
           .col-md-9
-            = f.text_field :phone, :class => 'form-control', :required => true
+            = f.text_field :phone, :class => 'form-control'
         .form-group
           = label_tag 'user[password]', 'Password', :class => 'control-label col-md-3'
           .col-md-9
