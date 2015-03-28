@@ -42,10 +42,10 @@ class Setting < ActiveRecord::Base
       #   time_to = time_to + 1.day
       # end
       time_now = DateTime.now
-      if time_now.hour < 5
-        time_from = time_from - 1.day
-        time_to = time_to - 1.day
-      end
+      # if time_now.hour < 5
+      #   time_from = time_from - 1.day
+      #   time_to = time_to - 1.day
+      # end
       if time_to <= time_now || time_from >= time_now
         result = false
       end
