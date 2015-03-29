@@ -5,6 +5,7 @@ html
     link href='http://fonts.googleapis.com/css?family=Raleway:400,200,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=false"
+    meta content="width=device-width, initial-scale=1" name="viewport"
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render '/shared/ga'
