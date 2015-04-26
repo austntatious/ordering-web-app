@@ -43,7 +43,17 @@ class Order < ActiveRecord::Base
   end
 
   def withdraw_balance
-    self.user.update_attribute :balance, self.user.balance - self.money_from_account
+    if self.money_from_account > 0
+      ActiveRecord::Base.transaction do
+        self.user.update_attribute :balance, self.user.balance - self.money_from_account
+        AccountTransaction.create({
+          :kind => AccountTransaction::KIND_ORDER_PAY,
+          :user_id => self.user_id,
+          :order_id => self.id,
+          :amount => self.money_from_account
+        })
+      end
+    end
   end
 
   def process_payment

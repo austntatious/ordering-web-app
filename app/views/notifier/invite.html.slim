@@ -1,0 +1,8 @@
+p
+  |Hello,
+p
+  |Your friend&nbsp;
+  = @invite.user.name
+  |&nbsp;invites you to join our service
+p
+  = link_to 'Try our service', root_url(:ref_id => @invite.user_id)

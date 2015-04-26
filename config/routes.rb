@@ -16,11 +16,13 @@ Rails.application.routes.draw do
   resources :restaurants, :only => :show
   resources :carts, :only => :show
   resources :locations, :only => :show
+  resources :account_transactions, :only => :index
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get '/account' => 'welcome#account', :as => :account
   get '/refferal' => 'refferal#index', :as => :refferal
+  post '/refferal/invite' => 'refferal#invite', :as => :refferal_invite
   get '/sitemap' => 'welcome#sitemap', :as => :sitemap
 
   root 'locations#index'

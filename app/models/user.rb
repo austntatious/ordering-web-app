@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :orders
+  has_many :account_transactions
+  has_many :invites, :dependent => :destroy
   has_many :used_coupons, :dependent => :destroy
   has_many :credit_cards, :dependent => :destroy
 

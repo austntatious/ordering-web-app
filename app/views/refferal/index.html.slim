@@ -1,9 +1,30 @@
-|Form to send invitation here
-
 h2 Your refferal link:
 
 = link_to root_url(:ref_id => current_user.id), root_url(:ref_id => current_user.id)
 
-.js-fb-ref
+br
+p = "Earn $#{Setting::get('Refferal bonus')} for each person made order by this link"
 
-a.js-invite-friends href="#" Invite friends from facebook
+br
+= form_tag refferal_invite_path, :method => :post do
+  .form-group
+    = text_field_tag :email, '', :placeholder => 'Email, you can specify multiple emails separated with comma', :class => 'form-control', :required => true
+  = submit_tag 'Send invitation', :class => 'btn btn-primary'
+br
+br
+br
+h4 Invitations statistics:
+table.table.table-striped
+  tbody
+    tr
+      td Invitations sent:
+      td = current_user.invites.count
+    tr
+      td People registered:
+      td = Refferal.by_user(current_user.id).count
+    tr
+      td Total earned:
+      td 0
+br
+br
+br

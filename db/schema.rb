@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426091336) do
+ActiveRecord::Schema.define(version: 20150426112724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_transactions", force: true do |t|
+    t.integer  "user_id"
+    t.decimal  "amount",     precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "kind",                                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+  end
+
+  add_index "account_transactions", ["order_id"], name: "index_account_transactions_on_order_id", using: :btree
+  add_index "account_transactions", ["user_id"], name: "index_account_transactions_on_user_id", using: :btree
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -109,6 +121,13 @@ ActiveRecord::Schema.define(version: 20150426091336) do
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id", using: :btree
+
+  create_table "invites", force: true do |t|
+    t.string   "email",      default: "", null: false
+    t.integer  "user_id",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "line_items", force: true do |t|
     t.integer  "product_id"

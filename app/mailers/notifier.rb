@@ -6,6 +6,11 @@ class Notifier < ActionMailer::Base
     mail to: @order.user.email, subject: "Order #{@order.id} on StreetEats is payed"
   end
 
+  def invite(invite)
+    @invite = invite
+    mail to: invite.email, subject: "#{invite.user.name} invites you to StreetEats"
+  end
+
   def notify_payed_admin(order)
     @order = order
     mail to: Setting.get('Admin email'), subject: "Order #{@order.id} on StreetEats is payed"

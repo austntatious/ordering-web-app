@@ -25,4 +25,15 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
+
+  def account_transaction_kind(account_transaction)
+    case account_transaction.kind
+      when AccountTransaction::KIND_REF_BONUS
+        "Refferal bonus"
+      when AccountTransaction::KIND_ORDER_PAY
+        "Payed for order ##{account_transaction.order_id}"
+      else
+        ""
+    end
+  end
 end

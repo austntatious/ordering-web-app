@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
 
   def set_ref_id
     unless params[:ref_id].nil?
-      binding.pry
       session[:ref_id] = params[:ref_id]
     end
   end

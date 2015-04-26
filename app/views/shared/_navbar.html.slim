@@ -16,7 +16,7 @@ nav.navbar.navbar-default
             = link_to 'Login', account_path
         - else
           li
-            = link_to refferal_path do
+            = link_to account_transactions_path do
               |My balance:
               = number_to_currency current_user.balance
           - unless @current_cart.empty?

@@ -65,6 +65,7 @@ ActiveAdmin.register Order do
       end
       row :coupon_discount
       row :coupon_code
+      row :money_from_account
       row :total_price do |o|
         o.total_price
       end
