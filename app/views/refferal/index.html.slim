@@ -3,6 +3,16 @@ h2 Your refferal link:
 = link_to root_url(:ref_id => current_user.id), root_url(:ref_id => current_user.id)
 
 br
+br
+
+- url = u(root_url(:ref_id => current_user.id))
+.row
+  .col-sm-6
+    a.btn.btn-info.btn-block target="_blank" href="https://www.facebook.com/dialog/feed?app_id=#{ENV['FACEBOOK_APP_ID']}&display=page&link=#{url}&redirect_uri=#{root_url}&caption=#{u(Setting::get('Facebook invitation text'))}" Make post on Facebook
+  .col-sm-6
+    a.btn.btn-info.btn-block target="_blank" href="http://twitter.com/home/?status=#{u(Setting::get('Facebook invitation text'))} #{url}" Make post on Twitter
+
+br
 p = "Earn $#{Setting::get('Refferal bonus')} for each person made order by this link"
 
 br
@@ -10,7 +20,6 @@ br
   .form-group
     = text_field_tag :email, '', :placeholder => 'Email, you can specify multiple emails separated with comma', :class => 'form-control', :required => true
   = submit_tag 'Send invitation', :class => 'btn btn-primary'
-br
 br
 br
 h4 Invitations statistics:

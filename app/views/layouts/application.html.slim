@@ -2,6 +2,8 @@ doctype html
 html
   head
     title = @seo[:title]
+    meta property="og:title" content="#{Setting::get('Title for index page')}"
+    meta property="og:image" content="#{asset_url 'logo.png'}"
     meta name="keywords" content="#{@seo[:keywords]}"
     meta name="description" content="#{ @seo[:description] }"
     link href='http://fonts.googleapis.com/css?family=Raleway:400,200,700' rel='stylesheet' type='text/css'
