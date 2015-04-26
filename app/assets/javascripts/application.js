@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require jquery.maskedinput
 //= require location
+//= require facebook
 
 var ready = function () {
   for (var i = 0; i < window.commonData.locations.length; i++) {

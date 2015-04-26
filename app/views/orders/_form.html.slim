@@ -49,6 +49,11 @@
                 - else
                   p You need to add one or more credit cards
               = link_to 'Add credit card', new_credit_card_path(:format => :js), :remote => true, :class => 'btn btn-info'
+              - if current_user.balance > 0
+                br
+                br
+                p.help-block = "Your account balance is #{number_to_currency current_user.balance}"
+                = f.number_field :money_from_account, :class => 'form-control'
 
         .col-md-6.col-xs-12
           .panel.panel-warning

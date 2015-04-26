@@ -88,6 +88,13 @@
                 strong
                   |Discount:&nbsp;
                 span.js-cart-price = number_to_currency @order.coupon_discount
+              - if @order.money_from_account > 0
+                br
+                strong
+                  |Account balance used:&nbsp;
+                span
+                  |-
+                  = number_to_currency @order.money_from_account
               br
               strong
                 |Total price:&nbsp;

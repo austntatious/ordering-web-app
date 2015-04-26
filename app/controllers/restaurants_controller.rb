@@ -1,4 +1,8 @@
 class RestaurantsController < InheritedResources::Base
+  def show
+    @restaurant = Restaurant.find params[:id]
+    @restaurant.set_seo_data @seo
+  end
 
   private
 

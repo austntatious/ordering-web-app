@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :orders
-  has_many :used_coupons
-  has_many :credit_cards
+  has_many :used_coupons, :dependent => :destroy
+  has_many :credit_cards, :dependent => :destroy
 
   # validates :name, :presence => true
   # validates_uniqueness_of :phone

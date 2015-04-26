@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :set_current_cart
   before_filter :set_orders_enabled
+  before_filter :set_ref_id
+  before_filter :set_seo_params
 
   def create_cart
     cart = Cart.create()
@@ -38,5 +40,20 @@ class ApplicationController < ActionController::Base
   def set_orders_enabled
     @hide_footer = false
     @ordering_available = Setting.can_get_orders?
+  end
+
+  def set_ref_id
+    unless params[:ref_id].nil?
+      binding.pry
+      session[:ref_id] = params[:ref_id]
+    end
+  end
+
+  def set_seo_params
+    @seo = {
+      :title => Setting::get('Title for index page'),
+      :keywords => Setting::get('Keywords for index page'),
+      :description => Setting::get('Description for index page')
+    }
   end
 end

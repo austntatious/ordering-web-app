@@ -7,10 +7,12 @@ class Order < ActiveRecord::Base
   has_many :line_items
 
   after_commit :create_notification, :on => [:create]
+  after_create :withdraw_balance
   after_create :process_payment
   before_create :check_order_creation_availability
   before_create :set_delivery_fee
   before_save :validate_card
+  before_save :validate_money_from_account
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
@@ -30,6 +32,7 @@ class Order < ActiveRecord::Base
     end
 
     after_transition :pending => :payed do |order, transition|
+      Refferal::make_bonus order.user
       PaymentNotifyWorker.perform_async order.id
       RestaurantPaymentWorker.perform_async order.id
     end
@@ -37,6 +40,10 @@ class Order < ActiveRecord::Base
     state :payed
     state :cancelled
     state :completed
+  end
+
+  def withdraw_balance
+    self.user.update_attribute :balance, self.user.balance - self.money_from_account
   end
 
   def process_payment
@@ -63,6 +70,17 @@ class Order < ActiveRecord::Base
     unless self.user.credit_cards.map { |cc| cc.id }.include? self.credit_card_id
       self.errors.add :base, 'Invalid credit card'
       return false
+    end
+  end
+
+  def validate_money_from_account
+    if self.money_from_account > 0
+      if self.user.balance < self.money_from_account
+        self.money_from_account = self.user.balance
+      end
+      if self.money_from_account > self.total_price + self.money_from_account
+        self.money_from_account = self.total_price + self.money_from_account
+      end
     end
   end
 
@@ -148,7 +166,7 @@ class Order < ActiveRecord::Base
     if df == 0
       df = Order.get_delivery_fee
     end
-    restaurant_price + tax_price + df - coupon_discount
+    restaurant_price + tax_price + df - coupon_discount - money_from_account
   end
 
   def restaurant_price

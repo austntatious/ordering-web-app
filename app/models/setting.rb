@@ -3,7 +3,12 @@ class Setting < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  SETTINGS_KINDS = ['Admin phone', 'Admin email', 'Work from', 'Work to', 'Delivery fee', 'Emergency message', 'Tax', 'Tweet text']
+  SETTINGS_KINDS = [
+    'Admin phone', 'Admin email', 'Work from', 'Work to', 'Delivery fee', 'Emergency message', 'Tax', 'Tweet text',
+    'Refferal bonus', 'Title for index page', 'Keywords for index page', 'Description for index page',
+    'Title for restaurant page', 'Keywords for restaurant page', 'Description for restaurant page',
+    'Title for location page', 'Keywords for location page', 'Description for location page'
+  ]
 
   def self.get(nm)
     Setting.find_by_name(nm).try(:value) || ''

@@ -15,6 +15,10 @@ nav.navbar.navbar-default
           li
             = link_to 'Login', account_path
         - else
+          li
+            = link_to refferal_path do
+              |My balance:
+              = number_to_currency current_user.balance
           - unless @current_cart.empty?
             li
               = link_to "Shopping cart (#{@current_cart.total_count})", new_order_path
@@ -27,6 +31,8 @@ nav.navbar.navbar-default
                 = link_to 'My orders', orders_path
               li
                 = link_to 'My profile', edit_registration_path(:user)
+              li
+                = link_to 'Refferal program', refferal_path
               li.divider
               li
                 = link_to 'Logout', destroy_user_session_path, :method => :delete

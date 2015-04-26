@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get '/account' => 'welcome#account', :as => :account
+  get '/refferal' => 'refferal#index', :as => :refferal
+  get '/sitemap' => 'welcome#sitemap', :as => :sitemap
 
   root 'locations#index'
 
