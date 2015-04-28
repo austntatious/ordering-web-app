@@ -25,8 +25,13 @@ $ ->
     FB.login (response) ->
       if response.authResponse
         FB.api 'https://graph.facebook.com/me/streeteatsapp:order_from', 'post',
-          { restaurant: window.objectToLike },
+          { restaurant: window.objectToLike, privacy: { value: 'EVERYONE'}, 'fb:explicitly_shared': true, message: window.fb_ordered_message, image: '<%= asset_url "logo.png" %>' },
           (response) ->
+            if response
+              if !response.error
+                $('.js-story a').attr 'href', 'https://www.facebook.com/me/activity/' + response.id
+                $('.js-story').removeClass 'hidden'
+                null
             console.log(response)
         null
     ,

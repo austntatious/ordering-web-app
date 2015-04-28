@@ -37,8 +37,13 @@
               .fa.fa-twitter
               |Tweet
           javascript:
-            window.objectToLike1 = '#{restaurant_url @order.get_restaurant}'
-            window.objectToLike = 'http://streeteats.hasbrain.ru/restaurants/1'
+            window.objectToLike = '#{restaurant_url(@order.get_restaurant, :ref_id => current_user.id)}';
+            window.fb_ordered_message = '#{Setting::get("Facebook invitation text")}';
+    .text-center.hidden.js-story
+      br
+      a href="" Show my story
+      br
+      br
 
   .row
     .col-md-6.col-xs-12
