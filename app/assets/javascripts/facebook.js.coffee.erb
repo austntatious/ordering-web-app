@@ -27,7 +27,7 @@ $ ->
         FB.api 'https://graph.facebook.com/me/streeteatsapp:order_from', 'post',
           { restaurant: window.objectToLike, privacy: {'value': 'SELF'} },
           (response) ->
-            console.log(response.error)
+            console.log(response)
         null
     ,
       { scope: 'publish_actions' }
