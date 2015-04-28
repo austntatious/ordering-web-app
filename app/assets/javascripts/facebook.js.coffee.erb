@@ -1,4 +1,4 @@
-$ ->
+ready = ()->
   fbAppId = '<%= ENV["FACEBOOK_APP_ID"] %>'
 
   window.fbAsyncInit = () ->
@@ -44,6 +44,10 @@ $ ->
     null
 
   null
+
+$(document).ready ready
+$(document).on 'page:load', ready
+
 
   # (function(d, s, id){
   #    var js, fjs = d.getElementsByTagName(s)[0];

@@ -114,6 +114,10 @@ var ready = function () {
     $('.js-cart-price').html('$' + cartPrice);
   });
 
+  $('.js-email-share').click(function (ev) {
+    ev.preventDefault();
+    $('.js-email-share-form').toggleClass('hidden');
+  });
 };
 
 $(document).ready(ready);

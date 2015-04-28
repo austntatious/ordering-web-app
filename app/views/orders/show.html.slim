@@ -16,26 +16,33 @@
       .col-md-6.col-md-offset-3
         .panel.panel-default
           .panel-body
-            / # - if (( (DateTime.now - @order.updated_at.to_datetime) * 24 * 60 ).round < 15)
-            p.share-thesis
-              span.fa.fa-clock-o
-              |Your order will be delivered in 45 minutes
+            - if (( (DateTime.now - @order.updated_at.to_datetime) * 24 * 60 ).round < 15)
+              p.share-thesis
+                span.fa.fa-clock-o
+                |Your order will be delivered in 45 minutes
             p.share-thesis
               span.fa.fa-user
-              |Questions? Get in touch with us
+              |Questions?&nbsp;
+              a href="/contact" Get in touch with us
             p.share-thesis
               span.fa.fa-heart
-              |Invite your friends and get free deliveries
+              = link_to 'Invite your friends', refferal_path
+              |&nbsp;and get free deliveries
           .btn-group.share-group
-            a.btn.btn-lg.btn-primary.btn-email href="#"
+            a.btn.btn-lg.btn-primary.btn-email.js-email-share href="#"
               .fa.fa-envelope-o
-              |Email
+              | Email
             a.btn.btn-lg.btn-primary.btn-fb.js-post-like href="#"
               .fa.fa-facebook
-              |Share
+              | Share
             a.btn.btn-lg.btn-primary.btn-twitter href="#{twitter_ref_link}" target="_blank"
               .fa.fa-twitter
-              |Tweet
+              | Tweet
+          .panel-body.js-email-share-form.hidden
+            = form_tag refferal_invite_path, :method => :post do
+              .form-group
+                = text_field_tag :email, '', :placeholder => 'Email, you can specify multiple emails separated with comma', :class => 'form-control', :required => true
+              = submit_tag 'Send', :class => 'btn btn-primary btn-block'
           javascript:
             window.objectToLike = '#{restaurant_url(@order.get_restaurant, :ref_id => current_user.id)}';
             window.fb_ordered_message = '#{Setting::get("Facebook invitation text")}';
