@@ -36,4 +36,9 @@ module ApplicationHelper
         ""
     end
   end
+
+  def twitter_ref_link
+    url = u(root_url(:ref_id => current_user.id))
+    "http://twitter.com/home/?status=#{u(Setting::get('Facebook invitation text'))} #{url}"
+  end
 end

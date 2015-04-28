@@ -1,0 +1,49 @@
+$ ->
+  fbAppId = '<%= ENV["FACEBOOK_APP_ID"] %>'
+
+  window.fbAsyncInit = () ->
+    FB.init
+      appId: fbAppId
+      status: true,
+      cookie: true,
+      xfbml: true,
+      version: 'v2.0',
+
+
+  load = (d, s, id) ->
+    js = d.getElementsByTagName(s)[0]
+    fjs = d.getElementsByTagName(s)[0]
+    if d.getElementById(id)
+      return;
+    js = d.createElement(s)
+    js.id = id
+    js.src = "//connect.facebook.net/en_US/sdk.js"
+    fjs.parentNode.insertBefore(js, fjs)
+  load document, 'script', 'facebook-jssdk'
+
+  postLike = () ->
+    FB.login (response) ->
+      if response.authResponse
+        FB.api 'https://graph.facebook.com/me/streeteatsapp:order_from', 'post',
+          { restaurant: window.objectToLike, privacy: {'value': 'SELF'} },
+          (response) ->
+            console.log(response.error)
+        null
+    ,
+      { scope: 'publish_actions' }
+    null
+
+  $('.js-post-like').click (ev) ->
+    ev.preventDefault()
+    postLike()
+    null
+
+  null
+
+  # (function(d, s, id){
+  #    var js, fjs = d.getElementsByTagName(s)[0];
+  #    if (d.getElementById(id)) {return;}
+  #    js = d.createElement(s); js.id = id;
+  #    js.src = "//connect.facebook.net/en_US/sdk.js";
+  #    fjs.parentNode.insertBefore(js, fjs);
+  #  }(document, 'script', 'facebook-jssdk'));

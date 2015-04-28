@@ -110,4 +110,9 @@ class Cart < ActiveRecord::Base
   def clear!
     line_items.delete_all
   end
+
+  def remove_coupon!
+    self.coupon = nil
+    save
+  end
 end

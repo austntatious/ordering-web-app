@@ -1,0 +1,56 @@
+.share-group {
+  width: 100%;
+  .btn {
+    font-size: 15px;
+    width: 34%;
+    border-radius: 0 !important;
+    margin-left: 0 !important;
+    &:first-child, &:last-child {
+      width: 33%;
+    }
+  }
+}
+
+.share-thesis {
+  font-size: 15px;
+  line-height: 30px;
+  .fa {
+    font-size: 30px;
+    color: $navbar-default-bg;
+    margin-right: 5px;
+    position: relative;
+    top: 5px;
+    width: 30px;
+  }
+}
+
+$email_color: #e67e27;
+$facebook_color: #395d8d;
+$twitter_color: #395d8d;
+
+.btn-email {
+  background: $email_color;
+  border-color: $email_color;
+  &:hover {
+    background: darken($email_color, 10%);
+    border-color: darken($email_color, 10%);
+  }
+}
+
+.btn-facebook {
+  background: $facebook_color;
+  border-color: $facebook_color;
+  &:hover {
+    background: darken($facebook_color, 10%);
+    border-color: darken($facebook_color, 10%);
+  }
+}
+
+.btn-twitter {
+  background: $twitter_color;
+  border-color: $twitter_color;
+  &:hover {
+    background: darken($twitter_color, 10%);
+    border-color: darken($twitter_color, 10%);
+  }
+}

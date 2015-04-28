@@ -14,4 +14,4 @@ table.table.table-striped
 .text-right
   strong
     |Total price:&nbsp;
-  span.js-cart-price = number_to_currency @current_cart.total_price
+  span.js-cart-price data-price="#{@current_cart.total_price}" = number_to_currency @current_cart.total_price

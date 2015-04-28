@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require jquery.maskedinput
 //= require location
+//= require facebook
 
 var ready = function () {
   for (var i = 0; i < window.commonData.locations.length; i++) {
@@ -86,7 +87,12 @@ var ready = function () {
         $('.js-coupon-msg').html(
           '<div class="alert alert-success">' + data.msg + '</div>'
         );
+        if ($('.js-money-account').length) {
+          data.new_sum = data.new_sum - parseFloat($('.js-money-account').val());
+          data.new_sum_display = '$' + data.new_sum;
+        }
         $('.js-cart-price').html(data.new_sum_display);
+        $('.js-cart-price').data('price', data.new_sum);
       }
       else {
         $('.js-coupon-msg').html(
@@ -95,6 +101,19 @@ var ready = function () {
       }
     });
   });
+
+  $('.js-money-account').on('change keyup', function () {
+    var v = parseFloat(this.value),
+      max = parseFloat($(this).attr('max')),
+      cartPrice = parseFloat($('.js-cart-price').data('price'));
+    if (v > max) {
+      $(this).val(max);
+      v = max;
+    }
+    cartPrice = cartPrice - v;
+    $('.js-cart-price').html('$' + cartPrice);
+  });
+
 };
 
 $(document).ready(ready);
