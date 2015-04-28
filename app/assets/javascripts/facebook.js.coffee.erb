@@ -25,7 +25,7 @@ $ ->
     FB.login (response) ->
       if response.authResponse
         FB.api 'https://graph.facebook.com/me/streeteatsapp:order_from', 'post',
-          { restaurant: window.objectToLike, privacy: {'value': 'SELF'} },
+          { restaurant: window.objectToLike },
           (response) ->
             console.log(response)
         null
