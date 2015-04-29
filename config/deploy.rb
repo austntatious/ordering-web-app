@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'streeteats'
 set :user, 'ivanthecrazy'
 set :repo_url, 'git@bitbucket.org:IvanTheCrazy/fooddelivery.git'
-set :deploy_to, "/home/ivanthecrazy/streeteats"
+set :deploy_to, "/home/app/streeteats"
 
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/media}
 set :rvm_ruby_version, '2.0.0'
