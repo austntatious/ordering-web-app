@@ -17,7 +17,8 @@ br
 .row.form-horizontal
   label.control-label.col-md-2 Your invite link:
   .col-md-8
-    input.form-control.js-ref-link-value value="#{root_url(:ref_id => current_user.id)}"
+    input.form-control.js-ref-link-value value="#{root_url(:ref_id => current_user.id)}" disabled="true"
+    .help-block.js-copied.hidden You refferal link has been copied to clipboard
   .col-md-2
     a.btn.btn-block.btn-primary#copy-button href="#" Copy
 

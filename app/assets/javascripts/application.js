@@ -133,6 +133,9 @@ var ready = function () {
       var clipboard = event.clipboardData;
       clipboard.setData( "text/plain", $('.js-ref-link-value').val());
     });
+    client.on( "aftercopy", function( event ) {
+      $('.js-copied').removeClass('hidden');
+    });
   });
 };
 
