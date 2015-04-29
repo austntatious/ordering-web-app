@@ -17,6 +17,7 @@
 //= require jquery.maskedinput
 //= require location
 //= require facebook
+//= require ZeroClipboard
 
 var ready = function () {
   for (var i = 0; i < window.commonData.locations.length; i++) {
@@ -117,6 +118,21 @@ var ready = function () {
   $('.js-email-share').click(function (ev) {
     ev.preventDefault();
     $('.js-email-share-form').toggleClass('hidden');
+  });
+
+  $('.js-back').click(function (ev) {
+    ev.preventDefault();
+    history.back();
+  });
+
+  ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
+  var client = new ZeroClipboard( document.getElementById("copy-button") );
+
+  client.on( "ready", function( readyEvent ) {
+    client.on( "copy", function (event) {
+      var clipboard = event.clipboardData;
+      clipboard.setData( "text/plain", $('.js-ref-link-value').val());
+    });
   });
 };
 

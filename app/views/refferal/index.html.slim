@@ -1,6 +1,25 @@
-h2 Your refferal link:
+h2 = "Give #{Setting::get('Refferal bonus')} Get #{Setting::get('Refferal bonus')}"
 
-= link_to root_url(:ref_id => current_user.id), root_url(:ref_id => current_user.id)
+.row.ref-landing
+  .col-md-4.text-center
+    .fa.fa-comment
+    p Send out your code
+  .col-md-4.text-center
+    .fa.fa-cutlery
+    p Your friend makes an order
+  .col-md-4.text-center
+    .fa.fa-male
+    .fa.fa-male
+    p = "You both get #{Setting::get('Refferal bonus')}"
+
+br
+
+.row.form-horizontal
+  label.control-label.col-md-2 Your invite link:
+  .col-md-8
+    input.form-control.js-ref-link-value value="#{root_url(:ref_id => current_user.id)}"
+  .col-md-2
+    a.btn.btn-block.btn-primary#copy-button href="#" Copy
 
 br
 br
@@ -11,9 +30,6 @@ br
     a.btn.btn-info.btn-block target="_blank" href="https://www.facebook.com/dialog/feed?app_id=#{ENV['FACEBOOK_APP_ID']}&display=page&link=#{url}&redirect_uri=#{root_url}&caption=#{u(Setting::get('Facebook invitation text'))}" Make post on Facebook
   .col-sm-6
     a.btn.btn-info.btn-block target="_blank" href="#{twitter_ref_link}" Make post on Twitter
-
-br
-p = "Earn $#{Setting::get('Refferal bonus')} for each person made order by this link"
 
 br
 = form_tag refferal_invite_path, :method => :post do
@@ -33,7 +49,7 @@ table.table.table-striped
       td = Refferal.by_user(current_user.id).count
     tr
       td Total earned:
-      td 0
+      td = number_to_currency (current_user.account_transactions.refferal.sum(:amount) || 0)
 br
 br
 br
