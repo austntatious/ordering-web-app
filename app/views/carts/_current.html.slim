@@ -33,7 +33,7 @@
   .text-right
     strong
       |Delivery fee:&nbsp;
-    span = number_to_currency Order.get_delivery_fee
+    span = number_to_currency Order.get_delivery_fee(current_user)
     br
     strong
       = "Tax #{Setting.get('Tax')}%:&nbsp;".html_safe

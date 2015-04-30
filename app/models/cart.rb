@@ -90,7 +90,8 @@ class Cart < ActiveRecord::Base
   end
 
   def total_price
-    self.products_price + self.tax_price + Order.get_delivery_fee
+    # binding.pry
+    self.products_price + self.tax_price + Order.get_delivery_fee(self.user)
   end
 
   def set_location(location_id)

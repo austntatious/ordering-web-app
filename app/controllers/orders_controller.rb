@@ -15,7 +15,7 @@ class OrdersController < InheritedResources::Base
       redirect_to root_path, :notice => 'Your cart is empty'
       return
     end
-    @order = Order.new(:contact_name => current_user.name, :contact_phone => current_user.phone)
+    @order = Order.new(:contact_name => current_user.name, :contact_phone => current_user.phone, :user => current_user)
     @restaurant = Restaurant.find(@current_cart.get_restaurant)
   end
 

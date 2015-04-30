@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
   def set_current_cart
     begin
       @current_cart = Cart.find(session[:cart_id])
+      if @current_cart.user.nil?
+        if user_signed_in?
+          @current_cart.update_attribute :user_id, current_user.id
+        end
+      end
     rescue ActiveRecord::RecordNotFound
       create_cart
     end

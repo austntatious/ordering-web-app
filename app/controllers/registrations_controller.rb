@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.update_attribute :ref_id, ref_id
       end
     end
+    Cart::find(cart_id).update_attribute :user_id, current_user
     session[:cart_id] = cart_id
   end
 

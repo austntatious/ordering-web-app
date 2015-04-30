@@ -102,11 +102,16 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.get_delivery_fee
+  def self.get_delivery_fee(user)
     result = 4.0
     fee = Setting.get('Delivery fee')
     unless fee.blank?
       result = fee.to_f
+    end
+    unless user.nil?
+      if user.orders.count == 0 && !user.ref_id.nil?
+        result = 0
+      end
     end
     result
   end
@@ -121,7 +126,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_delivery_fee
-    self.delivery_fee = Order.get_delivery_fee
+    self.delivery_fee = Order.get_delivery_fee(self.user)
   end
 
   def check_order_creation_availability
@@ -174,7 +179,7 @@ class Order < ActiveRecord::Base
   def total_price
     df = self.delivery_fee
     if df == 0
-      df = Order.get_delivery_fee
+      df = Order.get_delivery_fee(self.user)
     end
     restaurant_price + tax_price + df - coupon_discount - money_from_account
   end
