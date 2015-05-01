@@ -8,7 +8,8 @@ class Setting < ActiveRecord::Base
     'Refferal bonus', 'Title for index page', 'Keywords for index page', 'Description for index page',
     'Title for restaurant page', 'Keywords for restaurant page', 'Description for restaurant page',
     'Title for location page', 'Keywords for location page', 'Description for location page',
-    'Facebook invitation text', 'Twitter invitation text'
+    'Facebook invitation text', 'Twitter invitation text',
+    'Order arrive since', 'Order arrive before'
   ]
 
   def self.get(nm)

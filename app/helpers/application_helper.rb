@@ -41,4 +41,24 @@ module ApplicationHelper
     url = u(root_url(:ref_id => current_user.id))
     "http://twitter.com/home/?status=#{u(Setting::get('Facebook invitation text'))} #{url}"
   end
+
+  def order_arrive_from(order)
+    m = Setting::get('Order arrive since')
+    if m == ''
+      m = 35
+    else
+      m = m.to_i
+    end
+    order.updated_at + m.minutes
+  end
+
+  def order_arrive_to(order)
+    m = Setting::get('Order arrive before')
+    if m == ''
+      m = 55
+    else
+      m = m.to_i
+    end
+    order.updated_at + 55.minutes
+  end
 end

@@ -3,7 +3,7 @@
 
   h2.text-center
     - if @order.payed?
-      |Order Successful!
+      |Congratulations, Your Order was Successful!
     - else
       = @restaurant.name
       |&nbsp;&mdash;&nbsp;Checkout
@@ -19,15 +19,18 @@
             - if (( (DateTime.now - @order.updated_at.to_datetime) * 24 * 60 ).round < 15)
               p.share-thesis
                 span.fa.fa-clock-o
-                |Your order will be delivered in 45 minutes
-            p.share-thesis
-              span.fa.fa-user
-              |Questions?&nbsp;
-              a href="/contact" Get in touch with us
+                |Your order will arrive between&nbsp;
+                =l order_arrive_from(@order), :format => :time
+                |-
+                =l order_arrive_to(@order), :format => :time
             p.share-thesis
               span.fa.fa-heart
               = link_to 'Invite your friends', refferal_path
               |&nbsp;and get free deliveries
+            p.share-thesis
+              span.fa.fa-user
+              |Questions?&nbsp;
+              a href="/contact" Get in touch with us
           .btn-group.share-group
             a.btn.btn-lg.btn-primary.btn-email.js-email-share href="#"
               .fa.fa-envelope-o

@@ -154,13 +154,13 @@ class Order < ActiveRecord::Base
   end
 
   def notify_created
-    notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} on streeteats.com is created. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
+    notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} from #{self.get_restaurant.try(:name)} on streeteats.com is created. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
     Notifier.notify_created(self).deliver
     Notifier.notify_created_admin(self).deliver
   end
 
   def notify_payed
-    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} on streeteats.com is payed now. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
+    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} from #{self.get_restaurant.try(:name)} on streeteats.com is payed now. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
     #, "New order ##{id} from streeteats.com. Order content: #{build_content_string}"
     Notifier.notify_payed(self).deliver
     Notifier.notify_payed_admin(self).deliver
