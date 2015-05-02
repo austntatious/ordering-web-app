@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   has_many :line_items
 
   after_commit :create_notification, :on => [:create]
+  after_commit :mailchimp_export, :on => [:create]
   after_create :withdraw_balance
   after_create :process_payment
   before_create :check_order_creation_availability
@@ -235,5 +236,9 @@ class Order < ActiveRecord::Base
       end
       self.save
     end
+  end
+
+  def mailchimp_export
+    MailChimpWorker.perform_async self.id
   end
 end

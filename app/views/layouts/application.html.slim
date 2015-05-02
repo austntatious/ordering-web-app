@@ -3,7 +3,13 @@ html
   head
     title = @seo[:title]
     meta property="og:title" content="#{Setting::get('Title for index page')}"
-    meta property="og:image" content="#{asset_url 'logo.png'}"
+    - unless params[:ref_id].blank?
+      meta property="og:image" content="#{Setting::get('Facebook promotional image path')}"
+    - else
+      - unless @restaurant.nil?
+        meta property="og:image" content="#{@restaurant.img.url}"
+      - else
+        meta property="og:image" content="#{asset_url 'logo.png'}"
     - unless @restaurant.nil?
       meta property="og:type" content="restaurant.restaurant"
     meta name="keywords" content="#{@seo[:keywords]}"

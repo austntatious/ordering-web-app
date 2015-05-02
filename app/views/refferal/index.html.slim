@@ -28,7 +28,7 @@ br
 - url = u(root_url(:ref_id => current_user.id))
 .row
   .col-sm-6
-    a.btn.btn-info.btn-block target="_blank" href="https://www.facebook.com/dialog/feed?app_id=#{ENV['FACEBOOK_APP_ID']}&display=page&link=#{url}&redirect_uri=#{root_url}&caption=#{u(Setting::get('Facebook invitation text'))}" Make post on Facebook
+    a.btn.btn-info.btn-block target="_blank" href="#{facebook_ref_link}" Make post on Facebook
   .col-sm-6
     a.btn.btn-info.btn-block target="_blank" href="#{twitter_ref_link}" Make post on Twitter
 

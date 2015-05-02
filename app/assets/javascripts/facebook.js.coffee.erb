@@ -1,5 +1,10 @@
 ready = ()->
+  if $('.js-order-payed-success').length == 0
+    return
   fbAppId = '<%= ENV["FACEBOOK_APP_ID"] %>'
+
+  if getCookie('story_posted' + window.order_id) != null
+    return
 
   window.fbAsyncInit = () ->
     FB.init
@@ -8,6 +13,7 @@ ready = ()->
       cookie: true,
       xfbml: true,
       version: 'v2.0',
+    startPosting()
 
 
   load = (d, s, id) ->
@@ -19,7 +25,8 @@ ready = ()->
     js.id = id
     js.src = "//connect.facebook.net/en_US/sdk.js"
     fjs.parentNode.insertBefore(js, fjs)
-  load document, 'script', 'facebook-jssdk'
+
+  load(document, 'script', 'facebook-jssdk')
 
   postLike = () ->
     FB.login (response) ->
@@ -31,6 +38,7 @@ ready = ()->
               if !response.error
                 $('.js-story a').attr 'href', 'https://www.facebook.com/me/activity/' + response.id
                 $('.js-story').removeClass 'hidden'
+                setCookie('story_posted' + window.order_id, 'posted')
                 null
             console.log(response)
         null
@@ -38,10 +46,9 @@ ready = ()->
       { scope: 'publish_actions' }
     null
 
-  $('.js-post-like').click (ev) ->
-    ev.preventDefault()
-    postLike()
-    null
+  startPosting = () ->
+    if confirm('Do you want to post a story to facebook?')
+      postLike()
 
   null
 

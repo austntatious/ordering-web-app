@@ -42,6 +42,11 @@ module ApplicationHelper
     "http://twitter.com/home/?status=#{u(Setting::get('Facebook invitation text'))} #{url}"
   end
 
+  def facebook_ref_link
+    url = u(root_url(:ref_id => current_user.id))
+    "https://www.facebook.com/dialog/feed?app_id=#{ENV['FACEBOOK_APP_ID']}&display=page&link=#{url}&redirect_uri=#{root_url}&caption=#{u(Setting::get('Facebook invitation text'))}"
+  end
+
   def order_arrive_from(order)
     m = Setting::get('Order arrive since')
     if m == ''

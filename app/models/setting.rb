@@ -9,7 +9,7 @@ class Setting < ActiveRecord::Base
     'Title for restaurant page', 'Keywords for restaurant page', 'Description for restaurant page',
     'Title for location page', 'Keywords for location page', 'Description for location page',
     'Facebook invitation text', 'Twitter invitation text',
-    'Order arrive since', 'Order arrive before'
+    'Order arrive since', 'Order arrive before', 'Facebook promotional image path'
   ]
 
   def self.get(nm)
