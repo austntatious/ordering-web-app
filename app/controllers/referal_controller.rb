@@ -25,4 +25,7 @@ class ReferalController < ApplicationController
       redirect_to referal_path, :notice => "You successfully sent #{sent} #{'invitation'.pluralize(sent)}"
     end
   end
+
+  def index
+  end
 end
