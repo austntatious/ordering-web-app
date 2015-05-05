@@ -25,7 +25,7 @@
                 =l order_arrive_to(@order), :format => :time
             p.share-thesis
               span.fa.fa-heart
-              = link_to 'Invite your friends', refferal_path
+              = link_to 'Invite your friends', referal_path
               |&nbsp;and get free deliveries
             p.share-thesis
               span.fa.fa-user
@@ -42,7 +42,7 @@
               .fa.fa-twitter
               | Tweet
           .panel-body.js-email-share-form.hidden
-            = form_tag refferal_invite_path, :method => :post do
+            = form_tag referal_invite_path, :method => :post do
               .form-group
                 = text_field_tag :email, '', :placeholder => 'Email, you can specify multiple emails separated with comma', :class => 'form-control', :required => true
               = submit_tag 'Send', :class => 'btn btn-primary btn-block'
