@@ -1,4 +1,4 @@
-class ReferalController < ApplicationController
+class ReferralController < ApplicationController
   before_filter :authenticate_user
 
   def authenticate_user
@@ -20,9 +20,9 @@ class ReferalController < ApplicationController
       end
     end
     if sent == 0
-      redirect_to referal_path, :notice => "You already sent invitations to these emails"
+      redirect_to referral_path, :notice => "You already sent invitations to these emails"
     else
-      redirect_to referal_path, :notice => "You successfully sent #{sent} #{'invitation'.pluralize(sent)}"
+      redirect_to referral_path, :notice => "You successfully sent #{sent} #{'invitation'.pluralize(sent)}"
     end
   end
 

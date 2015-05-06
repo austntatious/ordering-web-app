@@ -9,7 +9,7 @@ class Refferal < ActiveRecord::Base
     unless user.ref_id.nil?
       r = Refferal.where(:user_id => user.id, :refferer_id => user.ref_id).first
       if r.nil?
-        bonus = Setting::get('Refferal bonus')
+        bonus = Setting::get('Referral bonus')
         if bonus == ''
           bonus = '5'
         end

@@ -1,4 +1,4 @@
-h2 = "Give $#{Setting::get('Referal bonus')} Get $#{Setting::get('Referal bonus')}"
+h2 = "Give $#{Setting::get('Referral bonus')} Get $#{Setting::get('Referral bonus')}"
 
 .row.ref-landing
   .col-md-4.text-center
@@ -10,7 +10,7 @@ h2 = "Give $#{Setting::get('Referal bonus')} Get $#{Setting::get('Referal bonus'
   .col-md-4.text-center
     .fa.fa-male
     .fa.fa-male
-    p = "You both get $#{Setting::get('Referal bonus')}"
+    p = "You both get $#{Setting::get('Referral bonus')}"
 
 br
 
@@ -18,7 +18,7 @@ br
   label.control-label.col-md-2 Your invite link:
   .col-md-8
     input.form-control.js-ref-link-value value="#{root_url(:ref_id => current_user.id)}" disabled="true"
-    .help-block.js-copied.hidden You referal link has been copied to clipboard
+    .help-block.js-copied.hidden You referral link has been copied to clipboard
   .col-md-2
     a.btn.btn-block.btn-primary#copy-button href="#" Copy
 
@@ -33,7 +33,7 @@ br
     a.btn.btn-info.btn-block target="_blank" href="#{twitter_ref_link}" Make post on Twitter
 
 br
-= form_tag referal_invite_path, :method => :post do
+= form_tag referral_invite_path, :method => :post do
   .form-group
     = text_field_tag :email, '', :placeholder => 'Email, you can specify multiple emails separated with comma', :class => 'form-control', :required => true
   = submit_tag 'Send invitation', :class => 'btn btn-primary'

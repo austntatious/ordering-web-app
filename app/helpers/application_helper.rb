@@ -29,7 +29,7 @@ module ApplicationHelper
   def account_transaction_kind(account_transaction)
     case account_transaction.kind
       when AccountTransaction::KIND_REF_BONUS
-        "Referal bonus"
+        "Referral bonus"
       when AccountTransaction::KIND_ORDER_PAY
         "Payed for order ##{account_transaction.order_id}"
       else
