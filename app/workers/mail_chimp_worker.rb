@@ -4,7 +4,7 @@ class MailChimpWorker
   include Sidekiq::Worker
 
   def perform(order_id)
-    order = Order.find_by_id(invite_id)
+    order = Order.find_by_id(order_id)
     unless order.nil?
       begin
         mailchimp = Mailchimp::API.new(ENV['MAILCHIMP_API_KEY'])
