@@ -7,7 +7,7 @@ html
       meta property="og:image" content="#{promo_image}"
     - else
       - unless @restaurant.nil?
-        meta property="og:image" content="#{@restaurant.img.url}"
+        meta property="og:image" content="https://bingstreeteats.com#{@restaurant.img.url}"
       - else
         meta property="og:image" content="#{asset_url 'logo.png'}"
     - unless @restaurant.nil?
