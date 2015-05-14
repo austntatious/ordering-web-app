@@ -25,7 +25,7 @@ var ready = function () {
   }
 
   window.setCCMasks = function () {
-    $('#credit_card_number').mask('9999 9999 9999 9999');
+    $('#credit_card_number').mask('9999 9999 9999 999?9');
     $('#credit_card_exp_month').mask('99');
     $('#credit_card_exp_year').mask('9999');
     $('#credit_card_cvc').mask('999?9');
