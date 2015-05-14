@@ -1,4 +1,14 @@
 module ApplicationHelper
+  def promo_image
+    pm = Setting::get('Facebook promotional image path')
+    if pm.blank?
+      unless @restaurant.blank?
+        pm = @restaurant.img.url
+      end
+    end
+    pm
+  end
+
   def resource_name
     :user
   end

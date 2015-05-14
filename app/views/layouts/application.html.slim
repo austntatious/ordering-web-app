@@ -4,7 +4,7 @@ html
     title = @seo[:title]
     meta property="og:title" content="#{Setting::get('Title for index page')}"
     - unless params[:ref_id].blank?
-      meta property="og:image" content="#{Setting::get('Facebook promotional image path')}"
+      meta property="og:image" content="#{promo_image}"
     - else
       - unless @restaurant.nil?
         meta property="og:image" content="#{@restaurant.img.url}"
