@@ -27,21 +27,30 @@ class Setting < ActiveRecord::Base
     Setting.find_by_name(nm).try(:value) || ''
   end
 
-  def self.can_get_orders?
+  def self.can_get_orders?(restaurant = nil)
     result = true
     em = Setting.get('Emergency message')
     unless em.blank?
       return false
     end
     begin
-      from_time = Setting.get('Work from')
-      to_time = Setting.get('Work to')
-      if from_time.blank?
-        from_time = '11:00am'
+      unless restaurant.nil?
+        from_time = Setting.get('Work from')
+        to_time = Setting.get('Work to')
+      else
+        tm = restaurant.accept_orders_time.split('-')
+        from_time = tm[0]
+        to_time = tm[1]
       end
-      if to_time.blank?
-        to_time = '02:00am'
+      if from_time.blank? || to_time.blank?
+        return true
       end
+      # if from_time.blank?
+      #   from_time = '11:00am'
+      # end
+      # if to_time.blank?
+      #   to_time = '02:00am'
+      # end
       parts_from = from_time.gsub('am', '').gsub('pm', '').split(':')
       hour_from = parts_from[0].to_i
       min_from = parts_from[1].to_i

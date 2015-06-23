@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426112724) do
+ActiveRecord::Schema.define(version: 20150623123211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
 
   create_table "account_transactions", force: true do |t|
     t.integer  "user_id"
@@ -222,18 +221,18 @@ ActiveRecord::Schema.define(version: 20150426112724) do
   end
 
   create_table "restaurants", force: true do |t|
-    t.string   "name",                                  default: "", null: false
+    t.string   "name",                                  default: "",                null: false
     t.string   "img"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone",                                 default: "", null: false
-    t.string   "work_time",                             default: "", null: false
-    t.string   "recipient_name",                        default: "", null: false
-    t.string   "recipient_type",                        default: "", null: false
-    t.string   "recipient_bank_account_country",        default: "", null: false
-    t.string   "recipient_bank_account_routing_number", default: "", null: false
-    t.string   "recipient_bank_account_account_number", default: "", null: false
-    t.string   "stripe_recipient_id",                   default: "", null: false
+    t.string   "phone",                                 default: "",                null: false
+    t.string   "recipient_name",                        default: "",                null: false
+    t.string   "recipient_type",                        default: "",                null: false
+    t.string   "recipient_bank_account_country",        default: "",                null: false
+    t.string   "recipient_bank_account_routing_number", default: "",                null: false
+    t.string   "recipient_bank_account_account_number", default: "",                null: false
+    t.string   "stripe_recipient_id",                   default: "",                null: false
+    t.string   "accept_orders_time",                    default: "04:30pm-09:00pm", null: false
   end
 
   create_table "settings", force: true do |t|

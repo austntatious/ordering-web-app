@@ -5,10 +5,13 @@
     h2 = @restaurant.name
     .row
       .col-md-8
-        - unless @restaurant.work_time.nil?
+        - unless @restaurant.accept_orders_time.nil?
           p.restaurant-work-hours
             b Work hours:&nbsp;
-            = @restaurant.work_time
+            = @restaurant.accept_orders_time
+            br
+            - unless Setting.can_get_orders?
+              b Restaurant is closed now, ordering is unavailable
       .col-md-4.text-right
         = render @current_cart
         |&nbsp;

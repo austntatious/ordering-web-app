@@ -297,8 +297,6 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
-    turbolinks (2.5.3)
-      coffee-rails
     twilio-ruby (3.11.5)
       builder (>= 2.1.2)
       jwt (>= 0.1.2)
@@ -349,6 +347,5 @@ DEPENDENCIES
   state_machine!
   stripe!
   the_sortable_tree
-  turbolinks
   twilio-ruby
   uglifier (>= 1.3.0)
