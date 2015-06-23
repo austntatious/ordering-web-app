@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :orders
+  has_many :carts
   has_many :account_transactions
   has_many :invites, :dependent => :destroy
   has_many :used_coupons, :dependent => :destroy
@@ -35,5 +36,9 @@ class User < ActiveRecord::Base
 
   def create_stripe_client
     NewStripeClientWorker.perform_async self.id
+  end
+
+  def current_cart
+    self.carts.reorder('created_at DESC').first
   end
 end

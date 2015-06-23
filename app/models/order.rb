@@ -105,10 +105,12 @@ class Order < ActiveRecord::Base
 
   def self.get_delivery_fee(user)
     result = 4.0
-    fee = Setting.get('Delivery fee')
-    unless fee.blank?
-      result = fee.to_f
+    fee = Setting.get_float('Delivery fee')
+    max_sum = Setting.get_float('Order sum limit before 2x delivery')
+    if user.current_cart.products_price > max_sum
+      fee = fee * 2
     end
+    result = fee
     unless user.nil?
       if user.orders.count == 0 && !user.ref_id.nil?
         result = 0

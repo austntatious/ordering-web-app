@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_seo_params
 
   def create_cart
-    cart = Cart.create()
+    cart = ::Cart.create()
     session[:cart_id] = cart.id
     @current_cart = cart
     if user_signed_in?
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_cart
     begin
-      @current_cart = Cart.find(session[:cart_id])
+      @current_cart = ::Cart.find(session[:cart_id])
       if @current_cart.user.nil?
         if user_signed_in?
           @current_cart.update_attribute :user_id, current_user.id
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.kind_of? AdminUser
+    if resource.kind_of? ::AdminUser
       '/admin'
     else
       if session[:redirect_to_order] = 1
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   def set_orders_enabled
     @hide_footer = false
-    @ordering_available = Setting.can_get_orders?
+    @ordering_available = ::Setting.can_get_orders?
   end
 
   def set_ref_id
@@ -55,9 +55,9 @@ class ApplicationController < ActionController::Base
 
   def set_seo_params
     @seo = {
-      :title => Setting::get('Title for index page'),
-      :keywords => Setting::get('Keywords for index page'),
-      :description => Setting::get('Description for index page')
+      :title => ::Setting::get('Title for index page'),
+      :keywords => ::Setting::get('Keywords for index page'),
+      :description => ::Setting::get('Description for index page')
     }
   end
 end

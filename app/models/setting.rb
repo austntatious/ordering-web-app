@@ -9,8 +9,19 @@ class Setting < ActiveRecord::Base
     'Title for restaurant page', 'Keywords for restaurant page', 'Description for restaurant page',
     'Title for location page', 'Keywords for location page', 'Description for location page',
     'Facebook invitation text', 'Twitter invitation text',
-    'Order arrive since', 'Order arrive before', 'Facebook promotional image path'
+    'Order arrive since', 'Order arrive before', 'Facebook promotional image path',
+    'Order sum limit before 2x delivery'
   ]
+
+  def self.get_float(nm)
+    val = Setting.get(nm)
+    if val == ''
+      val = 0
+    else
+      val = val.to_f
+    end
+    val
+  end
 
   def self.get(nm)
     Setting.find_by_name(nm).try(:value) || ''
