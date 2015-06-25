@@ -36,12 +36,12 @@
                 = f.text_area :restaurant_instructions, :class => 'form-control'
           .panel.panel-default
             .panel-heading.order-card-icons
-              |Choose credit card to pay
               .pull-right
                 .fa.fa-cc-visa
                 .fa.fa-cc-mastercard
                 .fa.fa-cc-amex
                 .fa.fa-credit-cart
+              |Choose credit card to pay
             .panel-body
               .js-credit-cards-list
                 - if current_user.credit_cards.any?
