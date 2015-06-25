@@ -24,7 +24,7 @@ class Location < ActiveRecord::Base
   def process_seo_str(str)
     str.gsub('%location_name%', self.name).
       gsub('%delivery_fee%', '$' + Setting::get('Delivery fee')).
-      gsub('%work_time%', '$' + self.work_time).
+      # gsub('%work_time%', '$' + self.work_time).
       gsub('%restaurants%', '$' + self.restaurants.map { |l| l.name }.join(', '))
   end
 end

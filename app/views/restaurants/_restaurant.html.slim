@@ -2,5 +2,12 @@
   = link_to restaurant_path(restaurant), :class => 'thumbnail restaurant js-restaurant', :data => { :name => restaurant.name } do
     = image_tag restaurant.img.thumb, :class => 'img-responsive'
     .caption
-      h3.text-center = restaurant.name
-      h5.text-center = restaurant.work_time
+      h3.text-center.restaurant-name
+        = restaurant.name
+        - unless restaurant.restaurant_type.blank?
+          small = restaurant.restaurant_type.name
+      - unless restaurant.accept_orders_time.blank?
+        h5.text-center
+          span.fa.fa-clock-o
+          |&nbsp;
+          = restaurant.accept_orders_time

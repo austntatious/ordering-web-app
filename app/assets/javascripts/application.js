@@ -80,6 +80,35 @@ var ready = function () {
     });
   };
 
+  $(document).on('change', '.js-product-addon', function (ev) {
+    var addons = $('.js-product-addon:checked'),
+      maxToppings = $('.js-product-count').data('max');
+    if (addons.length > maxToppings) {
+      var disabled = false,
+        me = this;
+      addons.each(function (ind, itm) {
+        if (!disabled) {
+          if (itm.id != me.id) {
+            disabled = true;
+            itm.checked = false;
+          }
+        }
+      });
+    }
+  });
+
+  // $(document).on('change keydown keyup', '.js-related-count', function (ev) {
+  //   var cnt = $('.js-product-count').val(),
+  //     maxToppings = $('.js-product-count').data('max'),
+  //     v = 0;
+  //   $('.js-related-count').each(function (ind, itm) {
+  //     v += $(itm).val();
+  //   });
+  //   if (v > cnt * maxToppings) {
+  //     $(this).val(cnt * maxToppings);
+  //   }
+  // });
+
   $('.js-check-coupon').click(function (ev) {
     $('.js-coupon-msg').html('');
     $.get('/coupons.json?code=' + $('.js-coupon-code').val(), function (data) {

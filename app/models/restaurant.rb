@@ -1,4 +1,5 @@
 class Restaurant < ActiveRecord::Base
+  belongs_to :restaurant_type
   has_and_belongs_to_many :locations, :join_table => :locations_restaurants
   has_many :categories
 
@@ -24,7 +25,7 @@ class Restaurant < ActiveRecord::Base
   def process_seo_str(str)
     str.gsub('%restaurant_name%', self.name).
       gsub('%delivery_fee%', '$' + Setting::get('Delivery fee')).
-      gsub('%work_time%', '$' + self.work_time).
+      gsub('%work_time%', '$' + self.accept_orders_time).
       gsub('%locations%', '$' + self.locations.map { |l| l.name }.join(', '))
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623123211) do
+ActiveRecord::Schema.define(version: 20150625060308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,12 +198,13 @@ ActiveRecord::Schema.define(version: 20150623123211) do
   end
 
   create_table "products", force: true do |t|
-    t.string   "name",                                default: "",  null: false
-    t.decimal  "price",       precision: 8, scale: 2, default: 0.0, null: false
+    t.string   "name",                                   default: "",  null: false
+    t.decimal  "price",          precision: 8, scale: 2, default: 0.0, null: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
+    t.integer  "toppings_limit",                         default: 1,   null: false
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
@@ -220,6 +221,12 @@ ActiveRecord::Schema.define(version: 20150623123211) do
     t.integer "related_product_id", null: false
   end
 
+  create_table "restaurant_types", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "restaurants", force: true do |t|
     t.string   "name",                                  default: "",                null: false
     t.string   "img"
@@ -233,7 +240,10 @@ ActiveRecord::Schema.define(version: 20150623123211) do
     t.string   "recipient_bank_account_account_number", default: "",                null: false
     t.string   "stripe_recipient_id",                   default: "",                null: false
     t.string   "accept_orders_time",                    default: "04:30pm-09:00pm", null: false
+    t.integer  "restaurant_type_id"
   end
+
+  add_index "restaurants", ["restaurant_type_id"], name: "index_restaurants_on_restaurant_type_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "name",       default: "", null: false

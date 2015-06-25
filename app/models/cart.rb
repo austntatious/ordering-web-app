@@ -9,6 +9,9 @@ class Cart < ActiveRecord::Base
     if product.get_restaurant != self.get_restaurant
       self.clear!
     end
+    if options.count > product.toppings_limit * count.to_i
+      options = options.slice(0, product.toppings_limit)
+    end
     li = line_items.where(:product_id => product_id).first
     if li.nil?
       LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count.to_i, :product_option_ids => options)
