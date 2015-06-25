@@ -39,11 +39,7 @@ ActiveAdmin.register Order do
       row :address
       row :status
       row :driver_instructions
-      row :restaurant do |o|
-        unless o.get_restaurant.nil?
-          Restaurant.find_by_id(o.get_restaurant).try(:name)
-        end
-      end
+      row :restaurant
       row :restaurant_instructions
       row :created_at
       row :products do
@@ -71,6 +67,18 @@ ActiveAdmin.register Order do
       end
       row :success_transfer
       row :transfer_error_message
+    end
+  end
+
+  csv do
+    column :id
+    column :created_at
+    column :restaurant_instructions
+    column :products_price do |o|
+      number_to_currency o.products_price
+    end
+    column :products do |o|
+      o.line_items.map { |li| "#{li.product.name}#{li.get_addons} - $#{li.single_price}x#{li.count} - $#{li.total_price}" }.join(', ')
     end
   end
 end

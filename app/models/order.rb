@@ -3,6 +3,7 @@ require 'sms_api'
 class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :credit_card
+  belongs_to :restaurant
   belongs_to :location
   has_many :line_items
 
@@ -14,6 +15,7 @@ class Order < ActiveRecord::Base
   before_create :set_delivery_fee
   before_save :validate_card
   before_save :validate_money_from_account
+  before_save :set_restaurant
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
@@ -103,6 +105,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def products_price
+    self.line_items.map { |li| li.total_price }.sum
+  end
+
   def self.get_delivery_fee(user)
     result = 4.0
     fee = Setting.get_float('Delivery fee')
@@ -137,6 +143,10 @@ class Order < ActiveRecord::Base
       self.errors.add(:base, 'Ordering is unavailable now')
       return false
     end
+  end
+
+  def set_restaurant
+    self.restaurant_id = self.get_restaurant
   end
 
   def create_notification

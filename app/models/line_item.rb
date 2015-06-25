@@ -12,6 +12,14 @@ class LineItem < ActiveRecord::Base
     res
   end
 
+  def get_addons
+    res = product_options.map { |po| po.name }.join(', ')
+    unless res.blank?
+      res = "(#{res})"
+    end
+    res
+  end
+
   def single_price
     product.price + product_options.map { |po| po.price }.sum
   end

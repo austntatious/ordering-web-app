@@ -2,6 +2,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :restaurant_type
   has_and_belongs_to_many :locations, :join_table => :locations_restaurants
   has_many :categories
+  has_many :orders
 
   validates :name, :img, :accept_orders_time, :presence => true
 
