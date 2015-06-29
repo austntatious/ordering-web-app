@@ -7,7 +7,7 @@ set :repo_url, 'git@bitbucket.org:IvanTheCrazy/fooddelivery.git'
 # set :deploy_to, "/home/app/streeteats"
 set :deploy_to, "/home/ivanthecrazy/streeteats"
 
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/media}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/media}
 set :rvm_ruby_version, '2.0.0'
 
 set :linked_files, %w{config/database.yml config/local_env.yml}

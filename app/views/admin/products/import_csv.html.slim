@@ -1,0 +1,13 @@
+= form_tag '/admin/products/do_import_csv', :multipart => true, :method => 'post' do
+  fieldset.inputs
+    ol
+      li.input.required
+        label.label Import file*:
+        = file_field_tag :file
+      li.select.input.required
+        label.label Restaurant*:
+        = select_tag :restaurant_id, options_from_collection_for_select(@restaurants, :id, :name), :include_blank => true
+  br
+  br
+  div
+    = submit_tag 'Import'

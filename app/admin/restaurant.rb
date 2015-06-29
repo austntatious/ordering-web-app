@@ -5,7 +5,7 @@ ActiveAdmin.register Restaurant do
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   permit_params :name, :img, :phone, :work_time, :recipient_name, :recipient_type,
-    :accept_orders_time, :restaurant_type_id,
+    :accept_orders_time, :restaurant_type_id, :address,
     :recipient_bank_account_country, :recipient_bank_account_routing_number,
     :recipient_bank_account_account_number, :stripe_recipient_id, :location_ids => []
   #
@@ -25,6 +25,7 @@ ActiveAdmin.register Restaurant do
       f.input :img
       f.input :locations, :as => :check_boxes
       f.input :restaurant_type
+      f.input :address
     end
     f.inputs 'Payment data' do
       f.input :stripe_recipient_id

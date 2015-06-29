@@ -68,7 +68,9 @@ class Order < ActiveRecord::Base
           :amount => (self.total_price * 100).round,   # payment should be in cents
           :description => "Order ##{self.id}",
           :currency => 'usd',
-          :source => credit_card.stripe_id
+          :source => credit_card.stripe_id,
+          # :destination => '',
+          # :application_fee => ''
         )
         unless charge.nil?
           self.pay!
@@ -167,20 +169,25 @@ class Order < ActiveRecord::Base
   end
 
   def notify_created
-    notify "Your order ##{id} on streeteats.com is successfully created", "Order ##{id} from #{self.get_restaurant_name} on streeteats.com is created. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
+    notify(
+      "Your order ##{id} on streeteats.com is successfully created",
+      "Order ##{id} from #{self.get_restaurant_name} on streeteats.com is created. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
+    )
     Notifier.notify_created(self).deliver
     Notifier.notify_created_admin(self).deliver
   end
 
   def notify_payed
-    notify "Your order ##{id} on streeteats.com is payed now", "Order ##{id} from #{self.get_restaurant_name} on streeteats.com is payed now. Name: #{self.contact_name}. Phone: #{self.contact_phone}. Address: #{self.address}. Instructions: #{self.driver_instructions}. Content: #{build_content_string}"
-    #, "New order ##{id} from streeteats.com. Order content: #{build_content_string}"
+    notify(
+      "Your order ##{id} on streeteats.com is payed now",
+      "Order ##{id}, #{self.get_restaurant_name}, #{self.restaurant.try(:address)}, #{self.driver_instructions}, address: #{self.address}. #{self.contact_name} #{self.contact_phone}",
+      "Order ##{id}, #{self.build_content_string} #{self.restaurant_instructions}, #{self.contact_name} #{self.contact_phone}"
+    )
     Notifier.notify_payed(self).deliver
     Notifier.notify_payed_admin(self).deliver
   end
 
   def notify(user_text, admin_text, restaurant_text = '')
-    # SmsApi.send_sms user.phone, user_text
     admin_phone = Setting.get 'Admin phone'
     SmsApi.send_sms admin_phone, admin_text
     restaurant = Restaurant.find_by_id(self.get_restaurant)

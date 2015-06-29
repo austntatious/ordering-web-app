@@ -14,7 +14,6 @@ html
       meta property="og:type" content="restaurant.restaurant"
     meta name="keywords" content="#{@seo[:keywords]}"
     meta name="description" content="#{ @seo[:description] }"
-    link href='//fonts.googleapis.com/css?family=Raleway:400,200,700' rel='stylesheet' type='text/css'
     meta content="width=device-width, initial-scale=1" name="viewport"
     = csrf_meta_tags
     = render '/shared/ga'
@@ -30,6 +29,7 @@ html
 
     - unless @hide_footer
       = render '/shared/footer'
+    link href='//fonts.googleapis.com/css?family=Raleway:400,200,700' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application', media: 'all'
     script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=false"
     = javascript_include_tag 'application'
