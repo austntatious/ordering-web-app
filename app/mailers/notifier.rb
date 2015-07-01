@@ -25,4 +25,9 @@ class Notifier < ActionMailer::Base
     @order = order
     mail to: Setting.get('Admin email'), subject: "New order on StreetEats"
   end
+
+  def connect_stripe(restaurant)
+    @restaurant = restaurant
+    mail to: restaurant.owner_mail, subject: "Connect your Stripe account to StreetEats"
+  end
 end

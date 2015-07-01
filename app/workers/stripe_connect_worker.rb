@@ -2,8 +2,8 @@ class StripeConnectWorker
   include Sidekiq::Worker
 
   def perform(restaurant_id)
+    restaurant = Restaurant.find(restaurant_id)
     begin
-      restaurant = Restaurant.find(restaurant_id)
       acc = Stripe::Account.create(
         :country => "US",
         :managed => false,
@@ -13,6 +13,7 @@ class StripeConnectWorker
         restaurant.update_column :stripe_destination, acc.id
       end
     rescue
+      Notifier.connect_stripe(restaurant).deliver
     end
   end
 end
