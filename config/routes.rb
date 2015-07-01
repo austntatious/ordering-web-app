@@ -17,9 +17,14 @@ Rails.application.routes.draw do
   resources :carts, :only => :show
   resources :locations, :only => :show
   resources :account_transactions, :only => :index
+
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  devise_scope :user do
+    get '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
+    post '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
+  end
   get '/account' => 'welcome#account', :as => :account
   get '/referral' => 'referral#index', :as => :referral
   post '/referral/invite' => 'referral#invite', :as => :referral_invite

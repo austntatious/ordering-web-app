@@ -12,8 +12,10 @@ ActiveAdmin.register Product do
     added = 0
     changed = 0
     new_categories = 0
+    with_errors = 0
 
-    CSV.parse(infile, { :col_sep => params[:separator] || ';' }) do |row|
+    CSV.parse(infile) do |row|
+      binding.pry
       category = Category.where(:name => row[3], :restaurant_id => params[:restaurant_id]).first
       if category.nil?
         category = Category.create({
@@ -30,15 +32,43 @@ ActiveAdmin.register Product do
         :category_id => category.id
       }
       if product.nil?
-        Product.create(attrs)
+        product = Product.create(attrs)
         added = added + 1
       else
         product.update_attributes(attrs)
         changed = changed + 1
       end
+      if product.errors.any?
+        with_errors = with_errors + 1
+      else
+        if row.length > 4
+          i = 4
+          while i < row.length
+            name = row[i]
+            price = nil
+            if row.length > i + 1
+              price = row[i + 1].to_f
+            end
+            unless price.nil?
+              option_fields = {
+                :product_id => product.id,
+                :name => name,
+                :price => price
+              }
+              option = ProductOption.where(:product_id => product.id, :name => name).first
+              if option.nil?
+                ProductOption.create(option_fields)
+              else
+                option.update_attributes(option_fields)
+              end
+            end
+            i = i + 2
+          end
+        end
+      end
     end
 
-    redirect_to collection_path, notice: "CSV imported successfully! Products added: #{added}. Products changed: #{changed}. Categories created: #{new_categories}"
+    redirect_to collection_path, notice: "CSV imported successfully! Products added: #{added}. Products changed: #{changed}. With errors: #{with_errors}. Categories created: #{new_categories}"
   end
 
   collection_action :import_csv, method: :get do

@@ -63,15 +63,21 @@ class Order < ActiveRecord::Base
     credit_card = self.user.credit_cards.find_by_id(self.credit_card_id)
     unless credit_card.nil?
       begin
-        charge = Stripe::Charge.create(
+        charge_fields = {
           :customer => self.user.client_id,
           :amount => (self.total_price * 100).round,   # payment should be in cents
           :description => "Order ##{self.id}",
           :currency => 'usd',
           :source => credit_card.stripe_id,
-          # :destination => '',
-          # :application_fee => ''
-        )
+        }
+        unless self.restaurant.nil?
+          unless self.restaurant.stripe_destination.blank?
+            app_fee = Setting.get_float('Application fee')
+            charge_fields[:destination] = self.restaurant.stripe_destination
+            charge_fields[:application_fee] = (self.delivery_fee * 100 + app_fee * (self.total_price - self.delivery_fee)).round # application fee should be in cents too
+          end
+        end
+        charge = Stripe::Charge.create(charge_fields)
         unless charge.nil?
           self.pay!
         end

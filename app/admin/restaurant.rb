@@ -7,6 +7,7 @@ ActiveAdmin.register Restaurant do
   permit_params :name, :img, :phone, :work_time, :recipient_name, :recipient_type,
     :accept_orders_time, :restaurant_type_id, :address,
     :recipient_bank_account_country, :recipient_bank_account_routing_number,
+    :stripe_destination, :owner_mail,
     :recipient_bank_account_account_number, :stripe_recipient_id, :location_ids => []
   #
   # or
@@ -27,6 +28,10 @@ ActiveAdmin.register Restaurant do
       f.input :restaurant_type
       f.input :address
     end
+    f.inputs 'Stripe Connect' do
+      f.input :stripe_destination, :input_html => { :disabled => true }
+      f.input :owner_mail
+    end
     f.inputs 'Payment data' do
       f.input :stripe_recipient_id
       f.input :recipient_name
@@ -38,5 +43,28 @@ ActiveAdmin.register Restaurant do
     f.actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :created_at
+      row :updated_at
+      row :phone
+      row :recipient_name
+      row :recipient_type
+      row :recipient_bank_account_country
+      row :recipient_bank_account_routing_number
+      row :recipient_bank_account_account_number
+      row :stripe_recipient_id
+      row :accept_orders_time
+      row :restaurant_type
+      row :address
+      row :stripe_destination
+      row :owner_mail
+      row :stripe_connect_link do |r|
+        link_to user_omniauth_authorize_url(:stripe_connect), user_omniauth_authorize_url(:stripe_connect)
+      end
+    end
+  end
 
 end

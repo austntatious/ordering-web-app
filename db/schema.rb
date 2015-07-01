@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626125050) do
+ActiveRecord::Schema.define(version: 20150701074823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,6 +244,8 @@ ActiveRecord::Schema.define(version: 20150626125050) do
     t.string   "accept_orders_time",                    default: "04:30pm-09:00pm", null: false
     t.integer  "restaurant_type_id"
     t.string   "address",                               default: "",                null: false
+    t.string   "stripe_destination",                    default: "",                null: false
+    t.string   "owner_mail",                            default: "",                null: false
   end
 
   add_index "restaurants", ["restaurant_type_id"], name: "index_restaurants_on_restaurant_type_id", using: :btree

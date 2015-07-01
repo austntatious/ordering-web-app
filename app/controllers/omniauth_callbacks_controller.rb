@@ -11,4 +11,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to account_url
     end
   end
+
+  def stripe_connect
+    puts request.env["omniauth.auth"].id
+    puts request.env["omniauth.auth"].email
+
+    r_names = []
+    Restaurant.where(:owner_mail => request.env["omniauth.auth"]["info"]["email"]).each do |r|
+      r.update_column :stripe_destination, request.env["omniauth.auth"]["uid"]
+      r_names << r.name
+    end
+    redirect_to root_url, :notice => "Your Stripe account has been connected with following restaurants: #{r_names.join(', ')}"
+  end
 end

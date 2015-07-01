@@ -10,7 +10,7 @@ class Setting < ActiveRecord::Base
     'Title for location page', 'Keywords for location page', 'Description for location page',
     'Facebook invitation text', 'Twitter invitation text',
     'Order arrive since', 'Order arrive before', 'Facebook promotional image path',
-    'Order sum limit before 2x delivery'
+    'Order sum limit before 2x delivery', 'Application fee'
   ]
 
   def self.get_float(nm)

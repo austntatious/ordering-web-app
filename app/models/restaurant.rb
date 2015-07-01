@@ -8,6 +8,8 @@ class Restaurant < ActiveRecord::Base
 
   mount_uploader :img, RestaurantUploader
 
+  before_save :connect_stripe
+
   def set_seo_data(hash)
     tt = Setting::get('Title for restaurant page')
     unless tt.blank?
@@ -28,5 +30,22 @@ class Restaurant < ActiveRecord::Base
       gsub('%delivery_fee%', '$' + Setting::get('Delivery fee')).
       gsub('%work_time%', '$' + self.accept_orders_time).
       gsub('%locations%', '$' + self.locations.map { |l| l.name }.join(', '))
+  end
+
+  def connect_stripe
+    do_connect = false
+    unless self.id.nil?
+      old_r = Restaurant.find(self.id)
+      if old_r.owner_mail.blank? && !self.owner_mail.blank?
+        do_connect = true
+      end
+    else
+      unless self.owner_mail.blank?
+        do_connect = true
+      end
+    end
+    if do_connect
+      StripeConnectWorker.perform_async(self.id)
+    end
   end
 end
