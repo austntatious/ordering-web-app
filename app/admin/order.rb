@@ -47,6 +47,7 @@ ActiveAdmin.register Order do
           column :name do |li|
             li.product.name
           end
+          column :note
           column :restaurant do |li|
             li.product.category.restaurant.name
           end

@@ -31,6 +31,7 @@
               |&nbsp;
               = product.name
               = number_field_tag "related_product_count_#{ind}", 1, :disabled => true, :class => 'form-control'
+    = f.text_area :note, class: 'form-control', placeholder: 'how do you want the food to be prepared?'
 
 - else
   br

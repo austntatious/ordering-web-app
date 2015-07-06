@@ -4,7 +4,7 @@ class Cart < ActiveRecord::Base
   belongs_to :coupon
   has_many :line_items, :dependent => :destroy
 
-  def add_product(product_id, count, options = nil)
+  def add_product(product_id, count, note, options = nil)
     product = Product.find(product_id)
     if product.get_restaurant != self.get_restaurant
       self.clear!
@@ -14,9 +14,9 @@ class Cart < ActiveRecord::Base
         options = options.slice(0, product.toppings_limit)
       end
     end
-    li = line_items.where(:product_id => product_id).first
+    li = line_items.where(:product_id => product_id, :note => note).first
     if li.nil?
-      LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count.to_i, :product_option_ids => options)
+      LineItem.create(:cart_id => self.id, :product_id => product_id, :count => count.to_i, :product_option_ids => options, :note => note)
     else
       unless options.nil? #we have some product options
         # searching for line item with such product options

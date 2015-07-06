@@ -20,7 +20,7 @@ class LineItemsController < InheritedResources::Base
       @current_cart.clear!
       @current_cart.force_location session[:current_location]
     end
-    @current_cart.add_product line_item_params[:product_id], line_item_params[:count], line_item_params[:product_option_ids]
+    @current_cart.add_product line_item_params[:product_id], line_item_params[:count], line_item_params[:note], line_item_params[:product_option_ids]
     for i in 0..2
       unless params["related_product_#{i}"].nil?
         @current_cart.add_product params["related_product_#{i}"], params["related_product_count_#{i}"] || 1
@@ -43,7 +43,7 @@ class LineItemsController < InheritedResources::Base
   private
 
     def line_item_params
-      result = params.require(:line_item).permit(:product_id, :count, :product_option_ids => [])
+      result = params.require(:line_item).permit(:product_id, :count, :note, :product_option_ids => [])
       result[:cart_id] = @current_cart.id
       result
     end
