@@ -25,6 +25,7 @@ html
       = render '/restaurants/list'
     .container
       = render partial: "shared/flash_messages", flash: flash
+      = render "shared/confirm_phone"
       == yield
 
     - unless @hide_footer

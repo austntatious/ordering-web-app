@@ -165,9 +165,9 @@ class Order < ActiveRecord::Base
     parts = []
     line_items.each do |li|
       if li.product_options.any?
-        str = "#{li.product.name} (#{li.product_options.map { |po| po.name }.join(', ')}) : #{li.count}"
+        str = "#{li.product.name} (#{li.product_options.map { |po| po.name }.join(', ')}) : #{li.count} #{li.note}"
       else
-        str = "#{li.product.name} : #{li.count}"
+        str = "#{li.product.name} : #{li.count} #{li.note}"
       end
       parts << str
     end

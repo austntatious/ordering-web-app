@@ -1,0 +1,13 @@
+h2 Confirm phone number
+.col-xs-12.col-sm-10.col-md-8.col-sm-offset-1.col-md-offset-2
+  = form_tag change_phone_path
+    .form-group
+      = label_tag :phone, 'Your phone number'
+      .input-group
+        span.input-group-addon +1
+        = text_field_tag :phone, current_user.phone, class: 'form-control'
+    .form-group
+      = submit_tag "Send confirmation code", class: 'btn btn-primary btn-block'
+  br
+  br
+  br

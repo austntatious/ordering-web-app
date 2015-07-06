@@ -79,7 +79,7 @@ ActiveAdmin.register Order do
       number_to_currency o.products_price
     end
     column :products do |o|
-      o.line_items.map { |li| "#{li.product.name}#{li.get_addons} - $#{li.single_price}x#{li.count} - $#{li.total_price}" }.join(', ')
+      o.line_items.map { |li| "#{li.product.name}#{li.get_addons} - $#{li.single_price}x#{li.count} - $#{li.total_price} #{li.note}" }.join(', ')
     end
   end
 end

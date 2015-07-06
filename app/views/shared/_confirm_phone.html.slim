@@ -1,0 +1,10 @@
+- if Setting::get('Enable phones confirmation') == '1'
+  - unless params[:controller] == 'phone_number_confirmation'
+    - if user_signed_in?
+      - unless current_user.has_confirmed_phone
+        br
+        br
+        .well
+          = link_to 'Confirm your phone number', confirmation_form_path
+          |&nbsp;
+          | to receive status updates

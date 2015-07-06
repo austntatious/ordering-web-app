@@ -19,7 +19,9 @@
                 = f.text_field :contact_name, :class => 'form-control'
               .form-group
                 = f.label :contact_phone
-                = f.text_field :contact_phone, :class => 'form-control'
+                .input-group
+                  span.input-group-addon +1
+                  = f.text_field :contact_phone, :class => 'form-control'
               .form-group
                 = f.label :address
                 = f.text_field :address, :class => 'form-control js-location-pick js-order-location'
