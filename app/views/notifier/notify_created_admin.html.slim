@@ -47,6 +47,8 @@ table
           - if line_item.product_options.any?
             .line-item-options
               = line_item.product_options.map { |po| po.name }.join(', ')
+          - unless line_item.note.blank?
+            p.line-item-note = line_item.note
         td = number_to_currency line_item.product.price
         td = line_item.count
         td = number_to_currency line_item.total_price
