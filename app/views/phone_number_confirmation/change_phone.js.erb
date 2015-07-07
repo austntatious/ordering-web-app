@@ -1,0 +1,2 @@
+$('.js-msg-holder').html('<br/><br/><div class="alert alert-info">Confirmation code has been sent to this phone number. <%=j button_to "Send code again", send_code_again_path(:format => :js), :remote => true, :method => :post, :class => "send-again-link" %></div>');
+$('.js-confirm-phone').removeClass('hidden');

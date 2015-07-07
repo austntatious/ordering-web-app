@@ -1,0 +1,6 @@
+<% if current_user.has_confirmed_phone %>
+  $('.js-msg-holder').html('<br/><div class="alert alert-success">Your phone number has been confirmed. <a href="/">Continue to main page</a></div><br/>');
+  $('.js-forms').addClass('hidden');
+<% else %>
+  $('.js-msg-holder').html('<br/><div class="alert alert-danger">The confirmation code is wrong</div><br/>');
+<% end %>

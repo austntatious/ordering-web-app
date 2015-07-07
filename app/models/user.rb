@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     self.carts.reorder('created_at DESC').first
   end
 
-  def generate_phone_confirmation_code(phone)
+  def genarate_phone_confirmation_code(phone)
     self.phone = phone
     code = ''
     6.times do
@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     end
     self.phone_confirmation_code = code
     self.save
+    self.send_confirmation_sms
+  end
+
+  def send_confirmation_sms
     SmsApi.send_sms "+1#{self.phone}", "Your confirmation code for StreetEats is #{self.phone_confirmation_code}"
   end
 end

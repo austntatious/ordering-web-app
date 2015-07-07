@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   resources :account_transactions, :only => :index
 
   get '/users/confirm_phone' => 'phone_number_confirmation#confirmation_form', :as => :confirmation_form
-  get '/users/change_phone' => 'phone_number_confirmation#change_phone', :as => :change_phone
+  post '/users/change_phone' => 'phone_number_confirmation#change_phone', :as => :change_phone
+  post '/users/confirm_code' => 'phone_number_confirmation#confirm_code', :as => :confirm_code
+  post '/users/send_code_again' => 'phone_number_confirmation#send_code_again', :as => :send_code_again
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

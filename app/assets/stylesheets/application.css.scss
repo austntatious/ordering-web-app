@@ -63,3 +63,17 @@
 .bold-link {
   font-weight: bold;
 }
+
+.alert {
+  .button_to {
+    display: inline-block;
+  }
+  .send-again-link {
+    background: transparent;
+    border: none;
+    color: $link-color;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
