@@ -28,6 +28,9 @@ class OrdersController < InheritedResources::Base
     if @order.save
       @current_cart.mark_coupon_used current_user
       create_cart
+      unless current_user.has_confirmed_phone
+        current_user.genarate_phone_confirmation_code order.contact_phone
+      end
       redirect_to order_url(@order)
     else
       @restaurant = Restaurant.find(@current_cart.get_restaurant)

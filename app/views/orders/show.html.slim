@@ -12,6 +12,7 @@
   br
 
   - if @order.payed?
+    = render "shared/confirm_phone"
     .row.js-order-payed-success
       .col-md-6.col-md-offset-3
         .panel.panel-default

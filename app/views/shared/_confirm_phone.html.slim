@@ -2,9 +2,21 @@
   - unless params[:controller] == 'phone_number_confirmation'
     - if user_signed_in?
       - unless current_user.has_confirmed_phone
-        br
-        br
-        .well
-          = link_to 'Confirm your phone number', confirmation_form_path
-          |&nbsp;
-          | to receive status updates
+        .col-xs-12.col-sm-10.col-md-8.col-sm-offset-1.col-md-offset-2.confirm-phone-block
+          .well
+            |We've sent the phone confirmation code to your phone.
+            br
+            = "Confirm your phone number <i class='marked'>#{@order.contact_phone}</i> to complete order".html_safe
+          .js-msg-holder
+            .js-confirm-phone
+              = form_tag confirm_code_path(:format => :js), :remote => true
+                .form-group
+                  = label_tag :code, 'Confirmation code'
+                  = text_field_tag :code, '', class: 'form-control'
+                .form-group
+                  = button_to "Send code again", send_code_again_path(:format => :js), :remote => true, :method => :post, :class => "send-again-link"
+                  = submit_tag "Confirm phone number", class: 'btn btn-primary btn-block'
+          br
+          br
+          br
+
