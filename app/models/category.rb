@@ -4,5 +4,7 @@ class Category < ActiveRecord::Base
   belongs_to :restaurant
   has_many :products
 
-  validates :name, :restaurant_id, :presence => true
+  accepts_nested_attributes_for :products, :allow_destroy => true
+
+  validates :name, :presence => true
 end

@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   belongs_to :category
   has_many :product_options
+  belongs_to :restaurant
   validates :name, :price, :presence => true
 
   scope :by_restaurant, -> (restaurant) { where('category_id IN (SELECT id FROM categories WHERE restaurant_id = ?)', restaurant) }

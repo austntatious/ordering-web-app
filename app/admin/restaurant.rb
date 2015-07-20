@@ -8,7 +8,14 @@ ActiveAdmin.register Restaurant do
     :accept_orders_time, :restaurant_type_id, :address,
     :recipient_bank_account_country, :recipient_bank_account_routing_number,
     :stripe_destination, :owner_mail,
-    :recipient_bank_account_account_number, :stripe_recipient_id, :location_ids => []
+    :recipient_bank_account_account_number, :stripe_recipient_id, :location_ids => [],
+    :categories_attributes => [
+      :id, :name, :_destroy,
+      :products_attributes => [
+        :id, :category_id, :name, :price, :description, :toppings_limit, :_destroy,
+        :product_options_attributes => [ :id, :name, :price, :_destroy ]
+      ]
+    ]
   #
   # or
   #
@@ -18,7 +25,15 @@ ActiveAdmin.register Restaurant do
   #   permitted
   # end
 
+  controller do
+    def create
+      super
+      binding.pry
+    end
+  end
+
   form do |f|
+    f.semantic_errors
     f.inputs '' do
       f.input :name
       f.input :phone
@@ -32,6 +47,27 @@ ActiveAdmin.register Restaurant do
       f.input :stripe_destination, :input_html => { :disabled => true }
       f.input :owner_mail
     end
+
+    f.inputs 'Categories' do
+      f.has_many :categories do |cat|
+        cat.input :name
+        cat.has_many :products do |pr|
+          pr.input :name
+          pr.input :price
+          pr.input :description
+          pr.input :toppings_limit
+          pr.has_many :product_options do |po|
+            po.input :name
+            po.input :price
+            if !po.object.nil?
+              po.input :_destroy, :as => :boolean, :label => 'Delete option'
+            end
+          end
+        end
+        cat.input :_destroy, :as => :boolean, :label => 'Delete category'
+      end
+    end
+
     f.inputs 'Payment data' do
       f.input :stripe_recipient_id
       f.input :recipient_name

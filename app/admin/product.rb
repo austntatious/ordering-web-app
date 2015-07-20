@@ -90,7 +90,7 @@ ActiveAdmin.register Product do
         po.input :name
         po.input :price
         if !po.object.nil?
-          po.input :_destroy, :as => :boolean, :label => 'Are you sure?'
+          po.input :_destroy, :as => :boolean, :label => 'Delete'
         end
           # po.form_buffers.last
       end

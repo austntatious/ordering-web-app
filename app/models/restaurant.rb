@@ -2,7 +2,11 @@ class Restaurant < ActiveRecord::Base
   belongs_to :restaurant_type
   has_and_belongs_to_many :locations, :join_table => :locations_restaurants
   has_many :categories
+  has_many :products, through: :categories
   has_many :orders
+
+  accepts_nested_attributes_for :categories, :allow_destroy => true
+  accepts_nested_attributes_for :products, :allow_destroy => true
 
   validates :name, :img, :accept_orders_time, :presence => true
 
