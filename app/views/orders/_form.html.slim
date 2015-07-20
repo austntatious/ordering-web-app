@@ -57,6 +57,8 @@
             .panel-heading Order cart
             .panel-body
               = render '/carts/current', :f => f
+          .text-right
+            .ssl-seal
 
       .actions
         = f.submit 'Complete order', :class => 'btn btn-success btn-lg btn-order js-order-submit', :disabled => f.object.address.blank?

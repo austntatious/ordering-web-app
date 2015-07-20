@@ -83,3 +83,11 @@
 .marked {
   color: $link-color;
 }
+
+.ssl-seal {
+  display: inline-block;
+  margin-top: 15px;
+  width: image-width("RapidSSL_SEAL-90x50.gif");
+  height: image-height("RapidSSL_SEAL-90x50.gif");
+  background: inline("RapidSSL_SEAL-90x50.gif") no-repeat;
+}

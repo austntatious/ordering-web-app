@@ -14,8 +14,7 @@ ActiveAdmin.register Product do
     new_categories = 0
     with_errors = 0
 
-    CSV.parse(infile) do |row|
-      binding.pry
+    CSV.parse(infile, {:col_sep => ';'} ) do |row|
       category = Category.where(:name => row[3], :restaurant_id => params[:restaurant_id]).first
       if category.nil?
         category = Category.create({
