@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_ref_id
   before_filter :set_seo_params
 
+  helper_method :sort_column, :sort_direction
+
   def create_cart
     cart = ::Cart.create()
     session[:cart_id] = cart.id
@@ -60,4 +62,17 @@ class ApplicationController < ActionController::Base
       :description => ::Setting::get('Description for index page')
     }
   end
+
+  protected
+    def sort_column
+      nil
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+    def sort_order
+      "#{sort_column} #{sort_direction}"
+    end
 end

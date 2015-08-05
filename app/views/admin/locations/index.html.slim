@@ -9,11 +9,9 @@ h1 Delivery locations
               th
                 |Image
               th
-                a.desc href="#"
-                  span Name
+                = sortable(:name, 'Name')
               th
-                a.asc href="#"
-                  span Created at
+                = sortable(:created_at, 'Created at')
               th
           tbody
             - @locations.each do |location|

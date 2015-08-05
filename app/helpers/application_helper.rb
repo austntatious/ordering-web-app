@@ -1,4 +1,11 @@
 module ApplicationHelper
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    css_class = column.to_s == sort_column.to_s ? "#{sort_direction}" : ''
+    direction = column.to_s == sort_column.to_s && sort_direction == "asc" ? "desc" : "asc"
+    link_to "<span>#{title}</span>".html_safe, params.merge(:sort => column, :direction => direction), {:class => css_class}
+  end
+
   def model_errors(model)
     result = ""
     if model.errors.any?
