@@ -6,7 +6,7 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     = csrf_meta_tags
     = stylesheet_link_tag 'admin', media: 'all'
-    / # = javascript_include_tag 'admin'
+    = javascript_include_tag 'admin'
   body
     header#header-navbar.navbar
       .container
@@ -127,8 +127,7 @@ html
                 i.fa.fa-cog
             li.dropdown.profile-dropdown
               a.dropdown-toggle data-toggle="dropdown" href="#"
-                img alt="" src="img/samples/profile-photo.png" /
-                span.hidden-xs Scarlett Johansson
+                span.hidden-xs = current_admin_user.email
                 b.caret
               ul.dropdown-menu
                 li
@@ -148,7 +147,7 @@ html
                     i.fa.fa-power-off
                     | Logout
             li.hidden-xxs
-              a.btn
+              = link_to destroy_user_session_path, :method => :delete, class: 'btn' do
                 i.fa.fa-power-off
     .container
       .row
@@ -322,6 +321,7 @@ html
         #content-wrapper.col-md-10
           .row
             .col-lg-12
+              h1 Page title
               == yield
 
     footer#footer-bar
