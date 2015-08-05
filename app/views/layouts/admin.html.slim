@@ -71,13 +71,13 @@ html
                   a href="/admin/coupons"
                     i.fa.fa-tags
                     span Coupons
-                li
+                li class="#{'active' if params[:controller] == 'admin/restaurant_types'}"
                   a.dropdown-toggle href="/admin/orders"
                     i.fa.fa-glass
                     span Restaurants and menu
                     i.fa.fa-chevron-circle-down.drop-icon
                   ul.submenu
-                    li
+                    li class="#{'active' if params[:controller] == 'admin/restaurant_types'}"
                       a href="/admin/restaurant_types"
                         | Restaurant types
                     li

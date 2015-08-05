@@ -4,13 +4,13 @@ script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libra
     .main-box
       = form_for [:admin, @location] do |f|
         = model_errors @location
-        div class="form-group #{'has-error' if @location.errors[:name]}"
+        div class="form-group #{'has-error' if @location.errors[:name].any?}"
           = f.label :name, class: 'control-label'
           = f.text_field :name, class: 'form-control'
-        div class="form-group #{'has-error' if @location.errors[:img]}"
+        div class="form-group #{'has-error' if @location.errors[:img].any?}"
           = f.label :img, class: 'control-label'
           = f.file_field :img
-        div class="form-group #{'has-error' if @location.errors[:coords]}"
+        div class="form-group #{'has-error' if @location.errors[:coords].any?}"
           = f.hidden_field :coords
           #place-map-holder style="height: 400px"
         = f.submit 'Save', class: 'btn btn-block btn-success'

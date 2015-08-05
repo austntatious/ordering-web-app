@@ -1,7 +1,11 @@
 class Admin::LocationsController < AdminController
   before_action :set_location, only: [ :edit, :destroy, :update ]
   def index
-    @locations = Location.order(sort_order).page(params[:page]).per(20)
+    @locations = Location.search(params[:search]).order(sort_order).page(params[:page]).per(20)
+  end
+
+  def new
+    @location = Location.new
   end
 
   def edit

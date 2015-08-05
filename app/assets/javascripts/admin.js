@@ -33,3 +33,7 @@
 //= require superhero/scripts.js
 //= require theme
 //= require location_editor
+//= require_self
+
+$(document).ready(function () {
+});

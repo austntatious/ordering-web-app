@@ -1,45 +1,45 @@
-h1 Delivery locations
+h1 Restaurant types
 .row
   .col-lg-12
     .main-box.clearfix
       .filter-block.pull-right
-        = form_tag admin_locations_path, method: :get, class: 'pull-left'
+        = form_tag admin_restaurant_types_path, method: :get, class: 'pull-left'
           .form-group
             = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
             i.fa.fa-search.search-icon.js-do-search
-        = link_to new_admin_location_path, class: 'btn btn-primary pull-right' do
+        = link_to new_admin_restaurant_type_path, class: 'btn btn-primary pull-right' do
           i.fa.fa-plus-circle.fa-lg
-          |&nbsp;Add location
+          |&nbsp;Add restaurant type
 
       .table-responsive
         table.table
           thead
             tr
               th
-                |Image
+                |ID
               th
                 = sortable(:name, 'Name')
               th
                 = sortable(:created_at, 'Created at')
               th
           tbody
-            - @locations.each do |location|
+            - @restaurant_types.each do |rt|
               tr
                 td
-                  = image_tag location.img, height: 40
+                  = rt.id
                 td
-                  = location.name
+                  = rt.name
                 td
-                  =l location.created_at, format: :short
+                  =l rt.created_at, format: :short
                 td
-                  = link_to edit_admin_location_path(location), class: 'table-link' do
+                  = link_to edit_admin_restaurant_type_path(rt), class: 'table-link' do
                     span.fa-stack
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-pencil.fa-stack-1x.fa-inverse
-                  = link_to admin_location_path(location),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                  = link_to admin_restaurant_type_path(rt),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
                     span.fa-stack
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-trash-o.fa-stack-1x.fa-inverse
 
       .pull-right
-        = paginate @locations
+        = paginate @restaurant_types

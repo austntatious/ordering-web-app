@@ -6,6 +6,8 @@ class Location < ActiveRecord::Base
 
   mount_uploader :img, LocationUploader
 
+  scope :search, -> (q) { q.blank? ? where('1 = 1') : where('name LIKE ?', "%#{q}%")  }
+
   def set_seo_data(hash)
     tt = Setting::get('Title for location page')
     unless tt.blank?

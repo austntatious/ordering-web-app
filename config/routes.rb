@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get '/' => 'dashboard#index'
     resources :users
     resources :admin_users
+    resources :restaurant_types
     resources :locations
   end
 
