@@ -1,4 +1,4 @@
-class OrdersController < InheritedResources::Base
+class OrdersController < ApplicationController
   before_filter :check_user_auth
 
   def check_user_auth

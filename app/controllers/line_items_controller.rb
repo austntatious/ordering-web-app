@@ -1,4 +1,4 @@
-class LineItemsController < InheritedResources::Base
+class LineItemsController < ApplicationController
   def increase
     @line_item = @current_cart.line_items.where(:id => params[:line_item_id]).first
     if @line_item.count > 0

@@ -1,4 +1,4 @@
-class TextPagesController < InheritedResources::Base
+class TextPagesController < ApplicationController
   respond_to :js, :html
 
   def show

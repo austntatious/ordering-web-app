@@ -1,4 +1,4 @@
-class CreditCardsController < InheritedResources::Base
+class CreditCardsController < ApplicationController
   respond_to :js, :html
 
   def create

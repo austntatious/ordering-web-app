@@ -1,8 +1,8 @@
-class LocationsController < InheritedResources::Base
+class LocationsController < ApplicationController
   def show
     @current_cart.set_location params[:id]
     session[:current_location] = params[:id]
-    super
+    @location = Location.find params[:id]
   end
 
   private

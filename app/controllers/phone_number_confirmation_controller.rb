@@ -1,4 +1,4 @@
-class PhoneNumberConfirmationController < InheritedResources::Base
+class PhoneNumberConfirmationController < ApplicationController
   before_filter :authenticate_user!
 
   def change_phone

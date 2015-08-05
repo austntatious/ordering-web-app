@@ -1,4 +1,4 @@
-class ProductsController < InheritedResources::Base
+class ProductsController < ApplicationController
 
   private
 

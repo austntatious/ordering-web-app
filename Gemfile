@@ -25,7 +25,6 @@ gem 'mini_magick'
 gem 'ckeditor'
 gem 'kaminari'
 gem "letter_opener", :group => :development
-gem 'activeadmin', github: 'activeadmin'
 gem "font-awesome-rails"
 
 # Use jquery as the JavaScript library
@@ -67,6 +66,5 @@ gem "state_machine", git: 'https://github.com/seuros/state_machine.git'
 gem "twilio-ruby"
 gem 'sidekiq'
 gem 'capistrano-sidekiq', group: :development
-gem 'active_admin-state_machine'
 gem 'mailchimp-api', '~> 2.0.6'
 gem 'omniauth-stripe-connect', '2.6.0'

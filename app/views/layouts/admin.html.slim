@@ -1,0 +1,331 @@
+doctype html
+html
+  head
+    title BingFreshEats - Admin panel
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    = csrf_meta_tags
+    = stylesheet_link_tag 'admin', media: 'all'
+    / # = javascript_include_tag 'admin'
+  body
+    header#header-navbar.navbar
+      .container
+        a#logo.navbar-brand.col-md-3.col-sm-3.col-xs-12 href="index.html"
+          img alt="" src="img/logo.png" /
+          span SuperheroAdmin
+        button.navbar-toggle data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button"
+          span.sr-only Toggle navigation
+          span.fa.fa-bars
+        #header-nav.nav-no-collapse.pull-right
+          ul.nav.navbar-nav.pull-right
+            li.mobile-search
+              a.btn
+                i.fa.fa-search
+              .drowdown-search
+                form role="search"
+                  .form-group
+                    input.form-control placeholder="Search..." type="text" /
+                    i.fa.fa-search.nav-search-icon
+            li.dropdown.hidden-xs
+              a.btn.dropdown-toggle data-toggle="dropdown"
+                i.fa.fa-warning
+                span.count 8
+              ul.dropdown-menu.notifications-list
+                li.pointer
+                  .pointer-inner
+                    .arrow
+                    .arrow-border
+                li.item-header You have 6 new notifications
+                li.item
+                  a href="#"
+                    i.fa.fa-comment
+                    span.content New comment on ‘Awesome P...
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    i.fa.fa-plus
+                    span.content New user registration
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    i.fa.fa-envelope
+                    span.content New Message from George
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    i.fa.fa-shopping-cart
+                    span.content New purchase
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    i.fa.fa-eye
+                    span.content New order
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item-footer
+                  a href="#"
+                    | View all notifications
+            li.dropdown.hidden-xs
+              a.btn.dropdown-toggle data-toggle="dropdown"
+                i.fa.fa-envelope-o
+                span.count 16
+              ul.dropdown-menu.notifications-list.messages-list
+                li.pointer
+                  .pointer-inner
+                    .arrow
+                    .arrow-border
+                li.item.first-item
+                  a href="#"
+                    img alt="" src="img/samples/messages-photo-1.png" /
+                    span.content
+                      span.content-headline
+                        | George Clooney
+                      span.content-text
+                        | Look, just because I don't be givin' no man a foot massage don't make it
+                        | right for Marsellus to throw...
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    img alt="" src="img/samples/messages-photo-2.png" /
+                    span.content
+                      span.content-headline
+                        | Emma Watson
+                      span.content-text
+                        | Look, just because I don't be givin' no man a foot massage don't make it
+                        | right for Marsellus to throw...
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item
+                  a href="#"
+                    img alt="" src="img/samples/messages-photo-3.png" /
+                    span.content
+                      span.content-headline
+                        | Robert Downey Jr.
+                      span.content-text
+                        | Look, just because I don't be givin' no man a foot massage don't make it
+                        | right for Marsellus to throw...
+                    span.time
+                      i.fa.fa-clock-o
+                      | 13 min.
+                li.item-footer
+                  a href="#"
+                    | View all messages
+            li.hidden-xs
+              a.btn
+                i.fa.fa-cog
+            li.dropdown.profile-dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#"
+                img alt="" src="img/samples/profile-photo.png" /
+                span.hidden-xs Scarlett Johansson
+                b.caret
+              ul.dropdown-menu
+                li
+                  a href="user-profile.html"
+                    i.fa.fa-user
+                    | Profile
+                li
+                  a href="#"
+                    i.fa.fa-cog
+                    | Settings
+                li
+                  a href="#"
+                    i.fa.fa-envelope-o
+                    | Messages
+                li
+                  a href="#"
+                    i.fa.fa-power-off
+                    | Logout
+            li.hidden-xxs
+              a.btn
+                i.fa.fa-power-off
+    .container
+      .row
+        #nav-col.col-md-2
+          section#col-left
+            #sidebar-nav.collapse.navbar-collapse.navbar-ex1-collapse
+              ul.nav.nav-pills.nav-stacked
+                li.active
+                  a href="index.html"
+                    i.fa.fa-dashboard
+                    span Dashboard
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-users
+                    span Users
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a href="users.html"
+                        | User list
+                    li
+                      a href="user-profile.html"
+                        | User profile
+                li
+                  a href="tables.html"
+                    i.fa.fa-table
+                    span Tables
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-bar-chart-o
+                    span Graphs
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a href="graphs-morris.html"
+                        | Morris &amp; Mixed
+                    li
+                      a href="graphs-flot.html"
+                        | Flot
+                    li
+                      a href="graphs-xcharts.html"
+                        | xCharts
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-edit
+                    span Forms
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a href="form-elements.html"
+                        | Form elements
+                    li
+                      a href="form-wizard.html"
+                        | Form wizard
+                    li
+                      a href="form-wizard-popup.html"
+                        | Form wizard popup
+                    li
+                      a href="form-wysiwyg.html"
+                        | WYSIWYG
+                    li
+                      a href="form-ckeditor.html"
+                        | WYSIWYG CKEditor
+                    li
+                      a href="form-dropzone.html"
+                        | Drop File Upload
+                li
+                  a href="pricing.html"
+                    i.fa.fa-money
+                    span Pricing
+                li
+                  a href="calendar.html"
+                    i.fa.fa-calendar
+                    span Calendar
+                li
+                  a href="typography.html"
+                    i.fa.fa-font
+                    span Typography
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-desktop
+                    span UI Elements
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a href="ui-elements.html"
+                        | Elements
+                    li
+                      a href="ui-nestable.html"
+                        | Nestable
+                li
+                  a href="gallery.html"
+                    i.fa.fa-picture-o
+                    span Gallery
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-folder-open
+                    span 3 Level Menu
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a.dropdown-toggle href="#"
+                        | 2nd Level
+                        i.fa.fa-chevron-circle-down.drop-icon
+                      ul.submenu
+                        li
+                          a href="#"
+                            | 3rd Level
+                        li
+                          a href="#"
+                            | 3rd Level
+                        li
+                          a href="#"
+                            | 3rd Level
+                    li
+                      a.dropdown-toggle href="#"
+                        | 2nd Level
+                        i.fa.fa-chevron-circle-down.drop-icon
+                      ul.submenu
+                        li
+                          a href="#"
+                            | 3rd Level
+                        li
+                          a href="#"
+                            | 3rd Level
+                        li
+                          a href="#"
+                            | 3rd Level
+                    li
+                      a href="#"
+                        | 2nd Level
+                li
+                  a.dropdown-toggle href="#"
+                    i.fa.fa-file-text-o
+                    span Extra pages
+                    i.fa.fa-chevron-circle-down.drop-icon
+                  ul.submenu
+                    li
+                      a href="faq.html"
+                        | FAQ
+                    li
+                      a href="login.html"
+                        | Login
+                    li
+                      a href="login-full.html"
+                        | Login full
+                    li
+                      a href="invoice.html"
+                        | Invoice
+                    li
+                      a href="emails.html"
+                        | Emails
+                    li
+                      a href="error-404.html"
+                        | Error 404
+                    li
+                      a href="error-404-v2.html"
+                        | Error 404 Nested
+                    li
+                      a href="error-500.html"
+                        | Error 500
+                    li
+                      a href="icons-awesome.html"
+                        | Awesome Icons
+                    li
+                      a href="icons-halflings.html"
+                        | Halflings Icons
+                    li
+                      a href="extra-grid.html"
+                        | Grid
+        #content-wrapper.col-md-10
+          .row
+            .col-lg-12
+              == yield
+
+    footer#footer-bar
+      p#footer-copyright
+        | \&copy; 2014
+        a href="http://www.adbee.sk/" target="_blank"  Adbee digital
+        | Powered by SuperheroAdmin.

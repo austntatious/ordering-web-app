@@ -1,4 +1,4 @@
-class CouponsController < InheritedResources::Base
+class CouponsController < ApplicationController
   respond_to :json
 
   def index

@@ -1,4 +1,4 @@
-class CartsController < InheritedResources::Base
+class CartsController < ApplicationController
   respond_to :js, :html
 
   private

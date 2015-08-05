@@ -23,8 +23,12 @@ Rails.application.routes.draw do
   post '/users/confirm_code' => 'phone_number_confirmation#confirm_code', :as => :confirm_code
   post '/users/send_code_again' => 'phone_number_confirmation#send_code_again', :as => :send_code_again
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
+  devise_for :admin_users
+
+  namespace :admin do
+    resources :users
+  end
+
   devise_scope :user do
     get '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
     post '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
