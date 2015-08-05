@@ -31,6 +31,7 @@
 //= require superhero/flot/jquery.flot.time.min
 //= require superhero/flot/jquery.flot.threshold
 //= require superhero/scripts.js
+//= require ckeditor/init
 //= require theme
 //= require location_editor
 //= require_self

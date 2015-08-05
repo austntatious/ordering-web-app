@@ -1,0 +1,49 @@
+h1 TextPages
+.row
+  .col-lg-12
+    .main-box.clearfix
+      .filter-block.pull-right
+        = form_tag admin_text_pages_path, method: :get, class: 'pull-left'
+          .form-group
+            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+            i.fa.fa-search.search-icon.js-do-search
+        = link_to new_admin_text_page_path, class: 'btn btn-primary pull-right' do
+          i.fa.fa-plus-circle.fa-lg
+          |&nbsp;Add text page
+
+      .table-responsive
+        table.table
+          thead
+            tr
+              th
+                |ID
+              th
+                = sortable(:url, 'URL')
+              th
+                = sortable(:content, 'Content')
+              th
+                = sortable(:created_at, 'Created at')
+              th
+          tbody
+            - @text_pages.each do |text_page|
+              tr
+                td
+                  = text_page.id
+                td
+                  = text_page.url
+                td
+                  = truncate text_page.content, length: 160
+                td
+                  =l text_page.created_at, format: :short
+                td
+                  = link_to edit_admin_text_page_path(text_page), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_text_page_path(text_page),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+      .pull-right
+        = paginate @text_pages

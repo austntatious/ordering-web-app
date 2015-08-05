@@ -89,7 +89,7 @@ html
                     li
                       a href="/admin/categories"
                         | Product categories
-                li
+                li class="#{'active' if params[:controller] == 'admin/text_pages'}"
                   a href="/admin/text_pages"
                     i.fa.fa-file-text-o
                     span Text Pages

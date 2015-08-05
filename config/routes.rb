@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :restaurant_types
     resources :categories
     resources :locations
+    resources :text_pages
   end
 
   devise_scope :user do
