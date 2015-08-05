@@ -34,5 +34,10 @@ module Fooddelivery
     end
 
     config.assets.precompile += ['ckeditor/*']
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      # "<div class=\"has-error\">#{html_tag}</div>".html_safe
+      html_tag.html_safe
+    }
   end
 end

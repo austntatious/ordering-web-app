@@ -26,7 +26,10 @@ Rails.application.routes.draw do
   devise_for :admin_users
 
   namespace :admin do
+    get '/' => 'dashboard#index'
     resources :users
+    resources :admin_users
+    resources :locations
   end
 
   devise_scope :user do

@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def model_errors(model)
+    result = ""
+    if model.errors.any?
+      result = "<div class='alert alert-danger'>#{model.errors.full_messages.join('<br>')}</div>".html_safe
+    end
+    result
+  end
+
   def promo_image
     pm = Setting::get('Facebook promotional image path')
     if pm.blank?

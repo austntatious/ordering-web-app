@@ -1,0 +1,38 @@
+h1 Delivery locations
+.row
+  .col-lg-12
+    .main-box.clearfix
+      .table-responsive
+        table.table
+          thead
+            tr
+              th
+                |Image
+              th
+                a.desc href="#"
+                  span Name
+              th
+                a.asc href="#"
+                  span Created at
+              th
+          tbody
+            - @locations.each do |location|
+              tr
+                td
+                  = image_tag location.img, height: 40
+                td
+                  = location.name
+                td
+                  =l location.created_at, format: :short
+                td
+                  = link_to edit_admin_location_path(location), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_location_path(location),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+      .pull-right
+        = paginate @locations
