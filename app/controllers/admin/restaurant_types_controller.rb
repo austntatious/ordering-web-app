@@ -24,6 +24,15 @@ class Admin::RestaurantTypesController < AdminController
     end
   end
 
+  def create
+    @restaurant_type = RestaurantType.new(restaurant_type_params)
+    if @restaurant_type.save
+      redirect_to admin_restaurant_types_path
+    else
+      render :edit
+    end
+  end
+
   protected
 
     def sort_column

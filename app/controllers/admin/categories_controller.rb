@@ -25,6 +25,15 @@ class Admin::CategoriesController < AdminController
     end
   end
 
+  def create
+    @category = Category.new(category_params)
+    if @category.save
+      redirect_to admin_categories_path
+    else
+      render :edit
+    end
+  end
+
   protected
 
     def sort_column

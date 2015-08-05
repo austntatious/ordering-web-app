@@ -24,6 +24,15 @@ class Admin::LocationsController < AdminController
     end
   end
 
+  def create
+    @location = Location.new(location_params)
+    if @location.save
+      redirect_to admin_locations_path
+    else
+      render :edit
+    end
+  end
+
   protected
 
     def sort_column
