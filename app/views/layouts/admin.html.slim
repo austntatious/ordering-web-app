@@ -71,7 +71,7 @@ html
                   a href="/admin/coupons"
                     i.fa.fa-tags
                     span Coupons
-                li class="#{'active' if params[:controller] == 'admin/restaurant_types'}"
+                li class="#{'active' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories'}"
                   a.dropdown-toggle href="/admin/orders"
                     i.fa.fa-glass
                     span Restaurants and menu

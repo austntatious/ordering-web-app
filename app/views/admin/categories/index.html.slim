@@ -1,0 +1,49 @@
+h1 Product categories
+.row
+  .col-lg-12
+    .main-box.clearfix
+      .filter-block.pull-right
+        = form_tag admin_categories_path, method: :get, class: 'pull-left'
+          .form-group
+            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+            i.fa.fa-search.search-icon.js-do-search
+        = link_to new_admin_category_path, class: 'btn btn-primary pull-right' do
+          i.fa.fa-plus-circle.fa-lg
+          |&nbsp;Add product category
+
+      .table-responsive
+        table.table
+          thead
+            tr
+              th
+                |ID
+              th
+                = sortable(:name, 'Name')
+              th
+                = sortable(:restaurant_id, 'Restaurant')
+              th
+                = sortable(:created_at, 'Created at')
+              th
+          tbody
+            - @categories.each do |category|
+              tr
+                td
+                  = category.id
+                td
+                  = category.name
+                td
+                  = category.restaurant.try(:name)
+                td
+                  =l category.created_at, format: :short
+                td
+                  = link_to edit_admin_category_path(category), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_category_path(category),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+      .pull-right
+        = paginate @categories

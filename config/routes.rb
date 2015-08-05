@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :users
     resources :admin_users
     resources :restaurant_types
+    resources :categories
     resources :locations
   end
 
