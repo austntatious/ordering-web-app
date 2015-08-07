@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    - Setting::NEW_SETTINGS_KINDS.each_pair do |name, group|
+      .main-box
+        h2 = name
+        = form_tag admin_save_settings_path do
+          - group.each do |sk|
+            - s = @settings.select { |s| s.name == sk }.first || Setting.new
+            .form-group
+              = label_tag "settings[#{sk}]", sk
+              = text_field_tag "settings[#{sk}]", s.value, class: 'form-control'
+          .form-group
+            = submit_tag 'Save', class: 'btn btn-primary btn-block'

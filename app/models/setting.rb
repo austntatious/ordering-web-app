@@ -13,6 +13,16 @@ class Setting < ActiveRecord::Base
     'Order sum limit before 2x delivery', 'Application fee', 'Enable phones confirmation'
   ]
 
+  NEW_SETTINGS_KINDS = {
+    'Common' => [ 'Admin phone', 'Admin email', 'Work from', 'Work to', 'Order arrive since', 'Order arrive before' ],
+    'SEO' => [ 'Title for index page', 'Keywords for index page', 'Description for index page',
+      'Title for restaurant page' , 'Keywords for restaurant page', 'Description for restaurant page',
+      'Title for location page', 'Keywords for location page', 'Description for location page'],
+    'Social' => [ 'Facebook invitation text', 'Twitter invitation text', 'Facebook promotional image path', 'Tweet text' ],
+    'Application' => [ 'Tax', 'Order sum before 2x delivery', 'Application fee', 'Enable phones confirmation' ],
+    'Refferal' => [ 'Refferal bonus' ]
+  }
+
   def self.get_float(nm)
     val = Setting.get(nm)
     if val == ''

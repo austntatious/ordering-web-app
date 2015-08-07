@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'dashboard#index'
+    get '/settings' => 'settings#index'
+    post '/settings' => 'settings#save', as: :save_settings
     resources :users
     resources :admin_users
     resources :restaurant_types
