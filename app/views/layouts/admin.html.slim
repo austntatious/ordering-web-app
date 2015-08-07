@@ -67,11 +67,11 @@ html
                   a href="/admin/orders"
                     i.fa.fa-gift
                     span Orders
-                li
+                li class="#{'active' if params[:controller] == 'admin/coupons'}"
                   a href="/admin/coupons"
                     i.fa.fa-tags
                     span Coupons
-                li class="#{'active' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products'}"
+                li class="#{'active' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products' || params[:controller] == 'admin/restaurants'}"
                   a.dropdown-toggle href="/admin/orders"
                     i.fa.fa-glass
                     span Restaurants and menu
@@ -93,7 +93,7 @@ html
                   a href="/admin/text_pages"
                     i.fa.fa-file-text-o
                     span Text Pages
-                li
+                li class="#{'active' if params[:controller] == 'admin/settings'}"
                   a href="/admin/settings"
                     i.fa.fa-gear
                     span Settings

@@ -1,6 +1,6 @@
 set :user, 'ivanthecrazy'
 set :deploy_to, "/home/ivanthecrazy/streeteats"
-
+set :rvm_ruby_version, 'default'
 server '94.127.67.246', user: 'ivanthecrazy', roles: %w{web app db}
 # server-based syntax
 # ======================
