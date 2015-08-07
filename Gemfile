@@ -26,6 +26,7 @@ gem 'ckeditor'
 gem 'kaminari'
 gem "letter_opener", :group => :development
 gem "font-awesome-rails"
+gem "cocoon"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

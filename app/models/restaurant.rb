@@ -8,6 +8,16 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for :categories, :allow_destroy => true
   accepts_nested_attributes_for :products, :allow_destroy => true
 
+  scope :search, -> (q) {
+    q.blank? ?
+      where('1 = 1') :
+      joins(:locations, :categories).
+        where(
+          'restaurants.name iLIKE ? OR categories.name LIKE ? OR locations.name LIKE ?',
+          "%#{q}%", "%#{q}%", "%#{q}%"
+        )
+  }
+
   validates :name, :img, :accept_orders_time, :presence => true
 
   mount_uploader :img, RestaurantUploader

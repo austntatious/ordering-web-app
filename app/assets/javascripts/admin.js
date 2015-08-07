@@ -34,6 +34,7 @@
 //= require ckeditor/init
 //= require theme
 //= require location_editor
+//= require cocoon
 //= require_self
 
 $(document).ready(function () {
