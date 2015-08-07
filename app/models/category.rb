@@ -8,5 +8,5 @@ class Category < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  scope :search, -> (q) { q.blank? ? where('1 = 1') : joins(:restaurant).where('categories.name LIKE ? OR restaurants.name LIKE ?', "%#{q}%", "%#{q}%")  }
+  scope :search, -> (q) { q.blank? ? where('1 = 1') : joins(:restaurant).where('categories.name iLIKE ? OR restaurants.name iLIKE ?', "%#{q}%", "%#{q}%")  }
 end

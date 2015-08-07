@@ -4,6 +4,16 @@ class Product < ActiveRecord::Base
   belongs_to :restaurant
   validates :name, :price, :presence => true
 
+  scope :search, -> (q) {
+    q.blank? ?
+      where('1 = 1') :
+      joins(:category => :restaurant).
+        where(
+          'products.name iLIKE ? OR products.description iLIKE ? OR categories.name iLIKE ? OR restaurants.name LIKE ?',
+          "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
+        )
+  }
+
   scope :by_restaurant, -> (restaurant) { where('category_id IN (SELECT id FROM categories WHERE restaurant_id = ?)', restaurant) }
 
   has_and_belongs_to_many :products,

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get '/' => 'dashboard#index'
     get '/settings' => 'settings#index'
     post '/settings' => 'settings#save', as: :save_settings
+    resources :products
     resources :users
     resources :admin_users
     resources :restaurant_types

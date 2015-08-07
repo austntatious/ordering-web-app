@@ -1,0 +1,49 @@
+h1 Products
+.row
+  .col-lg-12
+    .main-box.clearfix
+      .filter-block.pull-right
+        = form_tag admin_products_path, method: :get, class: 'pull-left'
+          .form-group
+            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+            i.fa.fa-search.search-icon.js-do-search
+        = link_to new_admin_product_path, class: 'btn btn-primary pull-right' do
+          i.fa.fa-plus-circle.fa-lg
+          |&nbsp;Add product
+
+      .table-responsive
+        table.table
+          thead
+            tr
+              th
+                = sortable(:name, 'Name')
+              th
+                = sortable(:price, 'Price')
+              th
+                = sortable(:category_id, 'Category')
+              th
+                = sortable(:restaurant_id, 'Restaurant')
+              th
+          tbody
+            - @products.each do |product|
+              tr
+                td
+                  = product.name
+                td
+                  = number_to_currency product.price
+                td
+                  = product.category.try(:name)
+                td
+                  = product.category.try(:restaurant).try(:name)
+                td
+                  = link_to edit_admin_product_path(product), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_product_path(product),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+      .pull-right
+        = paginate @products
