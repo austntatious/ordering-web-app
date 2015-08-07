@@ -39,7 +39,7 @@ class Admin::TextPagesController < AdminController
       TextPage.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
 
-    def set_set_text_page
+    def set_text_page
       @text_page = TextPage.find(params[:id])
     end
 

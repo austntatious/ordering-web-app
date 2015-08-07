@@ -4,6 +4,8 @@ class Coupon < ActiveRecord::Base
   has_many :carts
   has_many :used_coupons
 
+  scope :search, -> (q) { q.blank? ? where('1 = 1') : where('code LIKE', "%#{q}%")  }
+
   # end date validation
   def expired?
     result = false

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :locations
     resources :text_pages
+    resources :coupons
   end
 
   devise_scope :user do
