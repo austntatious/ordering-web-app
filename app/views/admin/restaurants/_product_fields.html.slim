@@ -1,0 +1,19 @@
+.product-fields.js-product-fields
+  .form-group
+    = f.label :name, class: 'control-label col-md-2'
+    .col-md-8
+      = f.text_field :name, class: 'form-control'
+    .col-md-2
+      = link_to_remove_association 'Remove product', f, data: { confirm: 'Are you sure?' }, wrapper_class: 'js-product-fields'
+  .form-group
+    = f.label :price, class: 'control-label col-md-2'
+    .col-md-8
+      = f.text_field :price, class: 'form-control'
+  .form-group
+    = f.label :description, class: 'control-label col-md-2'
+    .col-md-8
+      = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.label :toppings_limit, class: 'control-label col-md-2'
+    .col-md-8
+      = f.number_field :toppings_limit, class: 'form-control'

@@ -6,3 +6,10 @@
         = f.text_field :name, class: 'form-control'
       .col-md-2
         = link_to_remove_association 'Remove category', f, data: { confirm: 'Are you sure?' }, class: 'category-label'
+    .col-md-11.col-md-offset-1
+      h3 Products
+      div class="js-category-#{f.object.id}"
+        = f.fields_for :products do |product|
+          = render 'product_fields', :f => product
+    .col-md-offset-1
+      p = link_to_add_association '<span class="fa fa-plus"></span>&nbsp;Add product'.html_safe, f, :products, class: 'btn btn-info', 'data-association-insertion-node' => ".js-category-#{f.object.id}", 'data-association-insertion-method' => 'append'
