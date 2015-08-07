@@ -142,6 +142,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.3.18)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -166,7 +167,6 @@ GEM
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.2.0)
     orm_adapter (0.5.0)
-    pg (0.17.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -288,9 +288,9 @@ DEPENDENCIES
   letter_opener
   mailchimp-api (~> 2.0.6)
   mini_magick
+  mysql2
   omniauth-facebook
   omniauth-stripe-connect (= 2.6.0)
-  pg
   pry
   quiet_assets
   rails (= 4.1.6)
