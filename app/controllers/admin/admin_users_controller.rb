@@ -28,7 +28,7 @@ class Admin::AdminUsersController < AdminController
   def create
     @admin_user = AdminUser.new(admin_user_params)
     if @admin_user.save
-      redirect_to admin_user_params
+      redirect_to admin_admin_users_path
     else
       render :edit
     end

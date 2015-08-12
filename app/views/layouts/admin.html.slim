@@ -27,19 +27,11 @@ html
                     .logged-user
                       .btn-group
                         a.btn.btn-link.dropdown-toggle data-toggle="dropdown" href="#"
-                          span.name Stacy Rose
+                          span.name = current_admin_user.email
                           span.caret
                         ul.dropdown-menu role="menu"
                           li
-                            a href="#"
-                              i.fa.fa-user
-                              span.text Profile
-                          li
-                            a href="#"
-                              i.fa.fa-cog
-                              span.text Settings
-                          li
-                            a href="#"
+                            = link_to destroy_admin_user_session_path, :method => :delete do
                               i.fa.fa-power-off
                               span.text Logout
                     /! end logged user and the menu

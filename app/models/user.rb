@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   # validates :name, :presence => true
   # validates_uniqueness_of :phone
+  scope :search, -> (q) { q.blank? ? where('1 = 1') : where('email iLIKE ?', "%#{q}%")  }
 
   after_commit :create_stripe_client, :on => [:create]
 

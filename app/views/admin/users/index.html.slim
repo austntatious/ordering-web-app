@@ -1,1 +1,33 @@
-.row
+h2 Site users
+.main-content
+
+  .widget
+    .widget-content
+      .table-responsive
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
+          thead
+            tr
+              = sortable(:id, '#')
+              = sortable(:email, 'Email')
+              = sortable(:created_at, 'Created')
+              = sortable(:last_sign_in_at, 'Last sign in')
+              th
+          tbody
+            - @users.each do |user|
+              tr
+                td = user.id
+                td = user.email
+                td =l user.created_at, format: :short
+                td =l user.last_sign_in_at, format: :short
+                td
+                  = link_to edit_admin_user_path(user), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_user_path(user),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+        .pull-right
+          = paginate @users
