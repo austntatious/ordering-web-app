@@ -6,9 +6,11 @@ class Admin::CouponsController < AdminController
 
   def new
     @coupon = Coupon.new
+    add_breadcrumb 'New', new_admin_coupon_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_coupon_path(@coupon)
   end
 
   def destroy
@@ -45,5 +47,9 @@ class Admin::CouponsController < AdminController
 
     def coupon_params
       params.require(:coupon).permit(:code, :value, :min_price, :valid_till)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Coupons', admin_coupons_path
     end
 end

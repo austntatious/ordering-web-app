@@ -2,7 +2,7 @@ class Admin::OrdersController < AdminController
   before_action :set_order, only: [ :edit, :destroy, :update, :show ]
 
   def index
-    @orders = Order.search(params[:search]).includes(:user, :restaurant, :location).reorder('orders.' + sort_order).page(params[:page]).per(10)
+    @orders = Order.search(params[:search]).includes(:user, :restaurant, :location).reorder('orders.' + sort_order).page(params[:page]).per(20)
     respond_to do |format|
       format.html
       format.csv { send_data @orders.to_csv }
@@ -11,12 +11,15 @@ class Admin::OrdersController < AdminController
 
   def new
     @order = Order.new
+    add_breadcrumb 'New', new_admin_order_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_order_path(@order)
   end
 
   def show
+    add_breadcrumb 'Details', new_admin_order_path
   end
 
   def destroy
@@ -54,5 +57,9 @@ class Admin::OrdersController < AdminController
     def order_params
       params.require(:order).permit(:user_id, :address, :driver_instructions, :status, :contact_name, :contact_phone,
         :restaurant_instructions, :delivery_fee)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Orders', admin_orders_path
     end
 end

@@ -5,10 +5,12 @@ class Admin::RestaurantTypesController < AdminController
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_restaurant_type_path(@restaurant_type)
   end
 
   def new
     @restaurant_type = RestaurantType.new
+    add_breadcrumb 'New', new_admin_restaurant_type_path
   end
 
   def destroy
@@ -45,5 +47,9 @@ class Admin::RestaurantTypesController < AdminController
 
     def restaurant_type_params
       params.require(:restaurant_type).permit(:name)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Restaurant types', admin_restaurant_types_path
     end
 end

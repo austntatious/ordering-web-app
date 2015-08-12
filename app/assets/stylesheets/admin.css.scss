@@ -39,3 +39,16 @@
     color: #DB3833 !important;
   }
 }
+
+.search-form-group {
+  position: relative;
+  .fa {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: -20px;
+    display: block;
+    height: 34px;
+    line-height: 34px;
+  }
+}

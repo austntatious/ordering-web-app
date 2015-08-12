@@ -1,52 +1,15 @@
 h2 Orders
 .main-content
-  / .row
-  /   .col-lg-12
-  /     .main-box.clearfix
-  /       .filter-block.pull-right
-  /         = link_to admin_orders_path(format: :csv), class: 'btn btn-primary pull-right' do
-  /           i.fa.fa-download.fa-lg
-  /           |&nbsp;Download CSV
+  .bottom-30px
+    = link_to params.merge(format: :csv), class: 'btn btn-primary' do
+      i.fa.fa-plus-square
+      |&nbsp;Download as CSV
+    .main-content-nav.pull-right
+      = form_tag admin_orders_path, method: :get
+        .form-group.search-form-group
+          = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+          i.fa.fa-search.search-icon.js-do-search
+
   .widget
     .widget-content
-      .table-responsive
-        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
-          thead
-            tr
-              = sortable(:id, '#')
-              th Total price
-              = sortable(:location_id, 'Location')
-              = sortable(:restaurant_id, 'Restaurant')
-              = sortable(:user_id, 'User')
-              = sortable(:created_at, 'Created')
-              = sortable(:status, 'Status')
-              th
-          tbody
-            - @orders.each do |order|
-              tr
-                td
-                  = link_to order.id, admin_order_path(order)
-                td
-                  = number_to_currency order.total_price
-                td
-                  = order.location.name
-                td
-                  = order.restaurant.name
-                td
-                  = order.user.name
-                td
-                  =l order.created_at, format: :short
-                td
-                  = order.status
-                td
-                  = link_to admin_order_path(order), class: 'table-link' do
-                    span.fa-stack
-                      i.fa.fa-square.fa-stack-2x
-                      i.fa.fa-eye.fa-stack-1x.fa-inverse
-                  = link_to admin_order_path(order),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
-                    span.fa-stack
-                      i.fa.fa-square.fa-stack-2x
-                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
-
-        .pull-right
-          = paginate @orders
+      = render '/admin/orders/list', :orders => @orders

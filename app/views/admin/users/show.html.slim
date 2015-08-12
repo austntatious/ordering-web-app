@@ -1,0 +1,234 @@
+h2 = "#{@user.name} profile"
+.main-content
+  /! NAV TABS
+  ul.nav.nav-tabs.nav-tabs-custom-colored.tabs-iconized
+    li.active
+      a data-toggle="tab" href="#profile-tab"
+        i.fa.fa-user
+        |&nbsp;Profile
+    li
+      a data-toggle="tab" href="#activity-tab"
+        i.fa.fa-gift
+        |&nbsp;Orders
+    li
+      a data-toggle="tab" href="#settings-tab"
+        i.fa.fa-users
+        |&nbsp;Referrals
+  /! END NAV TABS
+  .tab-content.profile-page
+    /! PROFILE TAB CONTENT
+    #profile-tab.tab-pane.profile.active
+      .row
+        .col-md-3
+          .user-info-left
+            h2
+              = @user.name
+            .contact
+              a.btn.btn-block.btn-custom-primary href="#"
+                i.fa.fa-envelope-o
+                | Send Message
+              a.btn.btn-block.btn-custom-secondary href="#"
+                i.fa.fa-book
+                | Add To Contact
+              ul.list-inline.social
+                li
+                  a href="#" title="Facebook"
+                    i.fa.fa-facebook-square
+                li
+                  a href="#" title="Twitter"
+                    i.fa.fa-twitter-square
+                li
+                  a href="#" title=("Google Plus")
+                    i.fa.fa-google-plus-square
+        .col-md-9
+          .user-info-right
+            .basic-info
+              h3
+                i.fa.fa-square
+                | Basic Information
+              p.data-row
+                span.data-name Email
+                span.data-value = @user.email
+              p.data-row
+                span.data-name Phone
+                span.data-value = @user.phone
+              p.data-row
+                span.data-name Account balance
+                span.data-value = number_to_currency @user.balance
+              p.data-row
+                span.data-name Total orders
+                span.data-value = @user.orders.count
+              p.data-row
+                span.data-name Invites sent
+                span.data-value = @user.invites.count
+              p.data-row
+                span.data-name Referrals registered
+                span.data-value = Refferal.by_user(@user.id).count
+
+    #activity-tab.tab-pane.activity
+      = render '/admin/orders/list', :orders => @user.orders.page(params[:page]).per(20)
+
+    #settings-tab.tab-pane.settings
+      form.form-horizontal role="form"
+        fieldset
+          h3
+            i.fa.fa-square
+            | Change Password
+          .form-group
+            label.col-sm-3.control-label for="old-password"  Old Password
+            .col-sm-4
+              input#old-password.form-control name="old-password" type="password" /
+          hr/
+          .form-group
+            label.col-sm-3.control-label for="password"  New Password
+            .col-sm-4
+              input#password.form-control name="password" type="password" /
+          .form-group
+            label.col-sm-3.control-label for="password2"  Repeat Password
+            .col-sm-4
+              input#password2.form-control name="password2" type="password" /
+        fieldset
+          h3
+            i.fa.fa-square
+            | Privacy
+          label.fancy-checkbox
+            input type="checkbox" /
+            span Show my display name
+          label.fancy-checkbox
+            input type="checkbox" /
+            span Show my birth date
+          label.fancy-checkbox
+            input type="checkbox" /
+            span Show my email
+          label.fancy-checkbox
+            input type="checkbox" /
+            span Show my online status on chat
+        h3
+          i.fa.fa-square
+          | Notifications
+        fieldset
+          .form-group
+            label.col-sm-5.control-label Receive message from administrator
+            ul.col-sm-7.list-inline
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-globe
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-globe
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-globe'></i>") data-on-label=("<i class='glyphicon glyphicon-globe'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-phone
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-phone
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-phone'></i>") data-on-label=("<i class='glyphicon glyphicon-phone'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-envelope
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-envelope
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-envelope'></i>") data-on-label=("<i class='glyphicon glyphicon-envelope'></i>") type="checkbox" /
+          .form-group
+            label.col-sm-5.control-label New product has been added
+            ul.col-sm-7.list-inline
+              li
+                .has-switch.switch-animate.switch-small.switch-off tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-globe
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-globe
+                    input.bs-switch.switch-small data-off="default" data-off-label=("<i class='glyphicon glyphicon-globe'></i>") data-on-label=("<i class='glyphicon glyphicon-globe'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-phone
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-phone
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-phone'></i>") data-on-label=("<i class='glyphicon glyphicon-phone'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-envelope
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-envelope
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-envelope'></i>") data-on-label=("<i class='glyphicon glyphicon-envelope'></i>") type="checkbox" /
+          .form-group
+            label.col-sm-5.control-label Product review has been approved
+            ul.col-sm-7.list-inline
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-globe
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-globe
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-globe'></i>") data-on-label=("<i class='glyphicon glyphicon-globe'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-off tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-phone
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-phone
+                    input.bs-switch.switch-small data-off="default" data-off-label=("<i class='glyphicon glyphicon-phone'></i>") data-on-label=("<i class='glyphicon glyphicon-phone'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-on tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-envelope
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-envelope
+                    input.bs-switch.switch-small checked="" data-off="default" data-off-label=("<i class='glyphicon glyphicon-envelope'></i>") data-on-label=("<i class='glyphicon glyphicon-envelope'></i>") type="checkbox" /
+          .form-group
+            label.col-sm-5.control-label Others liked your post
+            ul.col-sm-7.list-inline
+              li
+                .has-switch.switch-animate.switch-small.switch-off tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-globe
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-globe
+                    input.bs-switch.switch-small data-off="default" data-off-label=("<i class='glyphicon glyphicon-globe'></i>") data-on-label=("<i class='glyphicon glyphicon-globe'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-off tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-phone
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-phone
+                    input.bs-switch.switch-small data-off="default" data-off-label=("<i class='glyphicon glyphicon-phone'></i>") data-on-label=("<i class='glyphicon glyphicon-phone'></i>") type="checkbox" /
+              li
+                .has-switch.switch-animate.switch-small.switch-off tabindex="0"
+                  div
+                    span.switch-left
+                      i.glyphicon.glyphicon-envelope
+                    label &nbsp;
+                    span.switch-right.switch-default
+                      i.glyphicon.glyphicon-envelope
+                    input.bs-switch.switch-small data-off="default" data-off-label=("<i class='glyphicon glyphicon-envelope'></i>") data-on-label=("<i class='glyphicon glyphicon-envelope'></i>") type="checkbox" /
+      p.text-center
+        a.btn.btn-custom-primary href="#"
+          i.fa.fa-floppy-o
+          | Save Changes
+    /! END SETTINGS TAB CONTENT

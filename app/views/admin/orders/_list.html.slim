@@ -1,0 +1,41 @@
+.table-responsive
+  table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
+    thead
+      tr
+        = sortable(:id, '#')
+        th Total price
+        = sortable(:location_id, 'Location')
+        = sortable(:restaurant_id, 'Restaurant')
+        = sortable(:user_id, 'User')
+        = sortable(:created_at, 'Created')
+        = sortable(:status, 'Status')
+        th
+    tbody
+      - orders.each do |order|
+        tr
+          td
+            = link_to order.id, admin_order_path(order)
+          td
+            = number_to_currency order.total_price
+          td
+            = order.location.name
+          td
+            = order.restaurant.name
+          td
+            = order.user.name
+          td
+            =l order.created_at, format: :short
+          td
+            = order_status_label order
+          td
+            = link_to admin_order_path(order), class: 'table-link' do
+              span.fa-stack
+                i.fa.fa-square.fa-stack-2x
+                i.fa.fa-eye.fa-stack-1x.fa-inverse
+            = link_to admin_order_path(order),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+              span.fa-stack
+                i.fa.fa-square.fa-stack-2x
+                i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+  .pull-right
+    = paginate orders

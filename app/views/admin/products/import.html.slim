@@ -1,16 +1,11 @@
 h1 Import products
-.row
-  .col-lg-12
-    .main-box.clearfix
-      = form_tag admin_products_do_import_path, :multipart => true, :method => 'post' do
-        fieldset.inputs
-          .form-group
-            = label_tag :fild, 'Import file'
-            = file_field_tag :file
-          .form-group
-            = label_tag 'Restaurant'
-            = select_tag :restaurant_id, options_from_collection_for_select(@restaurants, :id, :name), :include_blank => true, class: 'form-control'
-        br
-        br
-        div
-          = submit_tag 'Import', class: 'btn btn-primary btn-block'
+.widget
+  .widget-content
+    = form_tag admin_products_do_import_path, :multipart => true, :method => 'post' do
+      .form-group
+        = label_tag :fild, 'Import file'
+        = file_field_tag :file
+      .form-group
+        = label_tag 'Restaurant'
+        = select_tag :restaurant_id, options_from_collection_for_select(@restaurants, :id, :name), :include_blank => true, class: 'form-control'
+      = submit_tag 'Import', class: 'btn btn-primary btn-block'

@@ -6,9 +6,11 @@ class Admin::TextPagesController < AdminController
 
   def new
     @text_page = TextPage.new
+    add_breadcrumb 'New', new_admin_text_page_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_text_page_path(@text_page)
   end
 
   def destroy
@@ -45,5 +47,9 @@ class Admin::TextPagesController < AdminController
 
     def text_page_params
       params.require(:text_page).permit(:content, :url)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Text pages', admin_text_pages_path
     end
 end

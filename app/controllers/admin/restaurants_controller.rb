@@ -7,9 +7,11 @@ class Admin::RestaurantsController < AdminController
 
   def new
     @restaurant = Restaurant.new
+    add_breadcrumb 'New', new_admin_restaurant_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_restaurant_path(@restaurant)
   end
 
   def destroy
@@ -57,5 +59,9 @@ class Admin::RestaurantsController < AdminController
             :product_options_attributes => [ :id, :name, :price, :_destroy ]
           ]
         ])
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Restaurants', admin_restaurants_path
     end
 end

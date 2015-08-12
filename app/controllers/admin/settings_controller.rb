@@ -1,6 +1,7 @@
 class Admin::SettingsController < AdminController
   def index
     @settings = Setting.all
+    add_breadcrumb 'Settings', admin_settings_path
   end
 
   def save
@@ -17,6 +18,7 @@ class Admin::SettingsController < AdminController
 
   def seo
     @settings = Setting.all
+    add_breadcrumb 'SEO', admin_seo_path
   end
 
   def save_seo
@@ -29,5 +31,8 @@ class Admin::SettingsController < AdminController
       setting.save
     end
     redirect_to admin_seo_path
+  end
+
+  def add_ctl_breadcrumb
   end
 end

@@ -1,5 +1,5 @@
 class Admin::UsersController < AdminController
-  before_action :set_user, only: [ :edit, :destroy, :update ]
+  before_action :set_user, only: [ :edit, :destroy, :update, :show ]
 
   def index
     @users = User.search(params[:search]).order(sort_order).page(params[:page]).per(20)
@@ -7,9 +7,15 @@ class Admin::UsersController < AdminController
 
   def new
     @user = User.new
+    add_breadcrumb 'New', new_admin_user_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_user_path(@user)
+  end
+
+  def show
+    add_breadcrumb 'Details', admin_user_path(@user)
   end
 
   def destroy
@@ -51,5 +57,9 @@ class Admin::UsersController < AdminController
         x[:password_confirmation].delete
       end
       x
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Users', admin_users_path
     end
 end

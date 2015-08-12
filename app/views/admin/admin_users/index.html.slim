@@ -1,5 +1,14 @@
 h2 Admin users
 .main-content
+  .bottom-30px
+    = link_to new_admin_admin_user_path, class: 'btn btn-primary' do
+      i.fa.fa-plus-square
+      |&nbsp;Add admin user
+    .main-content-nav.pull-right
+      = form_tag admin_admin_users_path, method: :get
+        .form-group.search-form-group
+          = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+          i.fa.fa-search.search-icon.js-do-search
 
   .widget
     .widget-content

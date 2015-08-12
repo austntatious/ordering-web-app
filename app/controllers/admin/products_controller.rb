@@ -6,9 +6,11 @@ class Admin::ProductsController < AdminController
 
   def new
     @product = Product.new
+    add_breadcrumb 'New', new_admin_product_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_product_path(@product)
   end
 
   def destroy
@@ -35,6 +37,7 @@ class Admin::ProductsController < AdminController
 
   def import
     @restaurants = Restaurant.all
+    add_breadcrumb 'Import', admin_products_import_path
   end
 
   def do_import
@@ -118,5 +121,9 @@ class Admin::ProductsController < AdminController
 
     def product_params
       params.require(:product).permit(:code, :value, :min_price, :valid_till)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Products', admin_products_path
     end
 end

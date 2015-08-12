@@ -124,10 +124,11 @@ html
               .row
                 .col-md-4
                   ul.breadcrumb
-                    li
-                      i.fa.fa-home
-                      a href="#"  Home
-                    li.active Dashboard
+                    - @breadcrumbs.each_with_index do |crumb, ind|
+                      li class="#{'active' if crumb[:url] == request.fullpath.split('?').first}"
+                        - if ind == 0
+                          i.fa.fa-home
+                        = link_to crumb[:name], crumb[:url]
               /! main
               .content
                 = render partial: "/shared/flash_messages", flash: flash

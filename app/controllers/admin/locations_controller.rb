@@ -6,9 +6,11 @@ class Admin::LocationsController < AdminController
 
   def new
     @location = Location.new
+    add_breadcrumb 'New', new_admin_location_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_location_path(@location)
   end
 
   def destroy
@@ -45,5 +47,9 @@ class Admin::LocationsController < AdminController
 
     def location_params
       params.require(:location).permit(:name, :coords, :img)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Locations', admin_locations_path
     end
 end

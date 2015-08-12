@@ -7,9 +7,11 @@ class Admin::CategoriesController < AdminController
 
   def new
     @category = Category.new
+    add_breadcrumb 'New', new_admin_category_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_categories_path(@category)
   end
 
   def destroy
@@ -46,5 +48,9 @@ class Admin::CategoriesController < AdminController
 
     def category_params
       params.require(:category).permit(:name, :restaurant_id)
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Product categories', admin_categories_path
     end
 end

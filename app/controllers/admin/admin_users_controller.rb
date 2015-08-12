@@ -7,9 +7,11 @@ class Admin::AdminUsersController < AdminController
 
   def new
     @admin_user = AdminUser.new
+    add_breadcrumb 'New', new_admin_admin_user_path
   end
 
   def edit
+    add_breadcrumb 'Edit', edit_admin_admin_user_path(@admin_user)
   end
 
   def destroy
@@ -51,5 +53,9 @@ class Admin::AdminUsersController < AdminController
         x[:password_confirmation].delete
       end
       x
+    end
+
+    def add_ctl_breadcrumb
+      add_breadcrumb 'Admin users', admin_admin_users_path
     end
 end

@@ -290,9 +290,15 @@ class Order < ActiveRecord::Base
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << column_names
-      all.each do |product|
-        csv << product.attributes.values_at(*column_names)
+      csv << [:id, :created_at, :restaurant_instructions, :products_price, :products]
+      all.each do |order|
+        csv << [
+          order.id,
+          order.created_at,
+          order.restaurant_instructions,
+          order.products_price,
+          order.line_items.map { |li| "#{li.product.name}#{li.get_addons} - $#{li.single_price}x#{li.count} - $#{li.total_price} #{li.note}" }.join(', ')
+        ]
       end
     end
   end

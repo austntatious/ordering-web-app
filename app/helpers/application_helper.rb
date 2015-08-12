@@ -25,6 +25,15 @@ module ApplicationHelper
     pm
   end
 
+  def order_status_label(order)
+    cls = {
+      'pending' => 'info',
+      'payed' => 'success',
+      'cancelled' => 'warning'
+    }
+    "<span class='label label-#{cls[order.status]}'>#{order.status}</span>".html_safe
+  end
+
   def resource_name
     :user
   end
