@@ -15,12 +15,15 @@ class Setting < ActiveRecord::Base
 
   NEW_SETTINGS_KINDS = {
     'Common' => [ 'Admin phone', 'Admin email', 'Work from', 'Work to', 'Order arrive since', 'Order arrive before' ],
+    'Application' => [ 'Tax', 'Order sum before 2x delivery', 'Application fee', 'Enable phones confirmation' ],
+    'Refferal' => [ 'Refferal bonus' ]
+  }
+
+  SEO_SETTINGS = {
     'SEO' => [ 'Title for index page', 'Keywords for index page', 'Description for index page',
       'Title for restaurant page' , 'Keywords for restaurant page', 'Description for restaurant page',
       'Title for location page', 'Keywords for location page', 'Description for location page'],
-    'Social' => [ 'Facebook invitation text', 'Twitter invitation text', 'Facebook promotional image path', 'Tweet text' ],
-    'Application' => [ 'Tax', 'Order sum before 2x delivery', 'Application fee', 'Enable phones confirmation' ],
-    'Refferal' => [ 'Refferal bonus' ]
+    'Social' => [ 'Facebook invitation text', 'Twitter invitation text', 'Facebook promotional image path', 'Tweet text' ]
   }
 
   def self.get_float(nm)

@@ -1,26 +1,26 @@
-h1 Restaurant types
-.row
-  .col-lg-12
-    .main-box.clearfix
-      .filter-block.pull-right
-        = form_tag admin_restaurant_types_path, method: :get, class: 'pull-left'
-          .form-group
-            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
-            i.fa.fa-search.search-icon.js-do-search
-        = link_to new_admin_restaurant_type_path, class: 'btn btn-primary pull-right' do
-          i.fa.fa-plus-circle.fa-lg
-          |&nbsp;Add restaurant type
+h2 Restaurant types
+.main-content
+  / .row
+  /   .col-lg-12
+  /     .main-box.clearfix
+  /       .filter-block.pull-right
+  /         = form_tag admin_restaurant_types_path, method: :get, class: 'pull-left'
+  /           .form-group
+  /             = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+  /             i.fa.fa-search.search-icon.js-do-search
+  /         = link_to new_admin_restaurant_type_path, class: 'btn btn-primary pull-right' do
+  /           i.fa.fa-plus-circle.fa-lg
+  /           |&nbsp;Add restaurant type
 
+  .widget
+    .widget-content
       .table-responsive
-        table.table
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
           thead
             tr
-              th
-                |ID
-              th
-                = sortable(:name, 'Name')
-              th
-                = sortable(:created_at, 'Created at')
+              th ID
+              = sortable(:name, 'Name')
+              = sortable(:created_at, 'Created at')
               th
           tbody
             - @restaurant_types.each do |rt|
@@ -41,5 +41,5 @@ h1 Restaurant types
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-trash-o.fa-stack-1x.fa-inverse
 
-      .pull-right
-        = paginate @restaurant_types
+        .pull-right
+          = paginate @restaurant_types

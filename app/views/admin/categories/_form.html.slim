@@ -1,12 +1,11 @@
-.row
-  .col-lg-12
-    .main-box
-      = form_for [:admin, @category] do |f|
-        = model_errors @category
-        div class="form-group #{'has-error' if @category.errors[:name].any?}"
-          = f.label :name, class: 'control-label'
-          = f.text_field :name, class: 'form-control'
-        div class="form-group #{'has-error' if @category.errors[:restaurant_id].any?}"
-          = f.label :restaurant_id, class: 'control-label'
-          = f.select :restaurant_id, options_for_select(Restaurant.all.map { |r| [r.name, r.id] }, @category.restaurant_id), { include_blank: true }, class: 'form-control'
-        = f.submit 'Save', class: 'btn btn-block btn-success'
+.widget
+  .widget-content
+    = form_for [:admin, @category] do |f|
+      = model_errors @category
+      div class="form-group #{'has-error' if @category.errors[:name].any?}"
+        = f.label :name, class: 'control-label'
+        = f.text_field :name, class: 'form-control'
+      div class="form-group #{'has-error' if @category.errors[:restaurant_id].any?}"
+        = f.label :restaurant_id, class: 'control-label'
+        = f.select :restaurant_id, options_for_select(Restaurant.all.map { |r| [r.name, r.id] }, @category.restaurant_id), { include_blank: true }, class: 'form-control'
+      = f.submit 'Save', class: 'btn btn-block btn-success'

@@ -1,21 +1,20 @@
-.row
-  .col-lg-12
-    .main-box
-      = form_for [:admin, @product] do |f|
-        = model_errors @product
-        div class="form-group #{'has-error' if @product.errors[:name].any?}"
-          = f.label :name, class: 'control-label'
-          = f.text_field :name, class: 'form-control'
-        div class="form-group #{'has-error' if @product.errors[:price].any?}"
-          = f.label :price, class: 'control-label'
-          = f.number_field :price, class: 'form-control'
-        div class="form-group #{'has-error' if @product.errors[:description].any?}"
-          = f.label :description, class: 'control-label'
-          = f.text_area :description, class: 'form-control'
-        div class="form-group #{'has-error' if @product.errors[:toppings_limit].any?}"
-          = f.label :toppings_limit, class: 'control-label'
-          = f.number_field :toppings_limit, class: 'form-control'
-        div class="form-group #{'has-error' if @product.errors[:category_id].any?}"
-          = f.label :category_id, class: 'control-label'
-          = f.select :category_id, options_for_select(Category.all.map { |c| [c.name, c.id] }, @product.category_id), { include_blank: true }, class: 'form-control'
-        = f.submit 'Save', class: 'btn btn-block btn-success'
+.widget
+  .widget-content
+    = form_for [:admin, @product] do |f|
+      = model_errors @product
+      div class="form-group #{'has-error' if @product.errors[:name].any?}"
+        = f.label :name, class: 'control-label'
+        = f.text_field :name, class: 'form-control'
+      div class="form-group #{'has-error' if @product.errors[:price].any?}"
+        = f.label :price, class: 'control-label'
+        = f.number_field :price, class: 'form-control'
+      div class="form-group #{'has-error' if @product.errors[:description].any?}"
+        = f.label :description, class: 'control-label'
+        = f.text_area :description, class: 'form-control'
+      div class="form-group #{'has-error' if @product.errors[:toppings_limit].any?}"
+        = f.label :toppings_limit, class: 'control-label'
+        = f.number_field :toppings_limit, class: 'form-control'
+      div class="form-group #{'has-error' if @product.errors[:category_id].any?}"
+        = f.label :category_id, class: 'control-label'
+        = f.select :category_id, options_for_select(Category.all.map { |c| [c.name, c.id] }, @product.category_id), { include_blank: true }, class: 'form-control'
+      = f.submit 'Save', class: 'btn btn-block btn-success'

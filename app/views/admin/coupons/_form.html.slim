@@ -1,19 +1,18 @@
-.row
-  .col-lg-12
-    .main-box
-      = form_for [:admin, @coupon] do |f|
-        = model_errors @coupon
-        div class="form-group #{'has-error' if @coupon.errors[:code].any?}"
-          = f.label :code, class: 'control-label'
-          = f.text_field :code, class: 'form-control'
-        div class="form-group #{'has-error' if @coupon.errors[:value].any?}"
-          = f.label :value, class: 'control-label'
-          = f.number_field :value, class: 'form-control'
-        div class="form-group #{'has-error' if @coupon.errors[:min_price].any?}"
-          = f.label :min_price, class: 'control-label'
-          = f.number_field :min_price, class: 'form-control'
-        div class="form-group #{'has-error' if @coupon.errors[:valid_till].any?}"
-          = f.label :valid_till, class: 'control-label'
-          .form-control
-            = f.date_select :valid_till
-        = f.submit 'Save', class: 'btn btn-block btn-success'
+.widget
+  .widget-content
+    = form_for [:admin, @coupon] do |f|
+      = model_errors @coupon
+      div class="form-group #{'has-error' if @coupon.errors[:code].any?}"
+        = f.label :code, class: 'control-label'
+        = f.text_field :code, class: 'form-control'
+      div class="form-group #{'has-error' if @coupon.errors[:value].any?}"
+        = f.label :value, class: 'control-label'
+        = f.number_field :value, class: 'form-control'
+      div class="form-group #{'has-error' if @coupon.errors[:min_price].any?}"
+        = f.label :min_price, class: 'control-label'
+        = f.number_field :min_price, class: 'form-control'
+      div class="form-group #{'has-error' if @coupon.errors[:valid_till].any?}"
+        = f.label :valid_till, class: 'control-label'
+        .form-control
+          = f.date_select :valid_till
+      = f.submit 'Save', class: 'btn btn-block btn-success'

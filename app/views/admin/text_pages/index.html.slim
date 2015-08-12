@@ -1,28 +1,30 @@
-h1 TextPages
-.row
-  .col-lg-12
-    .main-box.clearfix
-      .filter-block.pull-right
-        = form_tag admin_text_pages_path, method: :get, class: 'pull-left'
-          .form-group
-            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
-            i.fa.fa-search.search-icon.js-do-search
-        = link_to new_admin_text_page_path, class: 'btn btn-primary pull-right' do
-          i.fa.fa-plus-circle.fa-lg
-          |&nbsp;Add text page
+h2 TextPages
+.main-content
+  / .row
+  /   .col-lg-12
+  /     .main-box.clearfix
+  /       .filter-block.pull-right
+  /         = form_tag admin_text_pages_path, method: :get, class: 'pull-left'
+  /           .form-group
+  /             = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+  /             i.fa.fa-search.search-icon.js-do-search
+  /         = link_to new_admin_text_page_path, class: 'btn btn-primary pull-right' do
+  /           i.fa.fa-plus-circle.fa-lg
+  /           |&nbsp;Add text page
 
+  /       .clearfix
+
+  .widget
+    .widget-content
       .table-responsive
-        table.table
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
           thead
             tr
               th
                 |ID
-              th
-                = sortable(:url, 'URL')
-              th
-                = sortable(:content, 'Content')
-              th
-                = sortable(:created_at, 'Created at')
+              = sortable(:url, 'URL')
+              = sortable(:content, 'Content')
+              = sortable(:created_at, 'Created at')
               th
           tbody
             - @text_pages.each do |text_page|
@@ -45,5 +47,5 @@ h1 TextPages
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-trash-o.fa-stack-1x.fa-inverse
 
-      .pull-right
-        = paginate @text_pages
+        .pull-right
+          = paginate @text_pages

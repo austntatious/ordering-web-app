@@ -1,0 +1,33 @@
+h2 Admin users
+.main-content
+
+  .widget
+    .widget-content
+      .table-responsive
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
+          thead
+            tr
+              = sortable(:id, '#')
+              = sortable(:email, 'Email')
+              = sortable(:created_at, 'Created')
+              = sortable(:last_sign_in_at, 'Last sign in')
+              th
+          tbody
+            - @admin_users.each do |admin_user|
+              tr
+                td = admin_user.id
+                td = admin_user.email
+                td =l admin_user.created_at, format: :short
+                td =l admin_user.last_sign_in_at, format: :short
+                td
+                  = link_to edit_admin_admin_user_path(admin_user), class: 'table-link' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-pencil.fa-stack-1x.fa-inverse
+                  = link_to admin_admin_user_path(admin_user),  method: :delete, data: { confirm: 'Are you sure?' }, class: 'table-link danger' do
+                    span.fa-stack
+                      i.fa.fa-square.fa-stack-2x
+                      i.fa.fa-trash-o.fa-stack-1x.fa-inverse
+
+        .pull-right
+          = paginate @admin_users

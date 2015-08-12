@@ -1,28 +1,28 @@
-h1 Product categories
-.row
-  .col-lg-12
-    .main-box.clearfix
-      .filter-block.pull-right
-        = form_tag admin_categories_path, method: :get, class: 'pull-left'
-          .form-group
-            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
-            i.fa.fa-search.search-icon.js-do-search
-        = link_to new_admin_category_path, class: 'btn btn-primary pull-right' do
-          i.fa.fa-plus-circle.fa-lg
-          |&nbsp;Add product category
+h2 Product categories
+.main-content
+  / .row
+  /   .col-lg-12
+  /     .main-box.clearfix
+  /       .filter-block.pull-right
+  /         = form_tag admin_categories_path, method: :get, class: 'pull-left'
+  /           .form-group
+  /             = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+  /             i.fa.fa-search.search-icon.js-do-search
+  /         = link_to new_admin_category_path, class: 'btn btn-primary pull-right' do
+  /           i.fa.fa-plus-circle.fa-lg
+  /           |&nbsp;Add product category
 
+
+  .widget
+    .widget-content
       .table-responsive
-        table.table
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
           thead
             tr
-              th
-                |ID
-              th
-                = sortable(:name, 'Name')
-              th
-                = sortable(:restaurant_id, 'Restaurant')
-              th
-                = sortable(:created_at, 'Created at')
+              th ID
+              = sortable(:name, 'Name')
+              = sortable(:restaurant_id, 'Restaurant')
+              = sortable(:created_at, 'Created at')
               th
           tbody
             - @categories.each do |category|
@@ -45,5 +45,5 @@ h1 Product categories
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-trash-o.fa-stack-1x.fa-inverse
 
-      .pull-right
-        = paginate @categories
+        .pull-right
+          = paginate @categories

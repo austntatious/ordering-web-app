@@ -57,61 +57,76 @@ html
               /! main-nav
               nav.main-nav
                 ul.main-menu
-                  li.active
+                  li
                     a href="/admin"
                       i.fa.fa-dashboard.fa-fw
                       span.text Dashboard
-                  li
+                  li class="#{'active' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products' || params[:controller] == 'admin/restaurants' || params[:controller] == 'admin/locations'}"
                     a.js-sub-menu-toggle href="#"
                       i.fa.fa-glass.fa-fw
                       span.text Restaurants
-                      i.toggle-icon.fa.fa-angle-left
-                    ul.sub-menu
-                      li
-                        a href="page-profile.html"
+                      - if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products' || params[:controller] == 'admin/restaurants' || params[:controller] == 'admin/locations'
+                        i.toggle-icon.fa.fa-angle-down
+                      - else
+                        i.toggle-icon.fa.fa-angle-left
+                    ul class="sub-menu #{'open' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products' || params[:controller] == 'admin/restaurants' || params[:controller] == 'admin/locations'}"
+                      li class="#{'active' if params[:controller] == 'admin/restaurants'}"
+                        a href="/admin/restaurants"
                           span.text Restaurants
-                      li
-                        a href="page-invoice.html"
+                      li class="#{'active' if params[:controller] == 'admin/restaurant_types'}"
+                        a href="/admin/restaurant_types"
                           span.text Restaurant types
-                      li
-                        a href="page-knowledgebase.html"
+                      li class="#{'active' if params[:controller] == 'admin/products'}"
+                        a href="/admin/products"
                           span.text Products
-                      li
-                        a href="page-inbox.html"
+                      li class="#{'active' if params[:controller] == 'admin/categories'}"
+                        a href="/admin/categories"
                           span.text Product categories
-                  li
+                      li class="#{ 'active' if params[:controller] == 'admin/locations'}"
+                        a href="/admin/locations"
+                          span.text Locations
+                  li class="#{ 'active' if params[:controller] == 'admin/settings' && params[:action] == 'index' }"
                     a href="/admin/settings"
                       i.fa.fa-gear.fw
                       span.text Site settings
-                    ul.sub-menu
-                      li
-                        a href="charts-statistics.html"
-                          span.text Charts
-                      li
-                        a href="charts-statistics-interactive.html"
-                          span.text Interactive Charts
-                      li
-                        a href="charts-statistics-real-time.html"
-                          span.text Realtime Charts
-                      li
-                        a href="charts-d3charts.html"
-                          span.text D3 Charts
-                  li
+                  li class="#{ 'active' if params[:controller] == 'admin/text_pages' || (params[:controller] == 'admin/settings' && params[:action] == 'seo') }"
                     a.js-sub-menu-toggle href="#"
                       i.fa.fa-paint-brush.fw
                       span.text Customization
-                      i.toggle-icon.fa.fa-angle-left
-                    ul.sub-menu
-                      li.active
-                        a href="form-inplace-editing.html"
+                      - if params[:controller] == 'admin/text_pages' || (params[:controller] == 'admin/settings' && params[:action] == 'seo')
+                        i.toggle-icon.fa.fa-angle-down
+                      - else
+                        i.toggle-icon.fa.fa-angle-left
+                    ul class="sub-menu #{'open' if params[:controller] == 'admin/text_pages' || (params[:controller] == 'admin/settings' && params[:action] == 'seo')}"
+                      li class="#{'active' if params[:controller] == 'admin/settings' && params[:action] == 'seo'}"
+                        a href="/admin/seo"
                           span.text SEO and Social Media
-                      li
-                        a href="form-elements.html"
+                      li class=" #{'active' if params[:controller] == 'admin/text_pages'}"
+                        a href="/admin/text_pages"
                           span.text Pages
-                  li
+                  li class="#{'active' if params[:controller] == 'admin/orders'}"
                     a href="/admin/orders"
                       i.fa.fa-gift.fw
                       span.text Orders
+                  li class="#{'active' if params[:controller] == 'admin/coupons'}"
+                    a href="/admin/coupons"
+                      i.fa.fa-tags.fw
+                      span.text Coupons
+                  li class="#{'active' if params[:controller] == 'admin/users' || params[:controller] == 'admin/admin_users'}"
+                    a.js-sub-menu-toggle href="#"
+                      i.fa.fa-users.fa-fw
+                      span.text Users
+                      - if params[:controller] == 'admin/users' || params[:controller] == 'admin/admin_users'
+                        i.toggle-icon.fa.fa-angle-down
+                      - else
+                        i.toggle-icon.fa.fa-angle-left
+                    ul class="sub-menu #{'open' if params[:controller] == 'admin/users' || params[:controller] == 'admin/admin_users'}"
+                      li class="#{'active' if params[:controller] == 'admin/users'}"
+                        a href="/admin/users"
+                          span.text Users (clients)
+                      li class="#{'active' if params[:controller] == 'admin/admin_users'}"
+                        a href="/admin/admin_users"
+                          span.text Admin panel users
 
             .col-md-10.content-wrapper
               .row

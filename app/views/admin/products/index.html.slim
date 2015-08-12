@@ -1,31 +1,31 @@
-h1 Products
-.row
-  .col-lg-12
-    .main-box.clearfix
-      .filter-block.pull-right
-        = form_tag admin_products_path, method: :get, class: 'pull-left'
-          .form-group
-            = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
-            i.fa.fa-search.search-icon.js-do-search
-        = link_to new_admin_product_path, class: 'btn btn-primary pull-right' do
-          i.fa.fa-plus-circle.fa-lg
-          |&nbsp;Add product
-        = link_to admin_products_import_path, class: 'btn btn-info pull-right' do
-          i.fa.fa-upload.fa-lg
-          |&nbsp;Import products
+h2 Products
+.main-content
+  / .row
+  /   .col-lg-12
+  /     .main-box.clearfix
+  /       .filter-block.pull-right
+  /         = form_tag admin_products_path, method: :get, class: 'pull-left'
+  /           .form-group
+  /             = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+  /             i.fa.fa-search.search-icon.js-do-search
+  /         = link_to new_admin_product_path, class: 'btn btn-primary pull-right' do
+  /           i.fa.fa-plus-circle.fa-lg
+  /           |&nbsp;Add product
+  /         = link_to admin_products_import_path, class: 'btn btn-info pull-right' do
+  /           i.fa.fa-upload.fa-lg
+  /           |&nbsp;Import products
 
+
+  .widget
+    .widget-content
       .table-responsive
-        table.table
+        table.table.table-sorting.table-hover.table-bordered.datatable.dataTable.no-footer
           thead
             tr
-              th
-                = sortable(:name, 'Name')
-              th
-                = sortable(:price, 'Price')
-              th
-                = sortable(:category_id, 'Category')
-              th
-                = sortable(:restaurant_id, 'Restaurant')
+              = sortable(:name, 'Name')
+              = sortable(:price, 'Price')
+              = sortable(:category_id, 'Category')
+              = sortable(:restaurant_id, 'Restaurant')
               th
           tbody
             - @products.each do |product|
@@ -48,5 +48,5 @@ h1 Products
                       i.fa.fa-square.fa-stack-2x
                       i.fa.fa-trash-o.fa-stack-1x.fa-inverse
 
-      .pull-right
-        = paginate @products
+        .pull-right
+          = paginate @products
