@@ -19,6 +19,18 @@ class Order < ActiveRecord::Base
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
+  # default_scope { order('created_at DESC') }
+
+  scope :search, -> (q) {
+    q.blank? ?
+      where('1 = 1') :
+      joins(:user, :location, :restaurant).
+        where(
+          'locations.name iLIKE ? OR users.name iLIKE ? OR restaurants.name iLIKE ?',
+          "%#{q}%", "%#{q}%", "%#{q}%"
+        )
+  }
+
   STATUSES = ['pending', 'payed', 'cancelled']
 
   state_machine :status, :initial => :pending do
@@ -274,5 +286,14 @@ class Order < ActiveRecord::Base
 
   def mailchimp_export
     MailChimpWorker.perform_async self.id
+  end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |product|
+        csv << product.attributes.values_at(*column_names)
+      end
+    end
   end
 end

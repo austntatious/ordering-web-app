@@ -1,0 +1,76 @@
+h1 Order
+
+.main-box.clearfix
+  .clearfix
+    h2.pull-left  = "Order no #{@order.id}"
+  #invoice-companies.row
+    .col-sm-4.invoice-box
+      .invoice-icon.hidden-sm
+        i.fa.fa-home
+        | From
+      .invoice-company
+        h4 = @order.contact_name
+        p = @order.address
+    .col-sm-4.invoice-box
+      .invoice-icon.hidden-sm
+        i.fa.fa-truck
+        | To
+      .invoice-company
+        h4 = @order.contact_phone
+        p = @order.driver_instructions
+    .col-sm-4.invoice-box.invoice-box-dates
+      .invoice-dates
+        .invoice-number.clearfix
+          strong Order no.
+          span.pull-right = @order.id
+        .invoice-date.clearfix
+          strong Order date:
+          span.pull-right =l @order.created_at, format: :short
+        .invoice-date.clearfix
+          strong Order status:
+          span.pull-right = @order.status
+  .table-responsive
+    table.table
+      thead
+        tr
+          th.text-center
+            span #
+          th
+            span Name
+          th.text-center
+            span Quantity
+          th.text-center
+            span Unit price
+          th.text-center
+            span Total
+      tbody
+        - @order.line_items.each_with_index do |li, ind|
+          tr
+            td.text-center = (ind + 1)
+            td
+              = li.product.name
+              - if li.product_options.any?
+                .line-item-options
+                  = li.product_options.map { |po| po.name }.join(', ')
+              - unless li.note.blank?
+                p.line-item-note = li.note
+            td.text-center = li.count
+            td.text-center = number_to_currency li.single_price
+            td.text-center = number_to_currency li.total_price
+
+  .invoice-box-total.clearfix
+    .row
+      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Delivery fee
+      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.delivery_fee
+    .row
+      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Coupon discount
+      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.coupon_discount
+    .row
+      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Coupon code
+      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = @order.coupon_code
+    .row
+      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Account balance used
+      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.money_from_account
+    .row.grand-total
+      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Grand total
+      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.total_price

@@ -8,18 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require superhero/bootstrap/bootstrap
- *= require font-awesome
- *= require superhero/compiled/layout.css
- *= require superhero/compiled/elements.css
- *= require superhero/libs/fullcalendar.css
- *= require superhero/libs/fullcalendar.print.css
- *= require superhero/compiled/calendar.css
- *= require superhero/libs/morris.css
- *= require superhero/libs/daterangepicker.css
- *= require superhero/libs/jquery-jvectormap-1.2.2.css
+ *= require kingadmin/bootstrap.min.css
+ *= require kingadmin/main.css
+ *= require kingadmin/my-custom-styles.css
  *= require_self
  */
+
+@import "font-awesome";
 
 .category-label {
   line-height: 31px;
@@ -34,4 +29,13 @@
 
 .product-fields {
   padding-bottom: 20px;
+}
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+.table-link {
+  &.danger {
+    color: #DB3833 !important;
+  }
 }

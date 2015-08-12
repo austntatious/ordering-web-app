@@ -8,103 +8,123 @@ html
     = stylesheet_link_tag 'admin', media: 'all'
     = javascript_include_tag 'admin'
   body
-    header#header-navbar.navbar
-      .container
-        a#logo.navbar-brand.col-md-3.col-sm-3.col-xs-12 href="index.html"
-          span BingFreshEats Admin
-        button.navbar-toggle data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button"
-          span.sr-only Toggle navigation
-          span.fa.fa-bars
-        #header-nav.nav-no-collapse.pull-right
-          ul.nav.navbar-nav.pull-right
-            li.dropdown.profile-dropdown
-              a.dropdown-toggle data-toggle="dropdown" href="#"
-                span.hidden-xs = current_admin_user.email
-                b.caret
-              ul.dropdown-menu
-                li
-                  a href="user-profile.html"
-                    i.fa.fa-user
-                    | Profile
-                li
-                  a href="#"
-                    i.fa.fa-cog
-                    | Settings
-                li
-                  = link_to destroy_admin_user_session_path, :method => :delete, class: 'btn' do
-                    i.fa.fa-power-off
-                    | Logout
-            li.hidden-xxs
-              = link_to destroy_admin_user_session_path, :method => :delete, class: 'btn' do
-                i.fa.fa-power-off
-    .container
-      .row
-        #nav-col.col-md-2
-          section#col-left
-            #sidebar-nav.collapse.navbar-collapse.navbar-ex1-collapse
-              ul.nav.nav-pills.nav-stacked
-                li
-                  a href="/admin"
-                    i.fa.fa-dashboard
-                    span Dashboard
-                li
-                  a.dropdown-toggle href="#"
-                    i.fa.fa-users
-                    span Users
-                    i.fa.fa-chevron-circle-down.drop-icon
-                  ul.submenu
-                    li
-                      a href="/admin/users"
-                        | Website users
-                    li
-                      a href="/admin/admin_users"
-                        | Admin panel users
-                li class="#{'active' if params[:controller] == 'admin/locations'}"
-                  a href="/admin/locations"
-                    i.fa.fa-location-arrow
-                    span Locations
-                li
-                  a href="/admin/orders"
-                    i.fa.fa-gift
-                    span Orders
-                li class="#{'active' if params[:controller] == 'admin/coupons'}"
-                  a href="/admin/coupons"
-                    i.fa.fa-tags
-                    span Coupons
-                li class="#{'active' if params[:controller] == 'admin/restaurant_types' || params[:controller] == 'admin/categories' || params[:controller] == 'admin/products' || params[:controller] == 'admin/restaurants'}"
-                  a.dropdown-toggle href="/admin/orders"
-                    i.fa.fa-glass
-                    span Restaurants and menu
-                    i.fa.fa-chevron-circle-down.drop-icon
-                  ul.submenu
-                    li class="#{'active' if params[:controller] == 'admin/restaurant_types'}"
-                      a href="/admin/restaurant_types"
-                        | Restaurant types
-                    li
-                      a href="/admin/restaurants"
-                        | Restaurants
-                    li
-                      a href="/admin/products"
-                        | Products
-                    li
-                      a href="/admin/categories"
-                        | Product categories
-                li class="#{'active' if params[:controller] == 'admin/text_pages'}"
-                  a href="/admin/text_pages"
-                    i.fa.fa-file-text-o
-                    span Text Pages
-                li class="#{'active' if params[:controller] == 'admin/settings'}"
-                  a href="/admin/settings"
-                    i.fa.fa-gear
-                    span Settings
-        #content-wrapper.col-md-10
+    .wrapper
+      .top-bar
+        .container
           .row
-            .col-lg-12
-              = render partial: "/shared/flash_messages", flash: flash
-              == yield
+            .col-md-2.logo
+              h1.sr-only BingFreshEats Admin Panel
+            .col-md-10
+              .row
+                .col-md-3
+                .col-md-9
+                  .top-bar-right
+                    /! responsive menu bar icon
+                    a.hidden-md.hidden-lg.main-nav-toggle href="#"
+                      i.fa.fa-bars
+                    /! end responsive menu bar icon
+                    /! logged user and the menu
+                    .logged-user
+                      .btn-group
+                        a.btn.btn-link.dropdown-toggle data-toggle="dropdown" href="#"
+                          span.name Stacy Rose
+                          span.caret
+                        ul.dropdown-menu role="menu"
+                          li
+                            a href="#"
+                              i.fa.fa-user
+                              span.text Profile
+                          li
+                            a href="#"
+                              i.fa.fa-cog
+                              span.text Settings
+                          li
+                            a href="#"
+                              i.fa.fa-power-off
+                              span.text Logout
+                    /! end logged user and the menu
+                  /! /top-bar-right
+              /! /row
+          /! /row
+        /! /container
+      /! /top
+      /! BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT
+      .bottom
+        .container
+          .row
+            /! left sidebar
+            .col-md-2.left-sidebar
+              /! main-nav
+              nav.main-nav
+                ul.main-menu
+                  li.active
+                    a href="/admin"
+                      i.fa.fa-dashboard.fa-fw
+                      span.text Dashboard
+                  li
+                    a.js-sub-menu-toggle href="#"
+                      i.fa.fa-glass.fa-fw
+                      span.text Restaurants
+                      i.toggle-icon.fa.fa-angle-left
+                    ul.sub-menu
+                      li
+                        a href="page-profile.html"
+                          span.text Restaurants
+                      li
+                        a href="page-invoice.html"
+                          span.text Restaurant types
+                      li
+                        a href="page-knowledgebase.html"
+                          span.text Products
+                      li
+                        a href="page-inbox.html"
+                          span.text Product categories
+                  li
+                    a href="/admin/settings"
+                      i.fa.fa-gear.fw
+                      span.text Site settings
+                    ul.sub-menu
+                      li
+                        a href="charts-statistics.html"
+                          span.text Charts
+                      li
+                        a href="charts-statistics-interactive.html"
+                          span.text Interactive Charts
+                      li
+                        a href="charts-statistics-real-time.html"
+                          span.text Realtime Charts
+                      li
+                        a href="charts-d3charts.html"
+                          span.text D3 Charts
+                  li
+                    a.js-sub-menu-toggle href="#"
+                      i.fa.fa-paint-brush.fw
+                      span.text Customization
+                      i.toggle-icon.fa.fa-angle-left
+                    ul.sub-menu
+                      li.active
+                        a href="form-inplace-editing.html"
+                          span.text SEO and Social Media
+                      li
+                        a href="form-elements.html"
+                          span.text Pages
+                  li
+                    a href="/admin/orders"
+                      i.fa.fa-gift.fw
+                      span.text Orders
 
-    footer#footer-bar
-      p#footer-copyright
-        | &copy; 2014
-        a href="http://www.adbee.sk/" target="_blank"  Adbee digital
-        | Powered by SuperheroAdmin.
+            .col-md-10.content-wrapper
+              .row
+                .col-md-4
+                  ul.breadcrumb
+                    li
+                      i.fa.fa-home
+                      a href="#"  Home
+                    li.active Dashboard
+              /! main
+              .content
+                = render partial: "/shared/flash_messages", flash: flash
+                == yield
+    footer.footer
+      | &copy; 2014-2015 The Develovers
+    /! END FOOTER

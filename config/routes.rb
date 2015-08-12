@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :text_pages
     resources :coupons
     resources :restaurants
+    resources :orders
   end
 
   devise_scope :user do
