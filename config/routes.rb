@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   devise_for :admin_users
 
   namespace :admin do
-    get '/' => 'dashboard#index'
+    get '/' => 'dashboard#index', as: :dashboard
     get '/seo' => 'settings#seo', as: :seo
     post '/seo' => 'settings#save_seo'
     get '/settings' => 'settings#index'

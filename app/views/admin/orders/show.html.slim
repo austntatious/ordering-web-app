@@ -1,76 +1,85 @@
-h1 Order
+h2 = "Order #{@order.id}"
 
-.main-box.clearfix
-  .clearfix
-    h2.pull-left  = "Order no #{@order.id}"
-  #invoice-companies.row
-    .col-sm-4.invoice-box
-      .invoice-icon.hidden-sm
-        i.fa.fa-home
-        | From
-      .invoice-company
-        h4 = @order.contact_name
-        p = @order.address
-    .col-sm-4.invoice-box
-      .invoice-icon.hidden-sm
-        i.fa.fa-truck
-        | To
-      .invoice-company
-        h4 = @order.contact_phone
-        p = @order.driver_instructions
-    .col-sm-4.invoice-box.invoice-box-dates
-      .invoice-dates
-        .invoice-number.clearfix
-          strong Order no.
-          span.pull-right = @order.id
-        .invoice-date.clearfix
-          strong Order date:
-          span.pull-right =l @order.created_at, format: :short
-        .invoice-date.clearfix
-          strong Order status:
-          span.pull-right = @order.status
-  .table-responsive
-    table.table
-      thead
-        tr
-          th.text-center
-            span #
-          th
-            span Name
-          th.text-center
-            span Quantity
-          th.text-center
-            span Unit price
-          th.text-center
-            span Total
-      tbody
-        - @order.line_items.each_with_index do |li, ind|
+.main-content
+  /! INVOICE
+  .invoice
+    /! invoice address
+    .invoice-from-to
+      .row
+        .col-sm-6.col-print-6
+          p.name = "#{@order.contact_name}"
+          address = "#{@order.address}"
+          .contact
+            p
+              span
+                b Email:&nbsp;
+                = @order.user.try(:email)
+            p
+              span
+                b Phone:&nbsp;
+                = @order.contact_phone
+            p
+              span
+                b Driver instructions:&nbsp;
+                = @order.driver_instructions
+            p
+              span
+                b Restaurant instructions:&nbsp;
+                = @order.restaurant_instructions
+            p
+              span
+                b Restaurant:&nbsp;
+                = @order.restaurant.try(:name)
+        .col-sm-6.col-print-6
+    /! end invoice address
+    /! invoice item table
+    .table-responsive
+      table.table.invoice-table
+        thead
           tr
-            td.text-center = (ind + 1)
-            td
-              = li.product.name
-              - if li.product_options.any?
-                .line-item-options
-                  = li.product_options.map { |po| po.name }.join(', ')
-              - unless li.note.blank?
-                p.line-item-note = li.note
-            td.text-center = li.count
-            td.text-center = number_to_currency li.single_price
-            td.text-center = number_to_currency li.total_price
+            th #
+            th Item Name
+            th Quantity
+            th Unit Price
+            th.text-right Total
+        tbody
+          - @order.line_items.each_with_index do |li, ind|
+            tr
+              td = ind + 1
+              td
+                = li.product.name
+                - if li.product_options.any?
+                  .line-item-options
+                    = li.product_options.map { |po| po.name }.join(', ')
+                - unless li.note.blank?
+                  p.line-item-note = li.note
+              td = li.count
+              td = number_to_currency li.product.price
+              td = li.total_price
 
-  .invoice-box-total.clearfix
-    .row
-      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Delivery fee
-      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.delivery_fee
-    .row
-      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Coupon discount
-      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.coupon_discount
-    .row
-      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Coupon code
-      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = @order.coupon_code
-    .row
-      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Account balance used
-      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.money_from_account
-    .row.grand-total
-      .col-sm-9.col-md-10.col-xs-6.text-right.invoice-box-total-label Grand total
-      .col-sm-3.col-md-2.col-xs-6.text-right.invoice-box-total-value = number_to_currency @order.total_price
+    .invoice-footer
+      .row
+        .col-sm-5.col-sm-offset-7.col-print-4.col-print-offset-2
+          .invoice-total
+            .row
+              .col-xs-4.col-xs-offset-4.col-print-6.col-print-offset-2
+                p Delivery fee:
+                p Tax:
+                - if @order.coupon_discount > 0
+                  p Discount:
+                - if @order.money_from_account > 0
+                  p Account balance used:
+                p Total:
+              .col-xs-4.text-right.col-print-4
+                p = number_to_currency @order.delivery_fee
+                p = number_to_currency @order.tax_price
+                - if @order.coupon_discount > 0
+                  p = number_to_currency @order.coupon_discount
+                - if @order.money_from_account > 0
+                  p = number_to_currency @order.money_from_account
+                p = number_to_currency @order.total_price
+              .clearfix
+        .col-sm-6.col-print-6.left-col
+        .clearfix
+    /! end invoice footer
+    /! invoice action buttons
