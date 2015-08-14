@@ -2,7 +2,7 @@ h2 Orders
 .main-content
   .bottom-30px
     = link_to params.merge(format: :csv), class: 'btn btn-primary' do
-      i.fa.fa-plus-square
+      i.fa.fa-download
       |&nbsp;Download as CSV
     .main-content-nav.pull-right
       = form_tag admin_orders_path, method: :get

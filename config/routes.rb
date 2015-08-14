@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'dashboard#index', as: :dashboard
+    get '/dashboard/ga' => 'dashboard#ga'
     get '/seo' => 'settings#seo', as: :seo
     post '/seo' => 'settings#save_seo'
     get '/settings' => 'settings#index'

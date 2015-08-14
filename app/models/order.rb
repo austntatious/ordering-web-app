@@ -16,10 +16,12 @@ class Order < ActiveRecord::Base
   before_save :validate_card
   before_save :validate_money_from_account
   before_save :set_restaurant
+  before_save :set_total_sum
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
   # default_scope { order('created_at DESC') }
+  scope :payed, -> { where(status: 'payed') }
 
   scope :search, -> (q) {
     q.blank? ?
@@ -286,6 +288,10 @@ class Order < ActiveRecord::Base
 
   def mailchimp_export
     MailChimpWorker.perform_async self.id
+  end
+
+  def set_total_sum
+    self.total_order_sum = self.total_price
   end
 
   def self.to_csv(options = {})
