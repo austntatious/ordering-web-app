@@ -18,11 +18,11 @@
           td
             = number_to_currency order.total_price
           td
-            = order.location.name
+            = order.location.try(:name)
           td
-            = order.restaurant.name
+            = order.restaurant.try(:name)
           td
-            = order.user.name
+            = order.user.try(:name)
           td
             =l order.created_at, format: :short
           td
