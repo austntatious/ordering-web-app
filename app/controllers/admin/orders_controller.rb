@@ -18,7 +18,7 @@ class Admin::OrdersController < AdminController
     @orders = @orders.reorder('orders.' + sort_order).page(params[:page]).per(20)
     respond_to do |format|
       format.html
-      format.csv { send_data @orders.to_csv }
+      format.csv { send_data @orders.to_csv(col_sep: ';') }
     end
   end
 
