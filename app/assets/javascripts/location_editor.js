@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  if ($('#place-map-holder').length == 0) {
+    return;
+  }
   if (google !== undefined) {
     var latlng = null,
       marker = null,

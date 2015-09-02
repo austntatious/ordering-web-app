@@ -25,10 +25,8 @@ class Admin::DashboardController < AdminController
   end
 
   def ga
-    result = GaApi.get_week_summary
-    # puts result.data.rows.inspect
     respond_to do |format|
-      format.json { render :json => result.data.rows }
+      format.json { render :json => GaApi.get_week_summary }
     end
   end
 

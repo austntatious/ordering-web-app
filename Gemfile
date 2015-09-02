@@ -28,6 +28,8 @@ gem "letter_opener", :group => :development
 gem "font-awesome-rails"
 gem "cocoon"
 gem 'google-api-client', '0.9.pre3'
+gem 'jquery-ui-rails'
+# gem 'legato'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

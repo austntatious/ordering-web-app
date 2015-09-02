@@ -4,12 +4,30 @@ h2 Orders
     = link_to params.merge(format: :csv), class: 'btn btn-primary' do
       i.fa.fa-download
       |&nbsp;Download as CSV
+    .clearfix.hidden-md.hidden-lg
+    br.hidden-lg
+    br.hidden-lg
     .main-content-nav.pull-right
       = form_tag admin_orders_path, method: :get
-        .form-group.search-form-group
-          = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
-          i.fa.fa-search.search-icon.js-do-search
-
+        .row
+          .col-md-3.col-sm-6
+            .row
+              .col-md-6
+                = text_field_tag :date_from, params[:date_from], class: 'form-control js-datepicker js-filters', placeholder: 'Date from'
+              .col-md-6
+                = text_field_tag :date_to, params[:date_to], class: 'form-control js-datepicker js-filters', placeholder: 'Date to'
+          .col-md-3.col-sm-6
+            .form-group
+              = select_tag :user_id, options_from_collection_for_select(User.all, :id, :name, params[:user_id]), class: 'form-control js-filters', prompt: 'Choose user'
+          .col-md-3.col-sm-6
+            .form-group
+              = select_tag :restaurant_id, options_from_collection_for_select(Restaurant.all, :id, :name, params[:restaurant_id]), class: 'form-control js-filters', prompt: 'Choose restaurant'
+          .col-md-3.col-sm-6
+            .form-group.search-form-group
+              = text_field_tag :search, params[:search], placeholder: 'Search...', class: 'form-control'
+              i.fa.fa-search.search-icon.js-do-search
+    br.hidden-lg
+    br.hidden-lg
   .widget
     .widget-content
       = render '/admin/orders/list', :orders => @orders

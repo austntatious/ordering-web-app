@@ -152,8 +152,6 @@ $(document).ready(function(){
 		// var randomVal = getRandomValues();
     var randomVal = [
       $('#number-chart1').data('graph'),
-      $('#number-chart2').data('graph'),
-      $('#number-chart2').data('graph'),
       $('#number-chart2').data('graph')
     ];
 		var sparklineNumberChart = function() {
@@ -175,7 +173,9 @@ $(document).ready(function(){
 
 			$('#number-chart1').sparkline(randomVal[0], params);
 			$('#number-chart2').sparkline(randomVal[1], params);
-			$('#number-chart3').sparkline(randomVal[2], params);
+      $.get('/admin/dashboard/ga.json', function (data) {
+        $('#number-chart3').sparkline(data, params);
+      });
 			$('#number-chart4').sparkline(randomVal[3], params);
 		}
 

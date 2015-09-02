@@ -2,7 +2,20 @@ class Admin::OrdersController < AdminController
   before_action :set_order, only: [ :edit, :destroy, :update, :show ]
 
   def index
-    @orders = Order.search(params[:search]).includes(:user, :restaurant, :location).reorder('orders.' + sort_order).page(params[:page]).per(20)
+    @orders = Order.search(params[:search]).includes(:user, :restaurant, :location)
+    unless params[:restaurant_id].blank?
+      @orders = @orders.where(restaurant_id: params[:restaurant_id])
+    end
+    unless params[:user_id].blank?
+      @orders = @orders.where(user_id: params[:user_id])
+    end
+    unless params[:date_from].blank?
+      @orders = @orders.where('created_at >= ?', params[:date_from])
+    end
+    unless params[:date_to].blank?
+      @orders = @orders.where('created_at <= ?', params[:date_to])
+    end
+    @orders = @orders.reorder('orders.' + sort_order).page(params[:page]).per(20)
     respond_to do |format|
       format.html
       format.csv { send_data @orders.to_csv }

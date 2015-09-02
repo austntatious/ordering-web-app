@@ -33,7 +33,20 @@
 //= require ckeditor/init
 //= require location_editor
 //= require cocoon
+//= require jquery-ui/datepicker
 //= require_self
 
 $(document).ready(function () {
+  $('.js-filters').change(function (ev) {
+    $(this).parents('form').submit();
+  });
+
+  $.datepicker.setDefaults({
+    dateFormat: 'yy-mm-dd'
+  });
+  $('.js-datepicker').datepicker({
+    // onSelect: function () {
+    //   alert(22);
+    // }
+  });
 });
