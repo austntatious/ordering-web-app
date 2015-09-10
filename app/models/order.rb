@@ -306,7 +306,7 @@ class Order < ActiveRecord::Base
           order.restaurant_instructions,
           order.products_price,
           order.line_items.map { |li| "#{li.product.name}#{li.get_addons} - $#{li.single_price}x#{li.count} - $#{li.total_price} #{li.note}" }.join(', '),
-          order.total_price
+          order.total_price.round(2)
         ]
       end
     end
