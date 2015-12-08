@@ -17,8 +17,8 @@
         = f.label :img, class: 'control-label'
         = f.file_field :img
       div class="form-group #{'has-error' if @restaurant.errors[:restaurant_type].any?}"
-        = f.label :restaurant_type, class: 'control-label'
-        = f.select :restaurant_type, options_for_select(RestaurantType.all.map { |c| [c.name, c.id] }, @restaurant.restaurant_type_id), { include_blank: true }, class: 'form-control'
+        = f.label :restaurant_type_id, class: 'control-label'
+        = f.select :restaurant_type_id, options_for_select(RestaurantType.all.map { |c| [c.name, c.id] }, @restaurant.restaurant_type_id), { include_blank: true }, class: 'form-control'
       div class="form-group #{'has-error' if @restaurant.errors[:address].any?}"
         = f.label :address, class: 'control-label'
         = f.text_field :address, class: 'form-control'

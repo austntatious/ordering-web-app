@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :coupons
 
+  namespace :api do
+    resources :restaurants, only: [:index]
+    get '/dictionaries' => '/api/dictionaries#index'
+  end
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :credit_cards
   resources :charges, :only => [:create]
