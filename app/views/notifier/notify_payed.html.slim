@@ -1,6 +1,6 @@
 p
   |Hello,&nbsp;
-  = @order.user.name
+  = @order.user_name
 p
   |Your order&nbsp;
   = @order.id
@@ -17,7 +17,7 @@ p
 - unless @order.location.nil?
   p
     b Location:
-    = @order.location.name
+    = @order.location_name
 
 p
   b Address:

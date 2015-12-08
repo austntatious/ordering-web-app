@@ -74,4 +74,3 @@ class OrdersController < ApplicationController
       result
     end
 end
-

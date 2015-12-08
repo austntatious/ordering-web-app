@@ -20,6 +20,9 @@ class Order < ActiveRecord::Base
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
+  delegate :email, :name, to: :user, prefix: true
+  delegate :name, to: :location, prefix: true
+
   # default_scope { order('created_at DESC') }
   scope :payed, -> { where(status: 'payed') }
 
@@ -284,6 +287,30 @@ class Order < ActiveRecord::Base
       end
       self.save
     end
+  end
+
+  def self.get_stats
+    tw = Order.payed.where('created_at >= ?', DateTime.now - 1.week)
+    pw = Order.payed.where('created_at >= ? AND created_at <= ?', DateTime.now - 2.week, DateTime.now - 1.weeks)
+    @stats = {
+      this_week: tw.map { |o| o.total_price }.sum,
+      prev_week: pw.map { |o| o.total_price }.sum,
+      orders_week: tw.length,
+      order_prev_week: pw.length,
+      order_this_week: [],
+      sums_this_week: [],
+      restaurants: Restaurant.joins(:orders).where('orders.status = ? AND orders.created_at > ?', 'payed', DateTime.now - 1.week).group('restaurants.id').order('SUM(total_order_sum)'),
+      orders: Order.order('created_at DESC').limit(10)
+    }
+    for i in 0..7
+      @stats[:order_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).count
+    end
+    for i in 0..7
+      @stats[:sums_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).map { |o| o.total_sum }.sum
+    end
+    @stats[:order_this_week].reverse!
+    @stats[:sums_this_week].reverse!
+    @stats
   end
 
   def mailchimp_export
