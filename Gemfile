@@ -59,6 +59,7 @@ gem 'capistrano-passenger', '0.0.2', group: :development
 
 group :development do
   gem 'pry'
+  gem "rubycritic", :require => false
 end
 
 gem "awesome_nested_set"

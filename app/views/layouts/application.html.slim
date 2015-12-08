@@ -18,7 +18,7 @@ html
     = csrf_meta_tags
     = render '/shared/ga'
   body
-    = render '/shared/navbar'
+    = render '/shared/navbar', current_cart: @current_cart
 
     - if request.fullpath.split('?').first == '/'
       = render '/shared/location_picker'

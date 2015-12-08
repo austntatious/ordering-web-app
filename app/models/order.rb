@@ -122,8 +122,8 @@ class Order < ActiveRecord::Base
   def order_cart(cart)
     self.line_items = cart.line_items
     if cart.coupon_applied?
-      self.coupon_code = cart.coupon.code
-      self.coupon_discount = cart.coupon.value
+      self.coupon_code = cart.coupon_code
+      self.coupon_discount = cart.coupon_value
     end
   end
 
@@ -253,7 +253,7 @@ class Order < ActiveRecord::Base
     unless restaurant_id.nil?
       restaurant = Restaurant.find_by_id(restaurant_id)
       begin
-        if restaurant.stripe_recipient_id.blank?
+        if restaurant.stripe_recipient_id?
           rc = Stripe::Recipient.create(
             :name => restaurant.recipient_name,
             :type => restaurant.recipient_type,

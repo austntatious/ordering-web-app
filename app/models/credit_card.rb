@@ -19,9 +19,7 @@ class CreditCard < ActiveRecord::Base
           :cvc => self.cvc
         }
       )
-      # binding.pry
       customer.sources.create(:card => token['id'])
-      # puts token.inspect
       self.stripe_id = token['card']['id']
       self.last4 = self.number.split(//).last(4).join
     rescue

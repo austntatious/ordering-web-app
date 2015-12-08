@@ -6,7 +6,7 @@
           .well
             |We've sent the phone confirmation code to your phone.
             br
-            = "Confirm your phone number <i class='marked'>#{@order.contact_phone}</i> to complete order".html_safe
+            = "Confirm your phone number <i class='marked'>#{order.contact_phone}</i> to complete order".html_safe
           .js-msg-holder
             .js-confirm-phone
               = form_tag confirm_code_path(:format => :js), :remote => true

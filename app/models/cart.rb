@@ -4,6 +4,8 @@ class Cart < ActiveRecord::Base
   belongs_to :coupon
   has_many :line_items, :dependent => :destroy
 
+  delegate :code, :value, :to => :coupon, :prefix => true
+
   def add_product(product_id, count, note, options = nil)
     product = Product.find(product_id)
     if product.get_restaurant != self.get_restaurant

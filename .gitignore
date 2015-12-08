@@ -19,3 +19,4 @@
 /config/local_env.yml
 /public/uploads
 .DS_Store
+rails_best_practices_output.html

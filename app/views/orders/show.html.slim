@@ -12,7 +12,7 @@
   br
 
   - if @order.payed?
-    = render "shared/confirm_phone"
+    = render "shared/confirm_phone", order: @order
     .row.js-order-payed-success
       .col-md-6.col-md-offset-3
         .panel.panel-default
