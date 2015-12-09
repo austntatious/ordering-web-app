@@ -35,4 +35,16 @@ class Product < ActiveRecord::Base
   def get_restaurant
     self.category.try(:restaurant_id)
   end
+
+  def as_json(options)
+    {
+      id: self.id,
+      name: self.name,
+      price: self.price,
+      description: self.description,
+      toppings_limit: self.toppings_limit,
+      category_id: self.category_id,
+      options: self.product_options
+    }
+  end
 end

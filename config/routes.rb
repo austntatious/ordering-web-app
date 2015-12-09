@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :coupons, only: [:index]
 
   namespace :api do
+    resources :products, only: [:index]
+    resources :categories, only: [:index]
     resources :restaurants, only: [:index]
     get '/dictionaries' => '/api/dictionaries#index'
   end

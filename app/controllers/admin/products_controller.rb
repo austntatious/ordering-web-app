@@ -120,7 +120,7 @@ class Admin::ProductsController < AdminController
     end
 
     def product_params
-      params.require(:product).permit(:code, :value, :min_price, :valid_till)
+      params.require(:product).permit(:code, :value, :min_price, :valid_till, product_options_attributes: [:id, :price, :name, :_destroy])
     end
 
     def add_ctl_breadcrumb
