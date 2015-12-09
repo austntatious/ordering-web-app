@@ -73,3 +73,4 @@ gem 'sidekiq'
 gem 'capistrano-sidekiq', group: :development
 gem 'mailchimp-api', '~> 2.0.6'
 gem 'omniauth-stripe-connect', '2.6.0'
+gem 'apipie-rails'

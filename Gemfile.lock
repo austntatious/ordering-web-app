@@ -46,6 +46,8 @@ GEM
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
     addressable (2.4.0)
+    apipie-rails (0.3.5)
+      json
     arel (5.0.1.20140414130214)
     ast (2.1.0)
     autoprefixer-rails (6.1.2)
@@ -367,6 +369,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   autoprefixer-rails
   awesome_nested_set
   bootstrap-sass (~> 3.2.0)

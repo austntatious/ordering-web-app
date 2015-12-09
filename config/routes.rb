@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   resources :coupons, only: [:index]
 
   namespace :api do
