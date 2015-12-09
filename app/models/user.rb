@@ -57,4 +57,16 @@ class User < ActiveRecord::Base
   def send_confirmation_sms
     SmsApi.send_sms "+1#{self.phone}", "Your confirmation code for StreetEats is #{self.phone_confirmation_code}"
   end
+
+  def generate_api_token
+    token = nil
+    loop do
+      token = Devise.friendly_token
+      break token unless ApiToken.where(token: token).first
+    end
+    ApiToken.create({
+      token: token,
+      user_id: self.id
+    })
+  end
 end
