@@ -11,7 +11,7 @@ class Api::OrdersController < Api::ApiController
 		param :contact_phone, String, 'Contact phone', required: true
 		param :money_from_account, String, 'Take money from user account', required: false
 		param :credit_card_id, String, 'Use credit card to pay an order', required: true
-		param :coupon, String, 'Discount coupon value', required: true
+		param :coupon, String, 'Discount coupon value', required: false
 		param :products, Array do
 			param :id, :number, 'Product ID', required: true
 			param :product_options, Array, 'Product options IDs', required: false
@@ -21,13 +21,13 @@ class Api::OrdersController < Api::ApiController
 	end
 	param :token, String, 'API token'
 	def create
-		cart = Cart.new
-		params[:products].each do |p|
+		cart = Cart.create(user_id: @user.id)
+		params[:order][:products].each do |p|
 			cart.add_product p[:id], p[:count], p[:note], p[:product_options]
 		end
-		order = Order.new(order_params)
+		order = Order.create(order_params)
 		order.order_cart cart
-		render json: order
+		render json: { id: order.id, errors: order.errors.full_messages }
 	end
 
 	api! 'List user previous orders'
@@ -49,6 +49,7 @@ class Api::OrdersController < Api::ApiController
 	protected
 		def order_params
       result = params.require(:order).permit(:address, :driver_instructions, :restaurant_instructions, :contact_name, :contact_phone, :money_from_account)
+      result[:credit_card_id] = @user.credit_cards.find_by_id(params[:order][:credit_card_id]).try(:id)
       result[:user_id] = @user.id
       result
     end
