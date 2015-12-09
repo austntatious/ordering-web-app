@@ -27,4 +27,11 @@ class CreditCard < ActiveRecord::Base
       return false
     end
   end
+
+  def as_json(options)
+    {
+      id: self.id,
+      number: "**** **** **** #{self.last4}"
+    }
+  end
 end

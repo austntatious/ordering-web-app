@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :coupons, only: [:index]
 
   namespace :api do
+    resources :credit_cards, only: [:create, :index]
+    resources :orders, only: [:create, :index, :show]
     post '/user/login' => 'users#login'
     post '/user/logout' => 'users#logout'
     resources :products, only: [:index]
