@@ -15,6 +15,8 @@ class Api::CreditCardsController < Api::ApiController
     render json: { success: !@credit_card.errors.any?, errors: @credit_card.errors.full_messages, credit_card: @credit_card }
 	end
 
+	api! 'Get a list of user saved credit cards'
+	param :token, String, 'API token'
 	def index
 		credit_cards = @user.credit_cards
 		render json: credit_cards
