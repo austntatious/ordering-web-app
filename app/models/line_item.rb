@@ -23,4 +23,14 @@ class LineItem < ActiveRecord::Base
   def single_price
     product.price + product_options.map { |po| po.price }.sum
   end
+
+  def as_json()
+    {
+      product_id: self.product_id,
+      product_name: self.product.name,
+      count: self.count,
+      note: self.note,
+      product_options: self.product_options
+    }
+  end
 end

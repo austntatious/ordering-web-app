@@ -338,4 +338,20 @@ class Order < ActiveRecord::Base
       end
     end
   end
+
+  def as_json(options)
+    {
+      id: self.id,
+      address: self.address,
+      status: self.status,
+      location_id: self.location_id,
+      contact_name: self.contact_name,
+      contact_phone: self.contact_phone,
+      delivery_fee: self.delivery_fee,
+      coupon_code: self.coupon_code,
+      coupon_discount: self.coupon_discount,
+      total_order_sum: self.total_order_sum,
+      line_items: self.line_items
+    }
+  end
 end

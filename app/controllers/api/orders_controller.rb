@@ -36,16 +36,8 @@ class Api::OrdersController < Api::ApiController
 	param :page, :number, 'Page number (paginates per 20)'
 	param :token, String, 'API token'
 	def index
-		@orders = @user.orders.page(params[:page]).per(20)
+		@orders = @user.orders.reorder('created_at DESC').page(params[:page]).per(20)
 		render json: @orders
-	end
-
-	api! 'User order details'
-	param :id, :number, 'Order ID'
-	param :token, String, 'API token'
-	def show
-		@order = @user.orders.find(params[:id])
-		render json: @order
 	end
 
 	protected
