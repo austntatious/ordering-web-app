@@ -27,9 +27,11 @@ class Api::OrdersController < Api::ApiController
 		end
 		order = Order.new(order_params)
 		cart.reload
+		coupon = Coupon.find_by_code(params[:order][:coupon])
+		coupon.apply cart unless coupon.nil?
 		order.order_cart cart
 		order.save
-		render json: { id: order.id, errors: order.errors.full_messages }
+		render json: { id: order.id, errors: order.errors.full_messages, sum: order.total_order_sum }
 	end
 
 	api! 'List user previous orders'

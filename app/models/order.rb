@@ -306,7 +306,7 @@ class Order < ActiveRecord::Base
       @stats[:order_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).count
     end
     for i in 0..7
-      @stats[:sums_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).map { |o| o.total_sum }.sum
+      @stats[:sums_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).map { |o| o.total_order_sum }.sum
     end
     @stats[:order_this_week].reverse!
     @stats[:sums_this_week].reverse!
