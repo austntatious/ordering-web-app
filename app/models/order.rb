@@ -221,7 +221,6 @@ class Order < ActiveRecord::Base
 
   def total_price
     df = self.delivery_fee
-    binding.pry
     if df == 0
       df = Order.get_delivery_fee(self.user)
     end

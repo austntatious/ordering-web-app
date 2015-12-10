@@ -21,12 +21,14 @@ class Api::OrdersController < Api::ApiController
 	end
 	param :token, String, 'API token'
 	def create
-		cart = Cart.create(user_id: @user.id)
+		cart = Cart.create(user_id: @user.id, location_id: params[:order][:location_id])
 		params[:order][:products].each do |p|
 			cart.add_product p[:id], p[:count], p[:note], p[:product_options]
 		end
-		order = Order.create(order_params)
+		order = Order.new(order_params)
+		cart.reload
 		order.order_cart cart
+		order.save
 		render json: { id: order.id, errors: order.errors.full_messages }
 	end
 
