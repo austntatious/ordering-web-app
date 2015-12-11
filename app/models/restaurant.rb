@@ -62,4 +62,17 @@ class Restaurant < ActiveRecord::Base
       StripeConnectWorker.perform_async(self.id)
     end
   end
+
+  def as_json(options)
+    {
+      id: self.id,
+      img: self.img.try(:url),
+      thumb: self.img.try(:thumb).try(:url),
+      phone: self.phone,
+      name: self.name,
+      work_time: self.accept_orders_time,
+      locations: self.locations.map(&:id),
+      restaurant_type: self.restaurant_type_id
+    }
+  end
 end

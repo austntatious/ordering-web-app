@@ -9,7 +9,7 @@ class MailChimpWorker
       begin
         mailchimp = Mailchimp::API.new(ENV['MAILCHIMP_API_KEY'])
         mailchimp.lists.batch_subscribe(ENV['MAILCHIMP_LIST_ID'],  [{
-          'EMAIL' => { 'email' => order.user.email, },
+          'EMAIL' => { 'email' => order.user_email, },
           :merge_vars => { "FIRSTNAME" => order.contact_name, "STATUS" => "Subscribed" }
         }], false)
       rescue

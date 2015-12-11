@@ -1,8 +1,20 @@
 Rails.application.routes.draw do
-  resources :coupons
+  apipie
+  resources :coupons, only: [:index]
+
+  namespace :api do
+    resources :credit_cards, only: [:create, :index]
+    resources :orders, only: [:create, :index, :show]
+    post '/user/login' => 'users#login'
+    post '/user/logout' => 'users#logout'
+    resources :products, only: [:index]
+    resources :categories, only: [:index]
+    resources :restaurants, only: [:index]
+    get '/dictionaries' => '/api/dictionaries#index'
+  end
 
   mount Ckeditor::Engine => '/ckeditor'
-  resources :credit_cards
+  resources :credit_cards, only: [:create]
   resources :charges, :only => [:create]
   resources :orders, :only => [:new, :create, :show, :index] do
     member do
@@ -14,7 +26,6 @@ Rails.application.routes.draw do
     get 'decrease', :as => :decrease
   end
   resources :restaurants, :only => :show
-  resources :carts, :only => :show
   resources :locations, :only => :show
   resources :account_transactions, :only => :index
 
@@ -34,16 +45,16 @@ Rails.application.routes.draw do
     post '/settings' => 'settings#save', as: :save_settings
     get '/products/import' => 'products#import', as: :products_import
     post '/products/import' => 'products#do_import', as: :products_do_import
-    resources :products
-    resources :users
-    resources :admin_users
-    resources :restaurant_types
-    resources :categories
-    resources :locations
-    resources :text_pages
-    resources :coupons
-    resources :restaurants
-    resources :orders
+    resources :products, except: [:show]
+    resources :users, except: [:show]
+    resources :admin_users, except: [:show]
+    resources :restaurant_types, except: [:show]
+    resources :categories, except: [:show]
+    resources :locations, except: [:show]
+    resources :text_pages, except: [:show]
+    resources :coupons, except: [:show]
+    resources :restaurants, except: [:show]
+    resources :orders, except: [:show]
   end
 
   devise_scope :user do

@@ -4,7 +4,7 @@ tr class="js-line-item-#{line_item.id} line-item"
     - if line_item.product_options.any?
       .line-item-options
         = line_item.product_options.map { |po| po.name }.join(', ')
-    - unless line_item.note.blank?
+    - unless line_item.note?
       p.line-item-note = line_item.note
   td = number_to_currency line_item.single_price
   td

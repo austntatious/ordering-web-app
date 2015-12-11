@@ -41,12 +41,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
     @restaurant = Restaurant.find(@order.get_restaurant)
-    if @order.user_id != current_user.id
-      redirect_to root_path
-      return
-    end
   end
 
   def index
@@ -54,14 +50,14 @@ class OrdersController < ApplicationController
   end
 
   def pay
-    @order = Order.find(params[:id])
+    @order = current_user.orders.find(params[:id])
     @order.credit_card_id = params[:credit_card_id]
     @order.save
     unless @order.errors.any?
       @order.process_payment
     end
     if @order.errors.any?
-      redirect_to @order, :warning => @order.errors
+      redirect_to @order, warning: @order.errors
     else
       @order_payed_now = true
       redirect_to @order
@@ -78,4 +74,3 @@ class OrdersController < ApplicationController
       result
     end
 end
-

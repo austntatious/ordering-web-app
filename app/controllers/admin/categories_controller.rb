@@ -11,7 +11,7 @@ class Admin::CategoriesController < AdminController
   end
 
   def edit
-    add_breadcrumb 'Edit', edit_admin_categories_path(@category)
+    add_breadcrumb 'Edit', edit_admin_category_path(@category)
   end
 
   def destroy

@@ -66,7 +66,7 @@
                     td = link_to restaurant.name, admin_restaurant_path(restaurant)
                     - orders = Order.where('created_at >= ? AND restaurant_id = ?', DateTime.now - 1.week, restaurant.id)
                     td = orders.length
-                    td = number_to_currency orders.map { o.total_order_sum }.sum
+                    td = number_to_currency orders.map { |o| o.total_order_sum }.sum
           a.btn.btn-default.btn-sm href="/admin/restaurants"
             i.fa.fa-glass
             | View all restaurants

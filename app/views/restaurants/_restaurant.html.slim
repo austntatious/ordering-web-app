@@ -4,9 +4,9 @@
     .caption
       h3.text-center.restaurant-name
         = restaurant.name
-        - unless restaurant.restaurant_type.blank?
+        - unless restaurant.restaurant_type.nil?
           small = restaurant.restaurant_type.name
-      - unless restaurant.accept_orders_time.blank?
+      - unless restaurant.accept_orders_time?
         h5.text-center
           span.fa.fa-clock-o
           |&nbsp;

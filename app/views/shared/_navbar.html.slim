@@ -19,9 +19,9 @@ nav.navbar.navbar-default
             = link_to account_transactions_path do
               |My balance:
               = number_to_currency current_user.balance
-          - unless @current_cart.empty?
+          - unless current_cart.empty?
             li
-              = link_to "Shopping cart (#{@current_cart.total_count})", new_order_path
+              = link_to "Shopping cart (#{current_cart.total_count})", new_order_path
           li.dropdown
             a.dropdown-toggle.bold-link aria-expanded="false" data-toggle="dropdown" href="#" role="button"
               | My Account

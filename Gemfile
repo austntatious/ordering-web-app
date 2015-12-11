@@ -59,6 +59,7 @@ gem 'capistrano-passenger', '0.0.2', group: :development
 
 group :development do
   gem 'pry'
+  gem "rubycritic", :require => false
 end
 
 gem "awesome_nested_set"
@@ -72,3 +73,4 @@ gem 'sidekiq'
 gem 'capistrano-sidekiq', group: :development
 gem 'mailchimp-api', '~> 2.0.6'
 gem 'omniauth-stripe-connect', '2.6.0'
+gem 'apipie-rails'

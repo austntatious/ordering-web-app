@@ -9,4 +9,11 @@ class Category < ActiveRecord::Base
   validates :name, :presence => true
 
   scope :search, -> (q) { q.blank? ? where('1 = 1') : joins(:restaurant).where('categories.name iLIKE ? OR restaurants.name iLIKE ?', "%#{q}%", "%#{q}%")  }
+
+  def as_json(options)
+  	{
+  		id: self.id,
+  		name: self.name
+  	}
+  end
 end

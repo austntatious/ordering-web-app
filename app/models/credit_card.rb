@@ -19,14 +19,19 @@ class CreditCard < ActiveRecord::Base
           :cvc => self.cvc
         }
       )
-      # binding.pry
       customer.sources.create(:card => token['id'])
-      # puts token.inspect
       self.stripe_id = token['card']['id']
       self.last4 = self.number.split(//).last(4).join
     rescue
       self.errors.add(:base, 'Credit card error')
       return false
     end
+  end
+
+  def as_json(options)
+    {
+      id: self.id,
+      number: "**** **** **** #{self.last4}"
+    }
   end
 end

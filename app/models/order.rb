@@ -20,6 +20,9 @@ class Order < ActiveRecord::Base
 
   validates :address, :contact_name, :contact_phone, :credit_card_id, :presence => true
 
+  delegate :email, :name, to: :user, prefix: true
+  delegate :name, to: :location, prefix: true
+
   # default_scope { order('created_at DESC') }
   scope :payed, -> { where(status: 'payed') }
 
@@ -122,8 +125,8 @@ class Order < ActiveRecord::Base
   def order_cart(cart)
     self.line_items = cart.line_items
     if cart.coupon_applied?
-      self.coupon_code = cart.coupon.code
-      self.coupon_discount = cart.coupon.value
+      self.coupon_code = cart.coupon_code
+      self.coupon_discount = cart.coupon_value
     end
   end
 
@@ -253,7 +256,7 @@ class Order < ActiveRecord::Base
     unless restaurant_id.nil?
       restaurant = Restaurant.find_by_id(restaurant_id)
       begin
-        if restaurant.stripe_recipient_id.blank?
+        if restaurant.stripe_recipient_id?
           rc = Stripe::Recipient.create(
             :name => restaurant.recipient_name,
             :type => restaurant.recipient_type,
@@ -286,6 +289,30 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def self.get_stats
+    tw = Order.payed.where('created_at >= ?', DateTime.now - 1.week)
+    pw = Order.payed.where('created_at >= ? AND created_at <= ?', DateTime.now - 2.week, DateTime.now - 1.weeks)
+    @stats = {
+      this_week: tw.map { |o| o.total_price }.sum,
+      prev_week: pw.map { |o| o.total_price }.sum,
+      orders_week: tw.length,
+      order_prev_week: pw.length,
+      order_this_week: [],
+      sums_this_week: [],
+      restaurants: Restaurant.joins(:orders).where('orders.status = ? AND orders.created_at > ?', 'payed', DateTime.now - 1.week).group('restaurants.id').order('SUM(total_order_sum)'),
+      orders: Order.order('created_at DESC').limit(10)
+    }
+    for i in 0..7
+      @stats[:order_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).count
+    end
+    for i in 0..7
+      @stats[:sums_this_week] << Order.where('DATE(created_at) = ?', Date.today - i.days).map { |o| o.total_order_sum }.sum
+    end
+    @stats[:order_this_week].reverse!
+    @stats[:sums_this_week].reverse!
+    @stats
+  end
+
   def mailchimp_export
     MailChimpWorker.perform_async self.id
   end
@@ -310,5 +337,21 @@ class Order < ActiveRecord::Base
         ]
       end
     end
+  end
+
+  def as_json(options)
+    {
+      id: self.id,
+      address: self.address,
+      status: self.status,
+      location_id: self.location_id,
+      contact_name: self.contact_name,
+      contact_phone: self.contact_phone,
+      delivery_fee: self.delivery_fee,
+      coupon_code: self.coupon_code,
+      coupon_discount: self.coupon_discount,
+      total_order_sum: self.total_order_sum,
+      line_items: self.line_items
+    }
   end
 end

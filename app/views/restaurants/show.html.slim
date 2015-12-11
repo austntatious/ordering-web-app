@@ -5,7 +5,7 @@
     h2 = @restaurant.name
     .row
       .col-md-8
-        - unless @restaurant.accept_orders_time.nil?
+        - unless @restaurant.accept_orders_time?
           p.restaurant-work-hours
             b Work hours:&nbsp;
             = @restaurant.accept_orders_time

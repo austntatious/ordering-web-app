@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+        user.email = data["email"] if user.email?
       end
     end
   end
@@ -56,5 +56,17 @@ class User < ActiveRecord::Base
 
   def send_confirmation_sms
     SmsApi.send_sms "+1#{self.phone}", "Your confirmation code for StreetEats is #{self.phone_confirmation_code}"
+  end
+
+  def generate_api_token
+    token = nil
+    loop do
+      token = Devise.friendly_token
+      break token unless ApiToken.where(token: token).first
+    end
+    ApiToken.create({
+      token: token,
+      user_id: self.id
+    })
   end
 end
