@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'streeteats'
 # set :user, 'ivanthecrazy'
 set :user, 'app'
-set :repo_url, 'git@bitbucket.org:IvanTheCrazy/fooddelivery.git'
+set :repo_url, 'git@github.com:austntatious/ordering-web-app.git'
 set :deploy_to, "/home/app/streeteats"
 # set :deploy_to, "/home/ivanthecrazy/streeteats"
 
