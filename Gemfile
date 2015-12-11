@@ -55,7 +55,8 @@ gem 'spring',        group: :development
 
 gem 'capistrano-rvm',   group: :development
 gem 'capistrano-rails', group: :development
-gem 'capistrano-passenger', '0.0.2', group: :development
+# gem 'capistrano-passenger', '0.0.2', group: :development
+gem 'capistrano3-puma'
 
 group :development do
   gem 'pry'
@@ -74,3 +75,4 @@ gem 'capistrano-sidekiq', group: :development
 gem 'mailchimp-api', '~> 2.0.6'
 gem 'omniauth-stripe-connect', '2.6.0'
 gem 'apipie-rails'
+gem 'puma'
