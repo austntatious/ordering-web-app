@@ -1,9 +1,10 @@
-// Bootstrap
+// Bootstrap and other libs
 @import "font-awesome";
 @import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// custom blocks
 @import "blocks/locations";
 @import "blocks/restaurants";
 @import "blocks/products";
@@ -15,6 +16,7 @@
 @import "blocks/share";
 @import "blocks/ref_landing";
 
+// some common-used CSS
 .footer {
   padding: 12px;
   background: #f5f5f5;
