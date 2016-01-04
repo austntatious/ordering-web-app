@@ -4,6 +4,7 @@ class MailChimpWorker
   include Sidekiq::Worker
 
   def perform(order_id)
+    # save email in mailchimp
     order = Order.find_by_id(order_id)
     unless order.nil?
       begin

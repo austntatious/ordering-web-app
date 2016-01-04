@@ -2,6 +2,7 @@ class StripeConnectWorker
   include Sidekiq::Worker
 
   def perform(restaurant_id)
+    # create account for Stripe Connect
     restaurant = Restaurant.find(restaurant_id)
     begin
       acc = Stripe::Account.create(
