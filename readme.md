@@ -42,3 +42,8 @@ for me (PostgreSQL 9.3 and OSX) I have the following path:
 I didn't added any comments to controllers/admin/*.rb, because all of this controlles are standard scaffold controllers and doesn't have any custom code except of sorting, but it's quite easy to understand.
 
 API controllers are documented with ApiPie.
+
+
+** Deployment **
+
+Deployment is made with Capistrano. To update current version, just run "cap production deploy". Please note, that you need to have ssh keys setup on your machine for app user on server.
