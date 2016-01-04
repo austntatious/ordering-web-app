@@ -1,3 +1,17 @@
 SECRET_KEY: stripe secret key goes here
 PUBLISHABLE_KEY: stripe publishable key goes here
 EMAIL_FROM: this email addres will be used as "from" address
+SECRET_KEY_BASE: secret key base value (see secrets.yml)
+FACEBOOK_APP_ID: ID of facebook app
+FACEBOOK_APP_SECRET: secret of facebook app
+TWILIO_ACCOUNT_SID:
+TWILIO_AUTH_TOKEN:
+TWILIO_PHONE_NUMBER:
+FROM_EMAIL: 'no-reply@bingstreeteats.com'
+SMTP_PORT:
+SMTP_SERVER:
+SMTP_USER:
+SMTP_PASSWORD:
+MAILCHIMP_API_KEY:
+MAILCHIMP_LIST_ID:
+STRIPE_CONNECT_ID:
