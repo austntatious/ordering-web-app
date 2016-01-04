@@ -36,6 +36,11 @@
 //= require jquery-ui/datepicker
 //= require_self
 
+//
+// Admin panel functions
+// just the theme JS, nothing custom (just the location editor)
+//
+
 $(document).ready(function () {
   $('.js-filters').change(function (ev) {
     $(this).parents('form').submit();

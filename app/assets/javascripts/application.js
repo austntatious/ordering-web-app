@@ -23,6 +23,7 @@ var ready = function () {
     window.commonData.locations[i].coords = $.parseJSON(window.commonData.locations[i].coords);
   }
 
+  // masked input for credit cards
   window.setCCMasks = function () {
     $('#credit_card_number').mask('9999 9999 9999 999?9');
     $('#credit_card_exp_month').mask('99');
@@ -30,16 +31,19 @@ var ready = function () {
     $('#credit_card_cvc').mask('999?9');
   };
 
+  // tabs
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     $('.js-tab').removeClass('active');
     $(this).parent().addClass('active');
   });
 
+  // add product to cart button
   $('.js-add-product').click(function (e) {
     e.preventDefault();
     $('.js-line-item-form').submit();
   });
 
+  // add credit card
   $('.js-add-card').click(function (e) {
     e.preventDefault();
     $('#new-card-modal #error_explanation').remove();
@@ -47,6 +51,7 @@ var ready = function () {
     $('.js-add-card-form').submit();
   });
 
+  // animate to 'pick your location form'
   $('.js-restaurants-index .js-restaurant').click(function (ev) {
     ev.preventDefault();
     $('html,body').animate({ scrollTop: 0 }, 'slow', function (argument) {
@@ -56,6 +61,7 @@ var ready = function () {
 
   var restaurant_holders = $('.js-restaurant-holder');
 
+  // filter restaurants with search
   $('.js-restaurant-search').keyup(function (ev) {
     var str = $(this).val();
     if (str == '') {
@@ -80,6 +86,7 @@ var ready = function () {
     });
   };
 
+  // validate addons count
   $(document).on('change', '.js-product-addon', function (ev) {
     var addons = $('.js-product-addon:checked'),
       maxToppings = $('.js-product-count').data('max');
@@ -97,18 +104,7 @@ var ready = function () {
     }
   });
 
-  // $(document).on('change keydown keyup', '.js-related-count', function (ev) {
-  //   var cnt = $('.js-product-count').val(),
-  //     maxToppings = $('.js-product-count').data('max'),
-  //     v = 0;
-  //   $('.js-related-count').each(function (ind, itm) {
-  //     v += $(itm).val();
-  //   });
-  //   if (v > cnt * maxToppings) {
-  //     $(this).val(cnt * maxToppings);
-  //   }
-  // });
-
+  // validate entered coupon and update data in form if required
   $('.js-check-coupon').click(function (ev) {
     $('.js-coupon-msg').html('');
     $.get('/coupons.json?code=' + $('.js-coupon-code').val(), function (data) {
@@ -131,6 +127,7 @@ var ready = function () {
     });
   });
 
+  // spent money from account, recalculate prices
   $('.js-money-account').on('change keyup', function () {
     var v = parseFloat(this.value),
       max = parseFloat($(this).attr('max')),
@@ -143,16 +140,19 @@ var ready = function () {
     $('.js-cart-price').html('$' + cartPrice);
   });
 
+  // show "referral email form" on click
   $('.js-email-share').click(function (ev) {
     ev.preventDefault();
     $('.js-email-share-form').toggleClass('hidden');
   });
 
+  // back button
   $('.js-back').click(function (ev) {
     ev.preventDefault();
     history.back();
   });
 
+  // automatically copy referral link to clipboard
   ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
   var client = new ZeroClipboard( document.getElementById("copy-button") );
 

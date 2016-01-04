@@ -1,3 +1,8 @@
+// location validation
+// each location has coords and we need to detect
+// if user coords are inside of any location
+
+// cookie functions
 function setCookie(name,value) {
     var days = 10;
     var date = new Date();
@@ -27,10 +32,12 @@ function getCookie(name) {
 }
 
 var lready = function () {
+  // validate browser geolocation feature availability
   if (!navigator.geolocation) {
     $('.js-geolocation-holder').remove();
   }
 
+  // find existing location around the given coords
   var findLocation = function (lat, lng) {
     var result = null;
     $.each(window.commonData.locations, function (ind, itm) {
@@ -54,6 +61,7 @@ var lready = function () {
     });
     return result;
   },
+  // find location by id
   getLocation = function (id) {
     var result = null;
     $.each(window.commonData.locations, function (ind, itm) {
@@ -67,9 +75,11 @@ var lready = function () {
   var isOrderPage = ($('.js-order-location').length > 0);
 
   if ($('.js-location-pick').length) {
+    // assign Google Place autocomplete to input
     var autocomplete = new google.maps.places.Autocomplete($('.js-location-pick')[0], {}),
       map = null,
       marker = null,
+      // set location by coords, detect address by geocoding if required
       applyLocation = function (lat, lng, detectAddress) {
         if (!isOrderPage) {
           setCookie('lat', lat);
@@ -94,6 +104,8 @@ var lready = function () {
           }
         }
         if ($('.js-order-form').length) {
+          // if we're on the order page,
+          // we need to retrieve data from hidden fields
           var location = getLocation($('#location').val()),
             location_d = findLocation(lat, lng) || { id: null };
           if (location_d.id != location.id) {
@@ -106,6 +118,7 @@ var lready = function () {
           }
         }
         else {
+          // show window with location search results
           var location = findLocation(lat, lng),
             windowContent = '<p class="location-text">No restaurants found on this location</p>';
           if (location) {
@@ -122,6 +135,7 @@ var lready = function () {
           window.currentInfoWindow = infowindow;
         }
       },
+      // initialize map and draggable marker
       initMap = function () {
         if (map != null) {
           return;
@@ -147,6 +161,7 @@ var lready = function () {
       };
 
       $('.js-geolocation').click(function (ev) {
+        // get user location on click and find location by user coords
         ev.preventDefault();
         navigator.geolocation.getCurrentPosition(function (position) {
           initMap();
@@ -158,6 +173,7 @@ var lready = function () {
         });
       });
 
+      // find location on address enter
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
         initMap();
         var place = autocomplete.getPlace();
@@ -176,6 +192,7 @@ var lready = function () {
         applyLocation(place.geometry.location.lat(), place.geometry.location.lng());
       });
 
+      // restore data from order hidden fields and validate location
       if ($('.js-order-location').length) {
         var lat = parseFloat(getCookie('lat')),
           lng = parseFloat(getCookie('lng')),

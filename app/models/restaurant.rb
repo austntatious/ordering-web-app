@@ -1,3 +1,4 @@
+# restaurant class
 class Restaurant < ActiveRecord::Base
   belongs_to :restaurant_type
   has_and_belongs_to_many :locations, :join_table => :locations_restaurants
@@ -5,6 +6,7 @@ class Restaurant < ActiveRecord::Base
   has_many :products, through: :categories
   has_many :orders
 
+  # allow to use single form for restaurant, categories and products
   accepts_nested_attributes_for :categories, :allow_destroy => true
   accepts_nested_attributes_for :products, :allow_destroy => true
 
@@ -24,6 +26,7 @@ class Restaurant < ActiveRecord::Base
 
   before_save :connect_stripe
 
+  # format and send seo data
   def set_seo_data(hash)
     tt = Setting::get('Title for restaurant page')
     unless tt.blank?
@@ -46,6 +49,7 @@ class Restaurant < ActiveRecord::Base
       gsub('%locations%', '$' + self.locations.map { |l| l.name }.join(', '))
   end
 
+  # launch stripe connect integration on restaurant creation
   def connect_stripe
     do_connect = false
     unless self.id.nil?

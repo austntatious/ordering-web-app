@@ -1,9 +1,11 @@
+# product category model
 class Category < ActiveRecord::Base
-  acts_as_nested_set
+  acts_as_nested_set # use nested set for possible tree-style categories
 
   belongs_to :restaurant
   has_many :products
 
+  # allow edit categories together with products in single form
   accepts_nested_attributes_for :products, :allow_destroy => true
 
   validates :name, :presence => true

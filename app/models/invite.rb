@@ -1,3 +1,5 @@
+# invitation object (store user invitations)
+# used for referral program
 class Invite < ActiveRecord::Base
   belongs_to :user
 

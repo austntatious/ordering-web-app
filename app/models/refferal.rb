@@ -1,3 +1,4 @@
+# User referral class
 class Refferal < ActiveRecord::Base
   belongs_to :user
   belongs_to :refferer, :class_name => 'User'
@@ -5,6 +6,7 @@ class Refferal < ActiveRecord::Base
 
   scope :by_user, ->(uid) { where(:refferer_id => uid) }
 
+  # assing bonus to use if bonus-required amount of referrals reached
   def self.make_bonus(user)
     unless user.ref_id.nil?
       r = Refferal.where(:user_id => user.id, :refferer_id => user.ref_id).first

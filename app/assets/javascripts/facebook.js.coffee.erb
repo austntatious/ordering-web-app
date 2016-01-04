@@ -1,3 +1,6 @@
+#
+# Post facebook stories from "order success" page
+#
 ready = ()->
   if $('.js-order-payed-success').length == 0
     return
@@ -26,9 +29,11 @@ ready = ()->
     js.src = "//connect.facebook.net/en_US/sdk.js"
     fjs.parentNode.insertBefore(js, fjs)
 
+  # load facebook SDK
   load(document, 'script', 'facebook-jssdk')
 
   postLike = () ->
+    # make post
     FB.login (response) ->
       if response.authResponse
         FB.api 'https://graph.facebook.com/me/streeteatsapp:order_from', 'post',

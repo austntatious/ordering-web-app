@@ -1,3 +1,4 @@
+# product class
 class Product < ActiveRecord::Base
   belongs_to :category
   has_many :product_options
@@ -25,6 +26,7 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :product_options, :reject_if => :all_blank, :allow_destroy => true
 
+  # restrict product deletion if it's referenced by any line item
   def ensure_not_referenced
     if LineItem.where(:product_id => self.id).any?
       self.errors.add(:base, 'This product is referenced by cart or order')

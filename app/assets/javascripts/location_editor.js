@@ -1,8 +1,10 @@
+// location editor for admin panel
 $(document).ready(function () {
   if ($('#place-map-holder').length == 0) {
     return;
   }
   if (google !== undefined) {
+    // initialize map and drawing manager
     var latlng = null,
       marker = null,
       map = null,
@@ -18,6 +20,7 @@ $(document).ready(function () {
     var initDrawManager = true;
 
     if ($('#location_coords').val() != '') {
+      // load coords if we have some already
       var points = $.parseJSON($('#location_coords').val()),
         ll_points = [];
       for (var i = 0; i < points.length; i++) {
@@ -37,6 +40,7 @@ $(document).ready(function () {
 
     var drawn_polygon = null,
       coordsStr = '',
+      // format coords data as json and place into hidden field
       setCoordsStr = function (path) {
         var data = [],
           points = path.getPath().getArray();
@@ -66,6 +70,7 @@ $(document).ready(function () {
       });
       drawingManager.setMap(map);
 
+      // save coords data
       google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
         drawingManager.setDrawingMode(null);
       });
@@ -90,6 +95,7 @@ $(document).ready(function () {
     else {
       drawn_polygon = l_polygon;
       polygon = l_polygon;
+      // save coords data
       google.maps.event.addListener(polygon.getPath(), 'set_at', function() {
         setCoordsStr(polygon);
       });

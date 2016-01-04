@@ -1,3 +1,4 @@
+# user model
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -12,12 +13,11 @@ class User < ActiveRecord::Base
   has_many :used_coupons, :dependent => :destroy
   has_many :credit_cards, :dependent => :destroy
 
-  # validates :name, :presence => true
-  # validates_uniqueness_of :phone
   scope :search, -> (q) { q.blank? ? where('1 = 1') : where('email iLIKE ?', "%#{q}%")  }
 
   after_commit :create_stripe_client, :on => [:create]
 
+  # create user from omniauth session
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -35,14 +35,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  # create stripe client after user creation
   def create_stripe_client
     NewStripeClientWorker.perform_async self.id
   end
 
+  # currently used user cart
   def current_cart
     self.carts.reorder('created_at DESC').first
   end
 
+  # phone confirmation code generation
   def genarate_phone_confirmation_code(phone)
     self.phone = phone
     code = ''
@@ -54,10 +57,12 @@ class User < ActiveRecord::Base
     self.send_confirmation_sms
   end
 
+  # send an sms to confirm phone number
   def send_confirmation_sms
     SmsApi.send_sms "+1#{self.phone}", "Your confirmation code for StreetEats is #{self.phone_confirmation_code}"
   end
 
+  # generates an API token for API auth
   def generate_api_token
     token = nil
     loop do

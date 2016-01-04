@@ -1,3 +1,4 @@
+# location object
 class Location < ActiveRecord::Base
   has_and_belongs_to_many :restaurants, :join_table => :locations_restaurants
   has_many :carts, :dependent => :destroy
@@ -8,6 +9,7 @@ class Location < ActiveRecord::Base
 
   scope :search, -> (q) { q.blank? ? where('1 = 1') : where('name iLIKE ?', "%#{q}%")  }
 
+  # loads SEO templates and format strings for SEO tags
   def set_seo_data(hash)
     tt = Setting::get('Title for location page')
     unless tt.blank?

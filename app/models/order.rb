@@ -1,5 +1,6 @@
 require 'sms_api'
 
+# order class
 class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :credit_card
@@ -23,7 +24,6 @@ class Order < ActiveRecord::Base
   delegate :email, :name, to: :user, prefix: true
   delegate :name, to: :location, prefix: true
 
-  # default_scope { order('created_at DESC') }
   scope :payed, -> { where(status: 'payed') }
 
   scope :search, -> (q) {
@@ -36,8 +36,10 @@ class Order < ActiveRecord::Base
         )
   }
 
+  # available statuses
   STATUSES = ['pending', 'payed', 'cancelled']
 
+  # state machine for statuses
   state_machine :status, :initial => :pending do
     event :pay do
       transition :pending => :payed
@@ -62,6 +64,7 @@ class Order < ActiveRecord::Base
     state :completed
   end
 
+  # take money from user balance
   def withdraw_balance
     if self.money_from_account > 0
       ActiveRecord::Base.transaction do
@@ -76,6 +79,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # charge saved credit card
   def process_payment
     credit_card = self.user.credit_cards.find_by_id(self.credit_card_id)
     unless credit_card.nil?
@@ -87,7 +91,7 @@ class Order < ActiveRecord::Base
           :currency => 'usd',
           :source => credit_card.stripe_id,
         }
-        unless self.restaurant.nil?
+        unless self.restaurant.nil? # send money to restaurant with stripe connect
           unless self.restaurant.stripe_destination.blank?
             app_fee = Setting.get_float('Application fee')
             charge_fields[:destination] = self.restaurant.stripe_destination
@@ -104,6 +108,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # validate if credit card is belongs to the same user as order
   def validate_card
     unless self.user.credit_cards.map { |cc| cc.id }.include? self.credit_card_id
       self.errors.add :base, 'Invalid credit card'
@@ -111,6 +116,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # validate if we can pay some money from user account
   def validate_money_from_account
     if self.money_from_account > 0
       if self.user.balance < self.money_from_account
@@ -122,6 +128,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # move all line items from cart to order
   def order_cart(cart)
     self.line_items = cart.line_items
     if cart.coupon_applied?
@@ -130,10 +137,12 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # total products price
   def products_price
     self.line_items.map { |li| li.total_price }.sum
   end
 
+  # calculate delivery fee according total sum and settings
   def self.get_delivery_fee(user)
     result = 4.0
     fee = Setting.get_float('Delivery fee')
@@ -150,6 +159,7 @@ class Order < ActiveRecord::Base
     result
   end
 
+  # calculate taxes
   def self.get_tax_amount
     result = 0
     tax = Setting.get('Tax')
@@ -159,10 +169,12 @@ class Order < ActiveRecord::Base
     result.round(2)
   end
 
+  # save delivery fee
   def set_delivery_fee
     self.delivery_fee = Order.get_delivery_fee(self.user)
   end
 
+  # validate if we can accept order now
   def check_order_creation_availability
     unless Setting.can_get_orders?
       self.errors.add(:base, 'Ordering is unavailable now')
@@ -170,14 +182,17 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # save restaurant data
   def set_restaurant
     self.restaurant_id = self.get_restaurant
   end
 
+  # send notifications on background
   def create_notification
     NewOrderNotifyWorker.perform_async self.id
   end
 
+  # format string for export
   def build_content_string
     parts = []
     line_items.each do |li|
@@ -191,6 +206,7 @@ class Order < ActiveRecord::Base
     parts.join(';')
   end
 
+  # send background notifications on order creation
   def notify_created
     notify(
       "Your order ##{id} on streeteats.com is successfully created",
@@ -200,6 +216,7 @@ class Order < ActiveRecord::Base
     Notifier.notify_created_admin(self).deliver
   end
 
+  # send background notifications on payment
   def notify_payed
     notify(
       "Your order ##{id} on streeteats.com is payed now",
@@ -210,6 +227,7 @@ class Order < ActiveRecord::Base
     Notifier.notify_payed_admin(self).deliver
   end
 
+  # common function for notification
   def notify(user_text, admin_text, restaurant_text = '')
     admin_phone = Setting.get 'Admin phone'
     SmsApi.send_sms admin_phone, admin_text
@@ -219,6 +237,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # calculate full order price
   def total_price
     df = self.delivery_fee
     if df == 0
@@ -227,10 +246,12 @@ class Order < ActiveRecord::Base
     restaurant_price + tax_price + df - coupon_discount - money_from_account
   end
 
+  # calculate products price
   def restaurant_price
     line_items.map { |li| li.total_price }.sum
   end
 
+  # calculate tax for products
   def tax_price
     restaurant_price * Order.get_tax_amount
   end
@@ -251,6 +272,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # send restaurant money (older version, not used now)
   def pay_restaurant_comission
     restaurant_id = self.get_restaurant
     unless restaurant_id.nil?
@@ -289,6 +311,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # ordering statistics, used in admin dashboard
   def self.get_stats
     tw = Order.payed.where('created_at >= ?', DateTime.now - 1.week)
     pw = Order.payed.where('created_at >= ? AND created_at <= ?', DateTime.now - 2.week, DateTime.now - 1.weeks)
@@ -313,14 +336,17 @@ class Order < ActiveRecord::Base
     @stats
   end
 
+  # send new email to mailchimp on background
   def mailchimp_export
     MailChimpWorker.perform_async self.id
   end
 
+  # save total order sum
   def set_total_sum
     self.total_order_sum = self.total_price
   end
 
+  # format data for csv export
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << [:id, :created_at, :location, :restaurant_name, :restaurant_instructions, :products_price, :products, :total_price]

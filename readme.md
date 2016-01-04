@@ -13,6 +13,8 @@
 - run "bundle install"
 - run "bundle exec rake db:create"
 - run "bundle exec rake db:migrate"
+- run "bundle exec rails s" to start server
+- run "bundle exec sidekiq" to start background worker
 - create an admin user (see below)
 - fill the "settings" area on admin panel
 
