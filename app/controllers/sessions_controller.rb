@@ -1,4 +1,8 @@
+#
+#  devise controller for login
+#
 class SessionsController < Devise::SessionsController
+  # save referral id and cart across login process
   def create
     cart_id = session[:cart_id]
     ref_id = session[:ref_id]

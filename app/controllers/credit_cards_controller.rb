@@ -1,3 +1,7 @@
+#
+# Standard resource controller
+# to store credit cards data
+#
 class CreditCardsController < ApplicationController
   respond_to :js, :html
 
@@ -11,7 +15,7 @@ class CreditCardsController < ApplicationController
     def credit_card_params
       result = params.require(:credit_card).permit(:number, :exp_month, :exp_year, :cvc, :name)
       result[:user_id] = current_user.id
-      result[:number] = result[:number].to_s.gsub(' ', '')
+      result[:number] = result[:number].to_s.gsub(' ', '') # format cc number to remove spaces
       result
     end
 end

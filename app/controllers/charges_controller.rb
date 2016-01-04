@@ -1,15 +1,16 @@
+#
+# Controller for processing stripe charges
+#
 class ChargesController < ApplicationController
   def create
-    # Amount in cents
+    # Load order and calculate amount in cents
     @order = Order.find(params[:order_id])
     @amount = (@order.total_price * 100).round
 
-    # customer = Stripe::Customer.create(
-    #   :email => current_user.id,
-    #   :card  => params[:stripeToken]
-    # )
+    # load stripe customer (app creates it for every user)
     customer = Stripe::Customer.retrieve(current_user.client_id)
 
+    # create charge in stripe
     charge = Stripe::Charge.create(
       :customer    => customer.id,
       :amount      => @amount,
@@ -18,19 +19,12 @@ class ChargesController < ApplicationController
     )
 
     unless charge.nil?
-      @order.pay!
+      @order.pay! #change order status if charge was processed successfully
     end
 
-  rescue Stripe::CardError => e
+  rescue Stripe::CardError => e # show error if appeared
     flash[:error] = e.message
     redirect_to charges_path
   end
 
-  def charge_card
-    @credit_card = current_user.credit_cards.find_by_id(params[:id])
-    unless @credit_card.nil?
-
-    end
-
-  end
 end

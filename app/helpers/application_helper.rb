@@ -1,4 +1,5 @@
 module ApplicationHelper
+  # render sortable table header for admin panel
   def sortable(column, title = nil)
     title ||= column.titleize
     css_class = column.to_s == sort_column.to_s ? "sorting_#{sort_direction}" : 'sorting'
@@ -7,6 +8,7 @@ module ApplicationHelper
     "<th class='#{css_class}'>#{x}</th>".html_safe
   end
 
+  # show model errors alert for admin panel
   def model_errors(model)
     result = ""
     if model.errors.any?
@@ -15,6 +17,7 @@ module ApplicationHelper
     result
   end
 
+  # determine promotional image for og:img tag
   def promo_image
     pm = Setting::get('Facebook promotional image path')
     if pm.blank?
@@ -25,6 +28,7 @@ module ApplicationHelper
     pm
   end
 
+  # generate order label for admin panel according to order status
   def order_status_label(order)
     cls = {
       'pending' => 'info',
@@ -34,6 +38,7 @@ module ApplicationHelper
     "<span class='label label-#{cls[order.status]}'>#{order.status}</span>".html_safe
   end
 
+  # devise helpers
   def resource_name
     :user
   end
@@ -46,6 +51,7 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  # determine class for flash messages
   def bootstrap_class_for flash_type
     case flash_type.to_sym
       when :success
@@ -61,6 +67,7 @@ module ApplicationHelper
     end
   end
 
+  # show account transaction type on user page
   def account_transaction_kind(account_transaction)
     case account_transaction.kind
       when AccountTransaction::KIND_REF_BONUS
@@ -72,16 +79,19 @@ module ApplicationHelper
     end
   end
 
+  # generate text to post in twitter
   def twitter_ref_link
     url = u(root_url(:ref_id => current_user.id))
     "http://twitter.com/home/?status=#{u(Setting::get('Facebook invitation text'))} #{url}"
   end
 
+  # generate text to post on facebook
   def facebook_ref_link
     url = u(root_url(:ref_id => current_user.id))
     "https://www.facebook.com/dialog/feed?app_id=#{ENV['FACEBOOK_APP_ID']}&display=page&link=#{url}&redirect_uri=#{root_url}&caption=#{u(Setting::get('Facebook invitation text'))}"
   end
 
+  # calculate order arrival time (low limit)
   def order_arrive_from(order)
     m = Setting::get('Order arrive since')
     if m == ''
@@ -92,6 +102,7 @@ module ApplicationHelper
     order.updated_at + m.minutes
   end
 
+  # calculate order arrival time (high limit)
   def order_arrive_to(order)
     m = Setting::get('Order arrive before')
     if m == ''

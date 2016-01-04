@@ -1,6 +1,11 @@
+#
+# Callbacks for omniauth
+# Please refer to corresponding gems documentation
+# for more info
+#
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  # FB login
   def facebook
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
@@ -12,11 +17,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  # Stripe Connect login
   def stripe_connect
     puts request.env["omniauth.auth"].id
     puts request.env["omniauth.auth"].email
 
     r_names = []
+    # Connect restaurants to owner account by email
     Restaurant.where(:owner_mail => request.env["omniauth.auth"]["info"]["email"]).each do |r|
       r.update_column :stripe_destination, request.env["omniauth.auth"]["uid"]
       r_names << r.name

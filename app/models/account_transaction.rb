@@ -1,3 +1,6 @@
+# transaction from/to user account
+# can be one of two types - bonus for referrals (incoming) or
+# payment for order (outcoming)
 class AccountTransaction < ActiveRecord::Base
   KIND_REF_BONUS = 1
   KIND_ORDER_PAY = 2

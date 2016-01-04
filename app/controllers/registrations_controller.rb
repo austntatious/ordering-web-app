@@ -1,4 +1,8 @@
+#
+# devise controller for registration
+#
 class RegistrationsController < Devise::RegistrationsController
+  # save referral id and cart across registration process
   def create
     cart_id = session[:cart_id]
     ref_id = session[:ref_id]
@@ -16,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # my custom fields are :name, :heard_how
+  # strong parameters support
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:name, :phone,
@@ -28,6 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # allow account update without specifying your password
   def update_resource(resource, params)
     resource.update_without_password(params)
   end

@@ -1,0 +1,3 @@
+SECRET_KEY: stripe secret key goes here
+PUBLISHABLE_KEY: stripe publishable key goes here
+EMAIL_FROM: this email addres will be used as "from" address

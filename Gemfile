@@ -16,8 +16,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 gem 'bootstrap-sass', '~> 3.2.0'
+# auto vendor prefixes and some SASS sugar
 gem 'autoprefixer-rails'
 gem 'rails-sass-images'
+
 gem 'slim-rails'
 gem 'devise'
 gem 'carrierwave'
@@ -26,6 +28,7 @@ gem 'ckeditor'
 gem 'kaminari'
 gem "letter_opener", :group => :development
 gem "font-awesome-rails"
+# required for nested forms
 gem "cocoon"
 gem 'google-api-client', '0.9.pre3'
 gem 'jquery-ui-rails'
@@ -53,6 +56,7 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# deployment
 gem 'capistrano-rvm',   group: :development
 gem 'capistrano-rails', group: :development
 # gem 'capistrano-passenger', '0.0.2', group: :development

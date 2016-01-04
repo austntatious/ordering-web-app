@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :sort_column, :sort_direction
 
+  # create a cart object for current user,
+  # write cart id to database and store it in session
+  # to be able to have the same cart across page views
+  # Please refer to "Agile web development with Rails"
+  # book to understand the main idea
   def create_cart
     cart = ::Cart.create()
     session[:cart_id] = cart.id
@@ -18,6 +23,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # load current cart object from session
+  # or create new cart if nothing exists
   def set_current_cart
     begin
       @current_cart = ::Cart.find(session[:cart_id])
@@ -32,6 +39,8 @@ class ApplicationController < ActionController::Base
     @current_cart
   end
 
+  # determine redirect path after sign in according to
+  # logged in user kind
   def after_sign_in_path_for(resource)
     if resource.kind_of? ::AdminUser
       '/admin'
@@ -44,17 +53,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # load common settings,
+  # such as ordering availability
   def set_orders_enabled
     @hide_footer = false
     @ordering_available = ::Setting.can_get_orders?
   end
 
+  # save referral id of somebody entered site with referral link
   def set_ref_id
     unless params[:ref_id].nil?
       session[:ref_id] = params[:ref_id]
     end
   end
 
+  # load SEO parameters from settings section
   def set_seo_params
     @seo = {
       :title => ::Setting::get('Title for index page'),
@@ -64,6 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+    # sort helpers for tables in admin area
     def sort_column
       nil
     end

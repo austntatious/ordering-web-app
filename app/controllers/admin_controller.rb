@@ -1,3 +1,7 @@
+#
+# Basic admin controller. All other controllers for admin area
+# will be inherited from this one
+#
 class AdminController < ApplicationController
   before_filter :authenticate_admin_user!
   before_filter :set_breadcrumbs

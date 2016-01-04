@@ -1,3 +1,7 @@
+#
+# Standard resource controller
+# app using only show method
+#
 class CartsController < ApplicationController
   respond_to :js, :html
 

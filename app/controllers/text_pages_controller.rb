@@ -1,3 +1,6 @@
+#
+# controller to show arbitrary text pages
+#
 class TextPagesController < ApplicationController
   respond_to :js, :html
 

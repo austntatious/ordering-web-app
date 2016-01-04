@@ -1,3 +1,6 @@
+#
+# Standard resource controller
+#
 class CategoriesController < ApplicationController
 
   private

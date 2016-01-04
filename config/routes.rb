@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  apipie
+  apipie # API documentation routes
   resources :coupons, only: [:index]
 
-  namespace :api do
+  namespace :api do #API functions
     resources :credit_cards, only: [:create, :index]
     resources :orders, only: [:create, :index, :show]
     post '/user/login' => 'users#login'
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :restaurants, :only => :show
   resources :locations, :only => :show
   resources :account_transactions, :only => :index
+  resources :carts, only: :show
 
   get '/users/confirm_phone' => 'phone_number_confirmation#confirmation_form', :as => :confirmation_form
   post '/users/change_phone' => 'phone_number_confirmation#change_phone', :as => :change_phone
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { sessions: 'sessions', registrations: 'registrations', :omniauth_callbacks => "omniauth_callbacks" }
   devise_for :admin_users
 
-  namespace :admin do
+  namespace :admin do # Admin panel routes
     get '/' => 'dashboard#index', as: :dashboard
     get '/dashboard/ga' => 'dashboard#ga'
     get '/seo' => 'settings#seo', as: :seo
@@ -57,7 +58,7 @@ Rails.application.routes.draw do
     resources :orders, except: [:show]
   end
 
-  devise_scope :user do
+  devise_scope :user do # stripe connect callbacks
     get '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
     post '/users/auth/stripe_connect/callback' => 'omniauth_callbacks#stripe_connect'
   end
